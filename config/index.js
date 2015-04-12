@@ -1,20 +1,23 @@
 'use strict';
 
 var config = {
-  formId: 'tkf-karakterklage',
-  formName: 'Klage på karakter',
+  formId: 'tkf-skoleskyss',
+  formName: 'Skoleskyss',
   initialState: {
     personnummer: '',
     navn: '',
     adresse: '',
-    klagegrunnlag: '',
-    fagkode: '',
-    fag: '',
-    dato: '',
-    skolenavn: '',
-    skoleadresse: '',
-    skoletelefon: '',
-    skolemail: ''
+    telefon: '',
+    skole: '',
+    klassetrinn: '',
+    transportform: '',
+    transporter: '',
+    busskortstatus: '',
+    busskortnummer: '',
+    holdeplassHjem: '',
+    holdeplassSkole: '',
+    eksternSkoleNavn: '',
+    eksternSkoleAdresse: ''
   },
   SERVER_PORT: 3000,
   API_POST_HOST: 'api.t-fk.no',

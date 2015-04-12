@@ -8,6 +8,10 @@
 logs
 *.log
 
+# Web Starter Kit
+.tmp
+dist
+
 # Runtime data
 pids
 *.pid

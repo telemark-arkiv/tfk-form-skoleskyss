@@ -3,7 +3,7 @@
 var routes = [
   {
     method: 'GET',
-    path: '/karakterklage/{param*}',
+    path: '/skoleskyss/{param*}',
     handler: {
       directory: {
         path: 'dist'
