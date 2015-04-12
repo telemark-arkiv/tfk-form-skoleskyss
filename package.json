@@ -1,0 +1,71 @@
+{
+  "name": "tfk-form-skoleskyss",
+  "version": "1.0.0",
+  "description": "Form plug-in for skoleskyss",
+  "author": {
+    "name": "Geir Gåsodden",
+    "email": "geir.gasodden@pythonia.no",
+    "url": "https://github.com/zrrrzzt"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "scripts": {
+    "setup": "npm install && gulp",
+    "dev": "gulp serve",
+    "build": "gulp",
+    "start": "node standalone.js",
+    "test": "mocha --reporter spec test/*.js"
+  },
+  "keywords": [
+    "Telemark fylkeskommune",
+    "tfk",
+    "forms",
+    "hapi",
+    "seed"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/telemark/tfk-form-skoleskyss.git"
+  },
+  "bugs": {
+    "url": "http://github.com/telemark/tfk-form-skoleskyss/issues"
+  },
+  "devDependencies": {
+    "apache-server-configs": "^2.7.1",
+    "browser-sync": "^1.3.0",
+    "browserify": "^9.0.4",
+    "del": "^1.1.0",
+    "gulp": "^3.8.5",
+    "gulp-autoprefixer": "^2.0.0",
+    "gulp-cache": "0.2.2",
+    "gulp-changed": "^1.0.0",
+    "gulp-csso": "^1.0.0",
+    "gulp-flatten": "0.0.4",
+    "gulp-if": "^1.2.1",
+    "gulp-imagemin": "^2.0.0",
+    "gulp-jshint": "^1.6.3",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-minify-html": "0.1.5",
+    "gulp-replace": "^0.5.0",
+    "gulp-sass": "^1.2.0",
+    "gulp-size": "^1.0.0",
+    "gulp-sourcemaps": "^1.3.0",
+    "gulp-uglify": "^1.0.1",
+    "gulp-uncss": "^1.0.0",
+    "gulp-useref": "^1.0.1",
+    "hapi": "^8.4.0",
+    "jshint-stylish": "^1.0.0",
+    "opn": "^1.0.0",
+    "psi": "^1.0.4",
+    "react": "^0.13.1",
+    "reactify": "^1.1.0",
+    "require-dir": "^0.1.0",
+    "run-sequence": "^1.0.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "vinyl-transform": "^1.0.0",
+    "wreck": "^5.4.0"
+  }
+}
