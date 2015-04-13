@@ -17,7 +17,11 @@ var config = {
     holdeplassHjem: '',
     holdeplassSkole: '',
     eksternSkoleNavn: '',
-    eksternSkoleAdresse: ''
+    eksternSkoleAdresse: '',
+    utregnetAvstand: '',
+    utregnetAvstandAdresse: '',
+    utregnetAvstandSkole: '',
+    utregnetAvstandKart:''
   },
   SERVER_PORT: 3000,
   API_POST_HOST: 'api.t-fk.no',

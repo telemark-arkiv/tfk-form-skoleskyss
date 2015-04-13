@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 var doSubmitForm = require('../../utils/submitform');
+var getDistance = require('../../utils/getdistance');
 var config = require('../../config');
 var pkg = require('../../package.json');
 var versionNumber = config.formId + '-' + pkg.version;
@@ -71,12 +72,6 @@ function showTransportTog(state){
   return className;
 }
 
-function toogleOn(e){
-  e.preventDefault();
-  console.log(e.value);
-  console.log(e.target.value);
-}
-
 var App = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
   getInitialState: function() {
@@ -116,6 +111,10 @@ var App = React.createClass({
       holdeplassSkole: this.state.holdeplassSkole,
       eksternSkoleNavn: this.state.eksternSkoleNavn,
       eksternSkoleAdresse: this.state.eksternSkoleAdresse,
+      utregnetAvstand: this.state.utregnetAvstand,
+      utregnetAvstandAdresse: this.state.utregnetAvstandAdresse,
+      utregnetAvstandSkole: this.state.utregnetAvstandSkole,
+      utregnetAvstandKart: this.state.utregnetAvstandKart,
       formId: config.formId,
       formVersion: pkg.version
     };
@@ -126,6 +125,28 @@ var App = React.createClass({
         self.cleanUp();
       }
     });
+  },
+  calculateDistance: function(){
+    var self = this;
+    var hjemsted = this.state.adresse;
+    var skole = this.refs.skoleValg.getDOMNode().value;
+
+    if (skole === 'Skole utenfor Telemark' || skole === '') {
+      self.setState({
+        skole: skole
+      });
+    } else {
+      getDistance({origin:hjemsted, destination:skole}, function(err, data) {
+        console.log(data);
+        self.setState({
+          skole: skole,
+          utregnetAvstand: {kilometer:data.distance, meter: data.distanceValue},
+          utregnetAvstandAdresse: data.origin,
+          utregnetAvstandSkole: data.destination,
+          utregnetAvstandKart: data.directionsEmbedUrl
+        });
+      });
+    }
   },
   render: function(){
     return (
@@ -145,11 +166,41 @@ var App = React.createClass({
           </fieldset>
           <fieldset>
             <legend>Skole</legend>
-            <select name="skole" valueLink={this.linkState('skole')}>
+            <select name="skole" ref="skoleValg" onChange={this.calculateDistance}>
               <option value="">Velg skole</option>
-              <option value="Eksamenskarakter skriftlig">Eksamenskarakter skriftlig</option>
-              <option value="Muntlig eksamen">Muntlig eksamen</option>
-              <option value="Standpunktkarakter">Standpunktkarakter</option>
+              <option value="Bamble videregående skole, Tønderveien 6, 3960 Stathelle">
+                Bamble videregående skole
+              </option>
+              <option value="Bø videregåande skule, Gymnasbakken 23, 3802 Bø">
+                Bø videregåande skule
+              </option>
+              <option value="Hjalmar Johansen videregående skole, Moflatvegen 38, 3733 Skien">
+                Hjalmar Johansen videregående skole
+              </option>
+              <option value="Kragerø videregående skole, Frydensborgveien 9-11, 3770 Kragerø">
+                Kragerø videregående skole
+              </option>
+              <option value="Nome videregående skole, Søveveien 8, 3830 Ulefoss">
+                Nome videregående skole
+              </option>
+              <option value="Notodden videregående skole, Heddalsveien 4, 3674 Notodden">
+                Notodden videregående skole
+              </option>
+              <option value="Porsgrunn videregående skole, Kjølnes Ring 58, 3918 Porsgrunn">
+                Porsgrunn videregående skole
+              </option>
+              <option value="Rjukan videregående skole, Såheimveien 22, 3660 Rjukan">
+                Rjukan videregående skole
+              </option>
+              <option value="Skien videregående skole, Einar Østvedts gate 12, 3724 Skien">
+                Skien videregående skole
+              </option>
+              <option value="Skogmo videregående skole, Kjørbekkdalen 11, 3735 Skien">
+                Skogmo videregående skole
+              </option>
+              <option value="Vest-Telemark vidaregåande skule, Storvegen 195, 3880 Dalen">
+                Vest-Telemark vidaregåande skule
+              </option>
               <option value="Skole utenfor Telemark">Skole utenfor Telemark</option>
             </select>
           </fieldset>
