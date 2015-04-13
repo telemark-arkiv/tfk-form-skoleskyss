@@ -1,7 +1,7 @@
 'use strict';
 
 var https = require('https');
-var apiEndpoint = 'https://api.t-fk.no/distance/'
+var apiEndpoint = 'https://api.t-fk.no/distance/';
 
 function getDistance(options, callback) {
   var body = '';

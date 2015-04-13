@@ -10,7 +10,7 @@ var versionNumber = config.formId + '-' + pkg.version;
 
 function showTransportform(state){
   var className = 'hidden';
-  if(state !== ''){
+  if (state !== '') {
     className = '';
   }
   return className;
@@ -18,16 +18,15 @@ function showTransportform(state){
 
 function showTransportselskap(state){
   var className = 'hidden';
-  if(state === 'Buss'){
+  if (state === 'Buss') {
     className = '';
   }
   return className;
 }
 
 function showBusskortvalg(state){
-  console.log(state);
   var className = 'hidden';
-  if(state !== 'Telemark Bilruter/Telemarksekspressen/Haukeliekspressen' && state !== ''){
+  if (state !== 'Telemark Bilruter/Telemarksekspressen/Haukeliekspressen' && state !== '') {
     className = '';
   }
   return className;
@@ -35,7 +34,7 @@ function showBusskortvalg(state){
 
 function showBusskortNummer(state){
   var className = 'hidden';
-  if(state === 'Har busskort'){
+  if (state === 'Har busskort') {
     className = '';
   }
   return className;
@@ -43,7 +42,7 @@ function showBusskortNummer(state){
 
 function showEksternSkoleAdresse(state){
   var className = 'hidden';
-  if(state === 'Skole utenfor Telemark'){
+  if (state === 'Skole utenfor Telemark') {
     className = '';
   }
   return className;
@@ -51,7 +50,7 @@ function showEksternSkoleAdresse(state){
 
 function showTransportBuss(state){
   var className = 'hidden';
-  if(state !== 'Skole utenfor Telemark'){
+  if (state !== 'Skole utenfor Telemark') {
     className = '';
   }
   return className;
@@ -59,7 +58,7 @@ function showTransportBuss(state){
 
 function showTransportFerge(state){
   var className = 'hidden';
-  if(state !== 'Skole utenfor Telemark'){
+  if (state !== 'Skole utenfor Telemark') {
     className = '';
   }
   return className;
@@ -67,7 +66,7 @@ function showTransportFerge(state){
 
 function showTransportTog(state){
   var className = 'hidden';
-  if(state !== 'Skole utenfor Telemark'){
+  if (state !== 'Skole utenfor Telemark') {
     className = '';
   }
   return className;
@@ -75,14 +74,14 @@ function showTransportTog(state){
 
 function showCalculatedDistance(state){
   var className = 'hidden';
-  if(state !== ''){
+  if (state !== '') {
     className = '';
   }
   return className;
 }
 
 function getEmbedUrl(mapUrl){
-  var startUrl = 'render.html?url='
+  var startUrl = 'render.html?url=';
   return startUrl + mapUrl;
 }
 
@@ -151,7 +150,7 @@ var App = React.createClass({
       });
     } else {
       getDistance({origin:hjemsted, destination:skole}, function(err, data) {
-        if(err){
+        if (err) {
           console.error(err);
         } else {
           self.setState({
@@ -163,7 +162,7 @@ var App = React.createClass({
           });
 
           getClosestStop(data.origin, function(error, holdeplass){
-            if(error){
+            if (error) {
               console.error(error);
             } else {
               self.setState({
@@ -173,7 +172,7 @@ var App = React.createClass({
           });
 
           getClosestStop(data.destination, function(error, holdeplass){
-            if(error){
+            if (error) {
               console.error(error);
             } else {
               self.setState({
@@ -290,7 +289,6 @@ var App = React.createClass({
               <option value="Begge">Begge</option>
             </select>
           </fieldset>
-
           <fieldset className={showBusskortvalg(this.state.transporter)}>
             <legend>Busskort</legend>
             <select name="busskortstatus" valueLink={this.linkState('busskortstatus')}>

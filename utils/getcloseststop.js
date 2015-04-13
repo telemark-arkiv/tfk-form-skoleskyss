@@ -22,7 +22,6 @@ function getLatLngFromAddress(address, callback){
   }).on('error', function(error) {
     return callback(error, null);
   });
-
 }
 
 function getUTMFromLatLng(options, callback){
@@ -45,7 +44,6 @@ function getUTMFromLatLng(options, callback){
   }).on('error', function(error) {
     return callback(error, null);
   });
-
 }
 
 function getClosestStage(options, callback){
@@ -72,20 +70,20 @@ function getClosestStage(options, callback){
 
 function getClosestStop(address, callback) {
   getLatLngFromAddress(address, function(err, data){
-    if(err){
+    if (err) {
       return callback(err, null);
     } else {
 
       var lat = data.results[0].geometry.location.lat;
       var lng = data.results[0].geometry.location.lng;
       getUTMFromLatLng({lat:lat, lng:lng}, function(error, position){
-        if(error) {
+        if (error) {
           callback(error, null);
         } else {
           var x = position.geometry.coordinates[0];
           var y = position.geometry.coordinates[1];
           getClosestStage({x:x, y:y}, function(er, stage){
-            if(er) {
+            if (er) {
               return callback(er, null);
             } else {
               return callback(null, stage);
