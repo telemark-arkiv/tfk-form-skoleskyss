@@ -3,6 +3,7 @@
 var React = require('react/addons');
 var doSubmitForm = require('../../utils/submitform');
 var getDistance = require('../../utils/getdistance');
+var getClosestStop = require('../../utils/getClosestStop');
 var config = require('../../config');
 var pkg = require('../../package.json');
 var versionNumber = config.formId + '-' + pkg.version;
@@ -72,6 +73,19 @@ function showTransportTog(state){
   return className;
 }
 
+function showCalculatedDistance(state){
+  var className = 'hidden';
+  if(state !== ''){
+    className = '';
+  }
+  return className;
+}
+
+function getEmbedUrl(mapUrl){
+  var startUrl = 'render.html?url='
+  return startUrl + mapUrl;
+}
+
 var App = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
   getInitialState: function() {
@@ -137,14 +151,38 @@ var App = React.createClass({
       });
     } else {
       getDistance({origin:hjemsted, destination:skole}, function(err, data) {
-        console.log(data);
-        self.setState({
-          skole: skole,
-          utregnetAvstand: {kilometer:data.distance, meter: data.distanceValue},
-          utregnetAvstandAdresse: data.origin,
-          utregnetAvstandSkole: data.destination,
-          utregnetAvstandKart: data.directionsEmbedUrl
-        });
+        if(err){
+          console.error(err);
+        } else {
+          self.setState({
+            skole: skole,
+            utregnetAvstand: {kilometer:data.distance, meter: data.distanceValue},
+            utregnetAvstandAdresse: data.origin,
+            utregnetAvstandSkole: data.destination,
+            utregnetAvstandKart: data.directionsEmbedUrl
+          });
+
+          getClosestStop(data.origin, function(error, holdeplass){
+            if(error){
+              console.error(error);
+            } else {
+              self.setState({
+                holdeplassHjem: holdeplass[0]
+              });
+            }
+          });
+
+          getClosestStop(data.destination, function(error, holdeplass){
+            if(error){
+              console.error(error);
+            } else {
+              self.setState({
+                holdeplassSkole: holdeplass[0]
+              });
+            }
+          });
+        }
+
       });
     }
   },
@@ -222,6 +260,17 @@ var App = React.createClass({
               <option value="4. klasse">4. klasse</option>
             </select>
           </fieldset>
+          <div className={showTransportform(this.state.klassetrinn)}>
+            <fieldset className={showCalculatedDistance(this.state.utregnetAvstand)}>
+              <legend>Automatisk beregnet avstand</legend>
+              Avstand: {this.state.utregnetAvstand.kilometer}<br/>
+              Beregnet fra: {this.state.utregnetAvstandAdresse}<br/>
+              Nærmeste holdeplass: {this.state.holdeplassHjem.Name}<br/>
+              Beregnet til: {this.state.utregnetAvstandSkole}<br/>
+              Nærmeste holdeplass: {this.state.holdeplassSkole.Name}<br/>
+              <a href={getEmbedUrl(this.state.utregnetAvstandKart)} target="_blank">Vis beregnet rute på kart</a><br/>
+            </fieldset>
+          </div>
           <fieldset className={showTransportform(this.state.klassetrinn)}>
             <legend>Transportform</legend>
             <select name="transportform" valueLink={this.linkState('transportform')}>
