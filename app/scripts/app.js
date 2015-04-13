@@ -39,6 +39,38 @@ function showBusskortNummer(state){
   return className;
 }
 
+function showEksternSkoleAdresse(state){
+  var className = 'hidden';
+  if(state === 'Skole utenfor Telemark'){
+    className = '';
+  }
+  return className;
+}
+
+function showTransportBuss(state){
+  var className = 'hidden';
+  if(state !== 'Skole utenfor Telemark'){
+    className = '';
+  }
+  return className;
+}
+
+function showTransportFerge(state){
+  var className = 'hidden';
+  if(state !== 'Skole utenfor Telemark'){
+    className = '';
+  }
+  return className;
+}
+
+function showTransportTog(state){
+  var className = 'hidden';
+  if(state !== 'Skole utenfor Telemark'){
+    className = '';
+  }
+  return className;
+}
+
 function toogleOn(e){
   e.preventDefault();
   console.log(e.value);
@@ -118,8 +150,16 @@ var App = React.createClass({
               <option value="Eksamenskarakter skriftlig">Eksamenskarakter skriftlig</option>
               <option value="Muntlig eksamen">Muntlig eksamen</option>
               <option value="Standpunktkarakter">Standpunktkarakter</option>
-              <option value="Karakter ved lokalgitt eksamen">Karakter ved lokalgitt eksamen</option>
+              <option value="Skole utenfor Telemark">Skole utenfor Telemark</option>
             </select>
+          </fieldset>
+          <fieldset className={showEksternSkoleAdresse(this.state.skole)}>
+            <label htmlFor="eksternSkoleNavn">Skolens navn</label>
+            <input type="text" name="eksternSkoleNavn" placeholder="Navn på skolen" id="eksternSkoleNavn" valueLink={this.linkState('eksternSkoleNavn')} />
+          </fieldset>
+          <fieldset className={showEksternSkoleAdresse(this.state.skole)}>
+            <label htmlFor="eksternSkoleAdresse">Skolens adresse</label>
+            <input type="text" name="eksternSkoleAdresse" placeholder="Skolens besøksadresse" id="eksternSkoleAdresse" valueLink={this.linkState('eksternSkoleAdresse')} />
           </fieldset>
           <fieldset>
             <legend>Klassetrinn</legend>
@@ -135,10 +175,10 @@ var App = React.createClass({
             <legend>Transportform</legend>
             <select name="transportform" valueLink={this.linkState('transportform')}>
               <option value="">Velg transportform</option>
-              <option value="Buss">Buss</option>
-              <option value="Buss/ferge">Buss/ferge</option>
-              <option value="Buss/tog">Buss/tog</option>
-              <option value="Transport ut av fylket">Tranport ut av fylket</option>
+              <option value="Buss" className={showTransportBuss(this.state.skole)}>Buss</option>
+              <option value="Buss/ferge" className={showTransportFerge(this.state.skole)}>Buss/ferge</option>
+              <option value="Buss/tog" className={showTransportTog(this.state.skole)}>Buss/tog</option>
+              <option value="Transport ut av fylket" className={showEksternSkoleAdresse(this.state.skole)}>Transport ut av fylket</option>
             </select>
           </fieldset>
           <fieldset className={showTransportselskap(this.state.transportform)}>
