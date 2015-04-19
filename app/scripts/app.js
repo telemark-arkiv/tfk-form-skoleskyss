@@ -2,23 +2,21 @@
 
 var React = require('react/addons');
 var doSubmitForm = require('../../utils/submitform');
-var getDistance = require('../../utils/getdistance');
-var getClosestStop = require('../../utils/getClosestStop');
 var config = require('../../config');
 var pkg = require('../../package.json');
 var versionNumber = config.formId + '-' + pkg.version;
 
-function showTransportform(state){
+function showGateadresse(state){
   var className = 'hidden';
-  if (state !== '') {
+  if (state === 'Gateadresse' && state !== '') {
     className = '';
   }
   return className;
 }
 
-function showTransportselskap(state){
+function showGnrBnr(state){
   var className = 'hidden';
-  if (state === 'Buss') {
+  if (state === 'GnrBnr' && state !== '') {
     className = '';
   }
   return className;
@@ -46,43 +44,6 @@ function showEksternSkoleAdresse(state){
     className = '';
   }
   return className;
-}
-
-function showTransportBuss(state){
-  var className = 'hidden';
-  if (state !== 'Skole utenfor Telemark') {
-    className = '';
-  }
-  return className;
-}
-
-function showTransportFerge(state){
-  var className = 'hidden';
-  if (state !== 'Skole utenfor Telemark') {
-    className = '';
-  }
-  return className;
-}
-
-function showTransportTog(state){
-  var className = 'hidden';
-  if (state !== 'Skole utenfor Telemark') {
-    className = '';
-  }
-  return className;
-}
-
-function showCalculatedDistance(state){
-  var className = 'hidden';
-  if (state !== '') {
-    className = '';
-  }
-  return className;
-}
-
-function getEmbedUrl(mapUrl){
-  var startUrl = 'render.html?url=';
-  return startUrl + mapUrl;
 }
 
 var App = React.createClass({
@@ -113,21 +74,17 @@ var App = React.createClass({
       personnummer: this.state.personnummer,
       navn: this.state.navn,
       adresse: this.state.adresse,
+      gnr: this.state.gnr,
+      bnr: this.state.bnr,
+      kommunenr: this.state.kommunenr,
       telefon: this.state.telefon,
+      epost: this.state.epost,
       skole: this.state.skole,
       klassetrinn: this.state.klassetrinn,
-      transportform: this.state.transportform,
-      transporter: this.state.transporter,
       busskortstatus: this.state.busskortstatus,
       busskortnummer: this.state.busskortnummer,
-      holdeplassHjem: this.state.holdeplassHjem,
-      holdeplassSkole: this.state.holdeplassSkole,
       eksternSkoleNavn: this.state.eksternSkoleNavn,
       eksternSkoleAdresse: this.state.eksternSkoleAdresse,
-      utregnetAvstand: this.state.utregnetAvstand,
-      utregnetAvstandAdresse: this.state.utregnetAvstandAdresse,
-      utregnetAvstandSkole: this.state.utregnetAvstandSkole,
-      utregnetAvstandKart: this.state.utregnetAvstandKart,
       formId: config.formId,
       formVersion: pkg.version
     };
@@ -139,52 +96,6 @@ var App = React.createClass({
       }
     });
   },
-  calculateDistance: function(){
-    var self = this;
-    var hjemsted = this.state.adresse;
-    var skole = this.refs.skoleValg.getDOMNode().value;
-
-    if (skole === 'Skole utenfor Telemark' || skole === '') {
-      self.setState({
-        skole: skole
-      });
-    } else {
-      getDistance({origin:hjemsted, destination:skole}, function(err, data) {
-        if (err) {
-          console.error(err);
-        } else {
-          self.setState({
-            skole: skole,
-            utregnetAvstand: {kilometer:data.distance, meter: data.distanceValue},
-            utregnetAvstandAdresse: data.origin,
-            utregnetAvstandSkole: data.destination,
-            utregnetAvstandKart: data.directionsEmbedUrl
-          });
-
-          getClosestStop(data.origin, function(error, holdeplass){
-            if (error) {
-              console.error(error);
-            } else {
-              self.setState({
-                holdeplassHjem: holdeplass[0]
-              });
-            }
-          });
-
-          getClosestStop(data.destination, function(error, holdeplass){
-            if (error) {
-              console.error(error);
-            } else {
-              self.setState({
-                holdeplassSkole: holdeplass[0]
-              });
-            }
-          });
-        }
-
-      });
-    }
-  },
   render: function(){
     return (
       <div>
@@ -192,18 +103,39 @@ var App = React.createClass({
         <form onSubmit={this.submitForm}>
           <fieldset>
             <legend>Personalia</legend>
-          <label htmlFor="personnummer">Personnummer (11 siffer)</label>
-          <input type="text" name="personnummer" placeholder="18119169298" id="personnummer" valueLink={this.linkState('personnummer')} />
+            <label htmlFor="personnummer">Personnummer (11 siffer)</label>
+            <input type="text" name="personnummer" placeholder="18119169298" id="personnummer" valueLink={this.linkState('personnummer')} />
             <label htmlFor="navn">Navn</label>
             <input type="text" name="navn" placeholder="Fornavn, mellomnavn og etternavn" id="navn" valueLink={this.linkState('navn')} />
-            <label htmlFor="adresse">Adresse</label>
-            <input type="text" name="adresse" placeholder="Gateadresse, postnummer og poststed" id="adresse" valueLink={this.linkState('adresse')} />
+          </fieldset>
+          <fieldset>
+          <legend>Kontaktinformasjon</legend>
+            <label htmlFor="epost">E-post</label>
+            <input type="text" name="epost" placeholder="E-postadresse" id="epost" valueLink={this.linkState('epost')} />
             <label htmlFor="telefon">Telefon</label>
             <input type="text" name="telefon" placeholder="Mobilnummer/Telefonnummer" id="telefon" valueLink={this.linkState('telefon')} />
           </fieldset>
           <fieldset>
+            <legend>Bosted</legend>
+            <select name="bosted" valueLink={this.linkState('bosted')}>
+            <option value="">Velg adresseform</option>
+            <option value="Gateadresse">Gateadresse</option>
+            <option value="GnrBnr">Gårds og bruksnummer</option>
+            </select>
+          </fieldset>
+          <fieldset className={showGateadresse(this.state.bosted)}>
+            <label htmlFor="adresse">Adresse</label>
+            <input type="text" name="adresse" placeholder="Gateadresse, postnummer og poststed" id="adresse" valueLink={this.linkState('adresse')} />
+          </fieldset>
+          <fieldset className={showGnrBnr(this.state.bosted)}>
+            <label htmlFor="gnr">Gårdsnummer</label>
+            <input type="text" name="gnr" placeholder="Gårdsnummer" id="gnr" valueLink={this.linkState('gnr')} />
+            <label htmlFor="bnr">Bruksnummer</label>
+            <input type="text" name="bnr" placeholder="Bruksnummer" id="bnr" valueLink={this.linkState('bnr')} />
+          </fieldset>
+          <fieldset>
             <legend>Skole</legend>
-            <select name="skole" ref="skoleValg" onChange={this.calculateDistance}>
+            <select name="skole" valueLink={this.linkState('skole')}>
               <option value="">Velg skole</option>
               <option value="Bamble videregående skole, Tønderveien 6, 3960 Stathelle">
                 Bamble videregående skole
@@ -259,40 +191,10 @@ var App = React.createClass({
               <option value="4. klasse">4. klasse</option>
             </select>
           </fieldset>
-          <div className={showTransportform(this.state.klassetrinn)}>
-            <fieldset className={showCalculatedDistance(this.state.utregnetAvstand)}>
-              <legend>Automatisk beregnet avstand</legend>
-              Avstand: {this.state.utregnetAvstand.kilometer}<br/>
-              Beregnet fra: {this.state.utregnetAvstandAdresse}<br/>
-              Nærmeste holdeplass: {this.state.holdeplassHjem.Name}<br/>
-              Beregnet til: {this.state.utregnetAvstandSkole}<br/>
-              Nærmeste holdeplass: {this.state.holdeplassSkole.Name}<br/>
-              <a href={getEmbedUrl(this.state.utregnetAvstandKart)} target="_blank">Vis beregnet rute på kart</a><br/>
-            </fieldset>
-          </div>
-          <fieldset className={showTransportform(this.state.klassetrinn)}>
-            <legend>Transportform</legend>
-            <select name="transportform" valueLink={this.linkState('transportform')}>
-              <option value="">Velg transportform</option>
-              <option value="Buss" className={showTransportBuss(this.state.skole)}>Buss</option>
-              <option value="Buss/ferge" className={showTransportFerge(this.state.skole)}>Buss/ferge</option>
-              <option value="Buss/tog" className={showTransportTog(this.state.skole)}>Buss/tog</option>
-              <option value="Transport ut av fylket" className={showEksternSkoleAdresse(this.state.skole)}>Transport ut av fylket</option>
-            </select>
-          </fieldset>
-          <fieldset className={showTransportselskap(this.state.transportform)}>
-            <legend>Transportør</legend>
-            <select name="transporter" valueLink={this.linkState('transporter')}>
-              <option value="">Velg transportør</option>
-              <option value="Telemark Bilruter/Telemarksekspressen/Haukeliekspressen">Telemark Bilruter/Telemarksekspressen/Haukeliekspressen</option>
-              <option value="Nettbuss/Drangedal Bilruter/Tinn Billag (inkl. Rjukanekspressen)">Nettbuss/Drangedal Bilruter/Tinn Billag (inkl. Rjukanekspressen)</option>
-              <option value="Begge">Begge</option>
-            </select>
-          </fieldset>
           <fieldset className={showBusskortvalg(this.state.transporter)}>
             <legend>Busskort</legend>
             <select name="busskortstatus" valueLink={this.linkState('busskortstatus')}>
-              <option value="">Velg busskort</option>
+              <option value="">Velg busskortstatus</option>
               <option value="Trenger nytt">Jeg har ikke hatt skyss tidligere og trenger busskort</option>
               <option value="Mistet busskort">Jeg har hatt skyss tidligere, men har mistet busskortet</option>
               <option value="Har busskort">Jeg har hatt skyss tidligere</option>
