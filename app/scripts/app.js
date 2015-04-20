@@ -103,8 +103,8 @@ var App = React.createClass({
         <form onSubmit={this.submitForm}>
           <fieldset>
             <legend>Personalia</legend>
-            <label htmlFor="personnummer">Personnummer (11 siffer)</label>
-            <input type="text" name="personnummer" placeholder="18119169298" id="personnummer" valueLink={this.linkState('personnummer')} />
+            <label htmlFor="personnummer">Fødselsnummer (11 siffer)</label>
+            <input type="text" name="personnummer" placeholder="Fødselsnummer, 11 siffer" id="personnummer" valueLink={this.linkState('personnummer')} />
             <label htmlFor="navn">Navn</label>
             <input type="text" name="navn" placeholder="Fornavn, mellomnavn og etternavn" id="navn" valueLink={this.linkState('navn')} />
           </fieldset>
