@@ -138,37 +138,61 @@ var App = React.createClass({
             <select name="skole" valueLink={this.linkState('skole')}>
               <option value="">Velg skole</option>
               <option value="Bamble videregående skole, Tønderveien 6, 3960 Stathelle">
-                Bamble videregående skole
+                Bamble videregående skole, avdeling Grasmyr
+              </option>
+              <option value="Bamble videregående skole, Tostrupsvei 7, 3960 Stathelle">
+                Bamble videregående skole, avdeling Croftholmen
               </option>
               <option value="Bø videregåande skule, Gymnasbakken 23, 3802 Bø">
                 Bø videregåande skule
               </option>
               <option value="Hjalmar Johansen videregående skole, Moflatvegen 38, 3733 Skien">
-                Hjalmar Johansen videregående skole
+                Hjalmar Johansen videregående skole, avdeling Fritidsparken
+              </option>
+              <option value="Hjalmar Johansen videregående skole, Olai Skulleruds veg 20, 3730 Skien">
+                Hjalmar Johansen videregående skole, avdeling Klosterskogen
               </option>
               <option value="Kragerø videregående skole, Frydensborgveien 9-11, 3770 Kragerø">
                 Kragerø videregående skole
               </option>
+              <option value="Kvitsund gymnas, Jakob Naadlandsveg 2, 3850 Kviteseid">
+                Kvitsund gymnas
+              </option>
+              <option value="Nome videregående skole, Olav Strannas vei 25, 382 Lunde">
+                Nome videregående skole, avdeling Lunde
+              </option>
               <option value="Nome videregående skole, Søveveien 8, 3830 Ulefoss">
-                Nome videregående skole
+                Nome videregående skole, avdeling Søve
               </option>
               <option value="Notodden videregående skole, Heddalsveien 4, 3674 Notodden">
                 Notodden videregående skole
               </option>
               <option value="Porsgrunn videregående skole, Kjølnes Ring 58, 3918 Porsgrunn">
-                Porsgrunn videregående skole
+                Porsgrunn videregående skole, avdeling Nord
+              </option>
+              <option value="Porsgrunn videregående skole, Kjølnes Ring 20, 3918 Porsgrunn">
+                Porsgrunn videregående skole, avdeling Sør
               </option>
               <option value="Rjukan videregående skole, Såheimveien 22, 3660 Rjukan">
                 Rjukan videregående skole
               </option>
+              <option value="Skien videregående skole, Rektor Ørns gate 2, 3717 Skien">
+                Skien videregående skole, avdeling Brekkeby
+              </option>
               <option value="Skien videregående skole, Einar Østvedts gate 12, 3724 Skien">
-                Skien videregående skole
+                Skien videregående skole, avdeling Prestegjordet
               </option>
               <option value="Skogmo videregående skole, Kjørbekkdalen 11, 3735 Skien">
                 Skogmo videregående skole
               </option>
+              <option value="Toppidrettsgymnaset i Telemark, Fritjof Nansens gate 19C, 3722 Skien">
+                Toppidrettsgymnaset i Telemark
+              </option>
               <option value="Vest-Telemark vidaregåande skule, Storvegen 195, 3880 Dalen">
-                Vest-Telemark vidaregåande skule
+                Vest-Telemark vidaregåande skule, avdeling Dalen
+              </option>
+              <option value="Vest-Telemark vidaregåande skule, Brøløsvegen 2, 3840 Seljord">
+                Vest-Telemark vidaregåande skule, avdeling Seljord
               </option>
               <option value="Skole utenfor Telemark">Skole utenfor Telemark</option>
             </select>
