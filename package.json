@@ -22,8 +22,7 @@
     "Telemark fylkeskommune",
     "tfk",
     "forms",
-    "hapi",
-    "seed"
+    "hapi"
   ],
   "repository": {
     "type": "git",
