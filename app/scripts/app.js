@@ -38,6 +38,14 @@ function showBusskortNummer(state){
   return className;
 }
 
+function showAlternativAdresse(state){
+  var className = 'hidden';
+  if (state !== '') {
+    className = '';
+  }
+  return className;
+}
+
 function showEksternSkoleAdresse(state){
   var className = 'hidden';
   if (state === 'Skole utenfor Telemark') {
@@ -52,7 +60,7 @@ var App = React.createClass({
     return config.initialState;
   },
   componentDidUpdate: function(prevProps, prevState) {
-    localStorage[config.formId] = JSON.stringify(this.state);
+    localStorage[versionNumber] = JSON.stringify(this.state);
   },
   componentDidMount: function() {
     if (localStorage.getItem(versionNumber)) {
@@ -73,14 +81,20 @@ var App = React.createClass({
     var payload = {
       personnummer: this.state.personnummer,
       navn: this.state.navn,
-      adresse: this.state.adresse,
-      gnr: this.state.gnr,
-      bnr: this.state.bnr,
-      kommunenr: this.state.kommunenr,
+      folkeregistrert_adresse_adresse: this.state.folkeregistrert_adresse_adresse,
+      folkeregistrert_adresse_gnr: this.state.folkeregistrert_adresse_gnr,
+      folkeregistrert_adresse_bnr: this.state.folkeregistrert_adresse_bnr,
+      folkeregistrert_adresse_kommunenr: this.state.folkeregistrert_adresse_kommunenr,
+      alternativ_adresse: this.state.alternativ_adresse,
+      alternativ_adresse_adresse: this.state.alternativ_adresse_adresse,
+      alternativ_adresse_gnr: this.state.alternativ_adresse_gnr,
+      alternativ_adresse_bnr: this.state.alternativ_adresse_bnr,
+      alternativ_adresse_kommunenr: this.state.alternativ_adresse_kommunenr,
       telefon: this.state.telefon,
       epost: this.state.epost,
       skole: this.state.skole,
       klassetrinn: this.state.klassetrinn,
+      sokegrunnlag: this.state.sokegrunnlag,
       busskortstatus: this.state.busskortstatus,
       busskortnummer: this.state.busskortnummer,
       eksternSkoleNavn: this.state.eksternSkoleNavn,
@@ -99,7 +113,7 @@ var App = React.createClass({
   render: function(){
     return (
       <div>
-      <h1>Skoleskyss</h1>
+        <h1>Skoleskyss</h1>
         <form onSubmit={this.submitForm}>
           <fieldset>
             <legend>Personalia</legend>
@@ -109,29 +123,56 @@ var App = React.createClass({
             <input type="text" name="navn" placeholder="Fornavn, mellomnavn og etternavn" id="navn" valueLink={this.linkState('navn')} />
           </fieldset>
           <fieldset>
-          <legend>Kontaktinformasjon</legend>
+            <legend>Kontaktinformasjon</legend>
             <label htmlFor="epost">E-post</label>
             <input type="text" name="epost" placeholder="E-postadresse" id="epost" valueLink={this.linkState('epost')} />
             <label htmlFor="telefon">Telefon</label>
             <input type="text" name="telefon" placeholder="Mobilnummer/Telefonnummer" id="telefon" valueLink={this.linkState('telefon')} />
           </fieldset>
           <fieldset>
-            <legend>Bosted</legend>
-            <select name="bosted" valueLink={this.linkState('bosted')}>
-            <option value="">Velg adresseform</option>
-            <option value="Gateadresse">Gateadresse</option>
-            <option value="GnrBnr">Gårds og bruksnummer</option>
+            <legend>Folkeregistrert adresse</legend>
+            <select name="bosted" valueLink={this.linkState('folkeregistrert_adresse_bosted')}>
+              <option value="">Velg adresseform</option>
+              <option value="Gateadresse">Gateadresse</option>
+              <option value="GnrBnr">Gårds og bruksnummer</option>
             </select>
           </fieldset>
-          <fieldset className={showGateadresse(this.state.bosted)}>
+          <fieldset className={showGateadresse(this.state.folkeregistrert_adresse_bosted)}>
             <label htmlFor="adresse">Adresse</label>
-            <input type="text" name="adresse" placeholder="Gateadresse, postnummer og poststed" id="adresse" valueLink={this.linkState('adresse')} />
+            <input type="text" name="adresse" placeholder="Gateadresse, postnummer og poststed" id="adresse" valueLink={this.linkState('folkeregistrert_adresse_adresse')} />
           </fieldset>
-          <fieldset className={showGnrBnr(this.state.bosted)}>
+          <fieldset className={showGnrBnr(this.state.folkeregistrert_adresse_bosted)}>
             <label htmlFor="gnr">Gårdsnummer</label>
-            <input type="text" name="gnr" placeholder="Gårdsnummer" id="gnr" valueLink={this.linkState('gnr')} />
+            <input type="text" name="gnr" placeholder="Gårdsnummer" id="gnr" valueLink={this.linkState('folkeregistrert_adresse_gnr')} />
             <label htmlFor="bnr">Bruksnummer</label>
-            <input type="text" name="bnr" placeholder="Bruksnummer" id="bnr" valueLink={this.linkState('bnr')} />
+            <input type="text" name="bnr" placeholder="Bruksnummer" id="bnr" valueLink={this.linkState('folkeregistrert_adresse_bnr')} />
+          </fieldset>
+          <fieldset>
+            <legend>Annen adresse</legend>
+            <select name="alternativ_adresse" valueLink={this.linkState('alternativ_adresse')}>
+              <option value="">Jeg har ingen alternativ adresse</option>
+              <option value="Hybel">Jeg bor på hybel</option>
+              <option value="Delt omsorg">Mine foresatte har delt omsorg</option>
+              <option value="Feil folkeregistrert adresse">Folkeregistrert adresse er feil</option>
+            </select>
+          </fieldset>
+          <fieldset className={showAlternativAdresse(this.state.alternativ_adresse)}>
+            <legend>Alternativ adresse: {this.state.alternativ_adresse}</legend>
+            <select name="alternativ_bosted" valueLink={this.linkState('alternativ_adresse_bosted')}>
+              <option value="">Velg adresseform</option>
+              <option value="Gateadresse">Gateadresse</option>
+              <option value="GnrBnr">Gårds og bruksnummer</option>
+            </select>
+          </fieldset>
+          <fieldset className={showGateadresse(this.state.alternativ_adresse_bosted)}>
+            <label htmlFor="alternativ_adresse">Adresse</label>
+            <input type="text" name="alternativ_adresse" placeholder="Gateadresse, postnummer og poststed" id="alternativ_adresse" valueLink={this.linkState('alternativ_adresse_adresse')} />
+          </fieldset>
+          <fieldset className={showGnrBnr(this.state.alternativ_adresse_bosted)}>
+            <label htmlFor="alternativ_gnr">Gårdsnummer</label>
+            <input type="text" name="alternativ_gnr" placeholder="Gårdsnummer" id="alternativ_gnr" valueLink={this.linkState('alternativ_adresse_gnr')} />
+            <label htmlFor="alternativ_bnr">Bruksnummer</label>
+            <input type="text" name="alternativ_bnr" placeholder="Bruksnummer" id="alternativ_bnr" valueLink={this.linkState('alternativ_adresse_bnr')} />
           </fieldset>
           <fieldset>
             <legend>Skole</legend>
@@ -213,6 +254,14 @@ var App = React.createClass({
               <option value="2. klasse">2. klasse</option>
               <option value="3. klasse">3. klasse</option>
               <option value="4. klasse">4. klasse</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <legend>Grunnlag for søknad</legend>
+            <select name="sokegrunnlag" valueLink={this.linkState('sokegrunnlag')}>
+              <option value="">Velg søkegrunnlag</option>
+              <option value="7.2">Avstand til skole</option>
+              <option value="7.3">Funksjonshemming eller midlertidig skade/sykdom</option>
             </select>
           </fieldset>
           <fieldset className={showBusskortvalg(this.state.transporter)}>
