@@ -261,7 +261,7 @@ var App = React.createClass({
             <select name="sokegrunnlag" valueLink={this.linkState('sokegrunnlag')}>
               <option value="">Velg søkegrunnlag</option>
               <option value="7.2">Avstand til skole</option>
-              <option value="7.3">Funksjonshemming eller midlertidig skade/sykdom</option>
+              <option value="7.3">Annen årsak</option>
             </select>
           </fieldset>
           <fieldset className={showBusskortvalg(this.state.transporter)}>
