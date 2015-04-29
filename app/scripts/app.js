@@ -481,28 +481,27 @@ var App = React.createClass({
             Skjemaet er nå sendt inn til oss.<br/>
             Du vil snart motta kvittering via Svar ut.<br/>
           </div>
-          <span className={showPageNumber(this.state.page, 1)}>
-            <button className="btn" onClick={this.increasePageNumber}>Neste</button>&nbsp;
-          </span>
           <span className={showPageNumber(this.state.page, 2)}>
-            <button className="btn" onClick={this.decreasePageNumber}>Forrige</button>&nbsp;
-          </span>
-          <span className={showPageNumber(this.state.page, 2)}>
-            <button className="btn" onClick={this.increasePageNumber}>Neste</button>&nbsp;
+            <button className="btn" onClick={this.decreasePageNumber}><span className="icon icon-chevron-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;Tilbake</button>&nbsp;
           </span>
           <span className={showPageNumber(this.state.page, 3)}>
-            <button className="btn" onClick={this.decreasePageNumber}>Forrige</button>&nbsp;
-          </span>
-          <span  className={showPageNumber(this.state.page, 3)}>
-            <button className="btn">Send inn</button>&nbsp;
+            <button className="btn" onClick={this.decreasePageNumber}><span className="icon icon-chevron-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;Tilbake</button>&nbsp;
           </span>
           <span className={doNotshowPageNumber(this.state.page, 4)}>
-            <button className="btn" onClick={this.cancelForm}>Avbryt</button>
+            <button className="btn" onClick={this.cancelForm}>Avbryt&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-close"></span></button>&nbsp;
           </span>
           <span className={showPageNumber(this.state.page, 4)}>
-            <button className="btn" onClick={this.cancelForm}>Avslutt</button>
+            <button className="btn" onClick={this.cancelForm}>Avslutt&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-close"></span></button>&nbsp;
           </span>
-
+          <span  className={showPageNumber(this.state.page, 3)}>
+            <button className="btn">Send inn&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-tick"></span></button>&nbsp;
+          </span>
+          <span className={showPageNumber(this.state.page, 1)}>
+            <button className="btn" onClick={this.increasePageNumber}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
+          </span>
+          <span className={showPageNumber(this.state.page, 2)}>
+            <button className="btn" onClick={this.increasePageNumber}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
+          </span>
         </form>
       </div>
     );

@@ -17,17 +17,20 @@ var statusbar = React.createClass({
       transition: "width 200ms",
       height: '1em',
       float: 'left',
-      clear: 'both'
+      clear: 'both',
+      'border-right': '1px solid black'
     };
 
     var styleElements = {
       width: '25%',
-      float: 'left'
+      float: 'left',
+      'border-right': '1px solid black',
+      'padding-left': '10px'
     };
 
     return (
       <div className="statusbar-container">
-        <div style={styleElements}>1. Start</div>
+        <div style={styleElements}>1. Skjema</div>
         <div style={styleElements}>2. Tillegg</div>
         <div style={styleElements}>3. Se over</div>
         <div style={styleElements}>4. Ferdig</div>
