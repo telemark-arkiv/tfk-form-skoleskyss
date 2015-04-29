@@ -191,8 +191,9 @@ var App = React.createClass({
             <input type="text" name="telefon" placeholder="Mobilnummer/Telefonnummer" id="telefon" valueLink={this.linkState('telefon')} />
           </fieldset>
           <fieldset>
-            <legend>Folkeregistrert adresse</legend>
-            <select name="bosted" valueLink={this.linkState('folkeregistrert_adresse_bosted')}>
+            <legend>Bosted</legend>
+            <label htmlFor="bosted">Folkeregistrert adresse</label>
+            <select name="bosted" id="bosted" valueLink={this.linkState('folkeregistrert_adresse_bosted')}>
               <option value="">Velg adresseform</option>
               <option value="Gateadresse">Gateadresse</option>
               <option value="GnrBnr">Gårds og bruksnummer</option>
@@ -214,8 +215,8 @@ var App = React.createClass({
               valueLink={this.linkState('folkeregistrert_adresse_kommunenr')} />
           </fieldset>
           <fieldset>
-            <legend>Annen adresse</legend>
-            <select name="alternativ_adresse" valueLink={this.linkState('alternativ_adresse')}>
+            <label htmlFor="alternativ_adresse">Annen adresse</label>
+            <select name="alternativ_adresse" id="alternativ_adresse" valueLink={this.linkState('alternativ_adresse')}>
               <option value="">Jeg har ingen alternativ adresse</option>
               <option value="Hybel">Jeg bor på hybel</option>
               <option value="Delt omsorg">Mine foresatte har delt omsorg</option>
@@ -223,7 +224,7 @@ var App = React.createClass({
             </select>
           </fieldset>
           <fieldset className={showAlternativAdresse(this.state.alternativ_adresse)}>
-            <legend>Alternativ adresse: {this.state.alternativ_adresse}</legend>
+            <label htmlFor="alternativ_adresse_bosted">Alternativ adresse: {this.state.alternativ_adresse}</label>
             <select name="alternativ_adresse_bosted" valueLink={this.linkState('alternativ_adresse_bosted')}>
               <option value="">Velg adresseform</option>
               <option value="Gateadresse">Gateadresse</option>
@@ -246,7 +247,7 @@ var App = React.createClass({
               valueLink={this.linkState('alternativ_adresse_kommunenr')} />
           </fieldset>
           <fieldset>
-            <legend>Skole</legend>
+            <legend>Skoleinformasjon</legend>
             <StandardSelect
               labelId="skole"
               labelName="Skole"
@@ -262,8 +263,8 @@ var App = React.createClass({
             <input type="text" name="eksternSkoleAdresse" placeholder="Skolens besøksadresse" id="eksternSkoleAdresse" valueLink={this.linkState('eksternSkoleAdresse')} />
           </fieldset>
           <fieldset>
-            <legend>Klassetrinn</legend>
-            <select name="klassetrinn" valueLink={this.linkState('klassetrinn')}>
+            <label htmlFor="klassestrinn">Klassetrinn</label>
+            <select name="klassetrinn" id="klassetrinn" valueLink={this.linkState('klassetrinn')}>
               <option value="">Velg klassetrinn</option>
               <option value="1. klasse">1. klasse</option>
               <option value="2. klasse">2. klasse</option>
