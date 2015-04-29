@@ -18,14 +18,14 @@ var statusbar = React.createClass({
       height: '1em',
       float: 'left',
       clear: 'both',
-      'border-right': '1px solid black'
+      'borderRight': '1px solid black'
     };
 
     var styleElements = {
       width: '25%',
       float: 'left',
-      'border-right': '1px solid black',
-      'padding-left': '10px'
+      'borderRight': '1px solid black',
+      'paddingLeft': '10px'
     };
 
     return (

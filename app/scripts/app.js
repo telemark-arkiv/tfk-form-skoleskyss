@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 var StatusBar = require('../../elements/statusbar');
+var StandardSelect = require('../../elements/standardselect');
 var doSubmitForm = require('../../utils/submitform');
 var config = require('../../config');
 var pkg = require('../../package.json');
@@ -206,28 +207,11 @@ var App = React.createClass({
             <input type="text" name="gnr" placeholder="Gårdsnummer" id="gnr" valueLink={this.linkState('folkeregistrert_adresse_gnr')} />
             <label htmlFor="bnr">Bruksnummer</label>
             <input type="text" name="bnr" placeholder="Bruksnummer" id="bnr" valueLink={this.linkState('folkeregistrert_adresse_bnr')} />
-            <label htmlFor="folkeregistrert_adresse_kommunenr">Bostedskommune</label>
-            <select name="folkeregistrert_adresse_kommunenr" id="folkeregistrert_adresse_kommunenr" valueLink={this.linkState('folkeregistrert_adresse_kommunenr')}>
-              <option value="">Velg kommune</option>
-              <option value="0814">Bamble</option>
-              <option value="0821">Bø</option>
-              <option value="0817">Drangedal</option>
-              <option value="0831">Fyresdal</option>
-              <option value="0827">Hjartdal</option>
-              <option value="0815">Kragerø</option>
-              <option value="0829">Kviteseid</option>
-              <option value="0830">Nissedal</option>
-              <option value="0819">Nome</option>
-              <option value="0807">Notodden</option>
-              <option value="0805">Porsgrunn</option>
-              <option value="0822">Sauherad</option>
-              <option value="0828">Seljord</option>
-              <option value="0811">Siljan</option>
-              <option value="0806">Skien</option>
-              <option value="0826">Tinn</option>
-              <option value="0833">Tokke</option>
-              <option value="0834">Vinje</option>
-            </select>
+            <StandardSelect
+              labelId="folkeregistrert_adresse_kommunenr"
+              labelName="Bostedskommune"
+              values={config.kommuneListe}
+              valueLink={this.linkState('folkeregistrert_adresse_kommunenr')} />
           </fieldset>
           <fieldset>
             <legend>Annen adresse</legend>
@@ -255,92 +239,19 @@ var App = React.createClass({
             <input type="text" name="alternativ_gnr" placeholder="Gårdsnummer" id="alternativ_gnr" valueLink={this.linkState('alternativ_adresse_gnr')} />
             <label htmlFor="alternativ_bnr">Bruksnummer</label>
             <input type="text" name="alternativ_bnr" placeholder="Bruksnummer" id="alternativ_bnr" valueLink={this.linkState('alternativ_adresse_bnr')} />
-            <label htmlFor="alternativ_adresse_kommunenr">Bostedskommune</label>
-            <select name="alternativ_adresse_kommunenr" id="alternativ_adresse_kommunenr" valueLink={this.linkState('alternativ_adresse_kommunenr')}>
-              <option value="">Velg kommune</option>
-              <option value="0814">Bamble</option>
-              <option value="0821">Bø</option>
-              <option value="0817">Drangedal</option>
-              <option value="0831">Fyresdal</option>
-              <option value="0827">Hjartdal</option>
-              <option value="0815">Kragerø</option>
-              <option value="0829">Kviteseid</option>
-              <option value="0830">Nissedal</option>
-              <option value="0819">Nome</option>
-              <option value="0807">Notodden</option>
-              <option value="0805">Porsgrunn</option>
-              <option value="0822">Sauherad</option>
-              <option value="0828">Seljord</option>
-              <option value="0811">Siljan</option>
-              <option value="0806">Skien</option>
-              <option value="0826">Tinn</option>
-              <option value="0833">Tokke</option>
-              <option value="0834">Vinje</option>
-            </select>
+            <StandardSelect
+              labelId="alternativ_adresse_kommunenr"
+              labelName="Bostedskommune"
+              values={config.kommuneListe}
+              valueLink={this.linkState('alternativ_adresse_kommunenr')} />
           </fieldset>
           <fieldset>
             <legend>Skole</legend>
-            <select name="skole" valueLink={this.linkState('skole')}>
-              <option value="">Velg skole</option>
-              <option value="Bamble videregående skole, Tønderveien 6, 3960 Stathelle">
-                Bamble videregående skole, avdeling Grasmyr
-              </option>
-              <option value="Bamble videregående skole, Tostrupsvei 7, 3960 Stathelle">
-                Bamble videregående skole, avdeling Croftholmen
-              </option>
-              <option value="Bø videregåande skule, Gymnasbakken 23, 3802 Bø">
-                Bø videregåande skule
-              </option>
-              <option value="Hjalmar Johansen videregående skole, Moflatvegen 38, 3733 Skien">
-                Hjalmar Johansen videregående skole, avdeling Fritidsparken
-              </option>
-              <option value="Hjalmar Johansen videregående skole, Olai Skulleruds veg 20, 3730 Skien">
-                Hjalmar Johansen videregående skole, avdeling Klosterskogen
-              </option>
-              <option value="Kragerø videregående skole, Frydensborgveien 9-11, 3770 Kragerø">
-                Kragerø videregående skole
-              </option>
-              <option value="Kvitsund gymnas, Jakob Naadlandsveg 2, 3850 Kviteseid">
-                Kvitsund gymnas
-              </option>
-              <option value="Nome videregående skole, Olav Strannas vei 25, 382 Lunde">
-                Nome videregående skole, avdeling Lunde
-              </option>
-              <option value="Nome videregående skole, Søveveien 8, 3830 Ulefoss">
-                Nome videregående skole, avdeling Søve
-              </option>
-              <option value="Notodden videregående skole, Heddalsveien 4, 3674 Notodden">
-                Notodden videregående skole
-              </option>
-              <option value="Porsgrunn videregående skole, Kjølnes Ring 58, 3918 Porsgrunn">
-                Porsgrunn videregående skole, avdeling Nord
-              </option>
-              <option value="Porsgrunn videregående skole, Kjølnes Ring 20, 3918 Porsgrunn">
-                Porsgrunn videregående skole, avdeling Sør
-              </option>
-              <option value="Rjukan videregående skole, Såheimveien 22, 3660 Rjukan">
-                Rjukan videregående skole
-              </option>
-              <option value="Skien videregående skole, Rektor Ørns gate 2, 3717 Skien">
-                Skien videregående skole, avdeling Brekkeby
-              </option>
-              <option value="Skien videregående skole, Einar Østvedts gate 12, 3724 Skien">
-                Skien videregående skole, avdeling Prestegjordet
-              </option>
-              <option value="Skogmo videregående skole, Kjørbekkdalen 11, 3735 Skien">
-                Skogmo videregående skole
-              </option>
-              <option value="Toppidrettsgymnaset i Telemark, Fritjof Nansens gate 19C, 3722 Skien">
-                Toppidrettsgymnaset i Telemark
-              </option>
-              <option value="Vest-Telemark vidaregåande skule, Storvegen 195, 3880 Dalen">
-                Vest-Telemark vidaregåande skule, avdeling Dalen
-              </option>
-              <option value="Vest-Telemark vidaregåande skule, Brøløsvegen 2, 3840 Seljord">
-                Vest-Telemark vidaregåande skule, avdeling Seljord
-              </option>
-              <option value="Skole utenfor Telemark">Skole utenfor Telemark</option>
-            </select>
+            <StandardSelect
+              labelId="skole"
+              labelName="Skole"
+              values={config.skoleListe}
+              valueLink={this.linkState('skole')} />
           </fieldset>
           <fieldset className={showEksternSkoleAdresse(this.state.skole)}>
             <label htmlFor="eksternSkoleNavn">Skolens navn</label>
