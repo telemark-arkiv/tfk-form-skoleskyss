@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
+var StatusBar = require('../../elements/statusbar');
 var doSubmitForm = require('../../utils/submitform');
 var config = require('../../config');
 var pkg = require('../../package.json');
@@ -17,6 +18,22 @@ function showGateadresse(state){
 function showGnrBnr(state){
   var className = 'hidden';
   if (state === 'GnrBnr' && state !== '') {
+    className = '';
+  }
+  return className;
+}
+
+function showPageNumber(state, pageNumber){
+  var className = 'hidden';
+  if (state === pageNumber) {
+    className = '';
+  }
+  return className;
+}
+
+function doNotshowPageNumber(state, pageNumber){
+  var className = 'hidden';
+  if (state !== pageNumber) {
     className = '';
   }
   return className;
@@ -41,6 +58,30 @@ function showBusskortNummer(state){
 function showAlternativAdresse(state){
   var className = 'hidden';
   if (state !== '') {
+    className = '';
+  }
+  return className;
+}
+
+function showAlternativSokegrunnlag(state){
+  var className = 'hidden';
+  if (state === '7.3') {
+    className = '';
+  }
+  return className;
+}
+
+function showInnsendingAvDokumentasjon(adresse, sokegrunnlag){
+  var className = 'hidden';
+  if (adresse !== '' || sokegrunnlag === '7.3') {
+    className = '';
+  }
+  return className;
+}
+
+function doNotshowInnsendingAvDokumentasjon(adresse, sokegrunnlag){
+  var className = 'hidden';
+  if (adresse === '' && sokegrunnlag === '7.2') {
     className = '';
   }
   return className;
@@ -75,6 +116,18 @@ var App = React.createClass({
     e.preventDefault();
     this.cleanUp();
   },
+  increasePageNumber: function(e){
+    e.preventDefault();
+    this.setState({
+      page: this.state.page + 1
+    })
+  },
+  decreasePageNumber: function(e){
+    e.preventDefault();
+    this.setState({
+      page: this.state.page - 1
+    })
+  },
   submitForm: function(e) {
     e.preventDefault();
     var self = this;
@@ -107,6 +160,9 @@ var App = React.createClass({
         console.error(err);
       } else {
         self.cleanUp();
+        self.setState({
+          page: 4
+        });
       }
     });
   },
@@ -114,7 +170,11 @@ var App = React.createClass({
     return (
       <div>
         <h1>Skoleskyss</h1>
+        <div>
+          <StatusBar status={this.state.page*25}/>
+        </div>
         <form onSubmit={this.submitForm}>
+          <div className={showPageNumber(this.state.page, 1)}>
           <fieldset>
             <legend>Personalia</legend>
             <label htmlFor="personnummer">Fødselsnummer (11 siffer)</label>
@@ -158,15 +218,15 @@ var App = React.createClass({
           </fieldset>
           <fieldset className={showAlternativAdresse(this.state.alternativ_adresse)}>
             <legend>Alternativ adresse: {this.state.alternativ_adresse}</legend>
-            <select name="alternativ_bosted" valueLink={this.linkState('alternativ_adresse_bosted')}>
+            <select name="alternativ_adresse_bosted" valueLink={this.linkState('alternativ_adresse_bosted')}>
               <option value="">Velg adresseform</option>
               <option value="Gateadresse">Gateadresse</option>
               <option value="GnrBnr">Gårds og bruksnummer</option>
             </select>
           </fieldset>
           <fieldset className={showGateadresse(this.state.alternativ_adresse_bosted)}>
-            <label htmlFor="alternativ_adresse">Adresse</label>
-            <input type="text" name="alternativ_adresse" placeholder="Gateadresse, postnummer og poststed" id="alternativ_adresse" valueLink={this.linkState('alternativ_adresse_adresse')} />
+            <label htmlFor="alternativ_adresse_adresse">Adresse</label>
+            <input type="text" name="alternativ_adresse_adresse" placeholder="Gateadresse, postnummer og poststed" id="alternativ_adresse_adresse" valueLink={this.linkState('alternativ_adresse_adresse')} />
           </fieldset>
           <fieldset className={showGnrBnr(this.state.alternativ_adresse_bosted)}>
             <label htmlFor="alternativ_gnr">Gårdsnummer</label>
@@ -277,7 +337,106 @@ var App = React.createClass({
             <label htmlFor="busskortnummer">Busskortnummer</label>
             <input type="text" name="busskortnummer" placeholder="Busskortnummer" id="navn" valueLink={this.linkState('busskortnummer')} />
           </fieldset>
-          <button className="btn">Send inn</button> <button className="btn" onClick={this.cancelForm}>Avbryt</button>
+            </div>
+          <div className={showPageNumber(this.state.page, 2)}>
+            <h2>Tilleggsopplysninger</h2>
+            <div className={showInnsendingAvDokumentasjon(this.state.alternativ_adresse, this.state.sokegrunnlag)}>
+              Utfra opplysningene du har gitt oss har vi behov for enkelte tilleggsopplysninger.<br/>
+            </div>
+            <div className={doNotshowInnsendingAvDokumentasjon(this.state.alternativ_adresse, this.state.sokegrunnlag)}>
+              Utfra opplysningene du har gitt oss har vi ikke behov for tilleggsopplysninger.<br/>
+              Trykk [Neste] nederst på siden og se over opplysningene på neste side før du sender inn skjemaet.
+            </div>
+
+            <div className={showAlternativAdresse(this.state.alternativ_adresse)}>
+              <h3>Bosted</h3>
+              Du har oppgitt annen adresse enn den som er registrert hos folkeregisteret.<br />
+              Gyldig dokumentasjon på dette må sendes til oss via post.<br />
+              Eksempler på gyldig dokumentasjon er for eksempel leiekontrakt på hybel.
+            </div>
+            <div className={showAlternativSokegrunnlag(this.state.sokegrunnlag)}>
+              <h3>Søknadsgrunnlag</h3>
+              Du har oppgitt annet søkegrunnlag enn avstand til skolen.<br />
+              Gyldig dokumentasjon på dette må sendes til oss via post.<br />
+              Eksempler på gyldig dokumentasjon er for eksempel legerklæring.
+            </div>
+            <div className={showInnsendingAvDokumentasjon(this.state.alternativ_adresse, this.state.sokegrunnlag)}>
+              <h3>Innsending av dokumentasjon</h3>
+              Din dokumentasjon må snarest sendes pr post til oss.<br />
+              Telemark fylkeskommune<br/>
+              Postboks 2844<br/>
+              3702 Skien.<br />
+              Legg ved ditt fulle navn og fødselsnummer (11 siffer).<br/>
+              Merk konvolutten "Skoleskyss".
+            </div>
+          </div>
+          <div className={showPageNumber(this.state.page, 3)}>
+            <h2>Sammendrag</h2>
+            Her er oversikt over opplysningene du sender oss.<br/>
+            <h3>Personalia</h3>
+            Navn: {this.state.navn}<br/>
+            Fødselsnummer: {this.state.personnummer}
+            <h3>Kontaktinformasjon</h3>
+            E-post: {this.state.epost}<br/>
+            Telefon: {this.state.telefon}
+            <h3>Bosted</h3>
+            Folkeregistrert adresse: {this.state.folkeregistrert_adresse_adresse}<br/>
+            Alternativ adresse: {this.state.alternativ_adresse_adresse}<br/>
+            Alternativ adresse årsak: {this.state.alternativ_adresse}
+            <h3>Skole</h3>
+            Skole: {this.state.skole}<br/>
+            Klassetrinn: {this.state.klassetrinn}
+            <h3>Busskort</h3>
+            Status:{this.state.busskortstatus}<br/>
+            Busskortnummer: {this.state.busskortnummer}
+            <h2>Automatiske beregninger</h2>
+            Vi har gjort noen automatiske beregninger utfra dine opplysninger.<br/>
+            Disse tar vi med oss i den videre saksbehandlingen.<br/>
+            Her er en oversikt over disse.
+            <h3>Folkeregistrert adresse</h3>
+            Adresse: Adresse<br/>
+            Nærmeste holdeplass: Nærmeste holdeplass bosted<br/>
+            Skole: Skole<br/>
+            Nærmeste holdeplass: Nærmeste holdeplass skole<br/>
+            Overgang: Holdeplass for overgang<br/>
+            Beregnet gangavstand til skole: Avstand<br/>
+            Rute for beregning: Vis
+            <h3>Alternativ adresse</h3>
+            Adresse: Adresse<br/>
+            Nærmeste holdeplass: Nærmeste holdeplass bosted<br/>
+            Skole: Skole<br/>
+            Nærmeste holdeplass: Nærmeste holdeplass skole<br/>
+            Overgang: Holdeplass for overgang<br/>
+            Beregnet gangavstand til skole: Avstand<br/>
+            Rute for beregning: Vis
+          </div>
+          <div className={showPageNumber(this.state.page, 4)}>
+            <h2>Skjemaet er innsendt</h2>
+            Skjemaet er nå sendt inn til oss.<br/>
+            Du vil snart motta kvittering via Svar ut.<br/>
+          </div>
+          <span className={showPageNumber(this.state.page, 1)}>
+            <button className="btn" onClick={this.increasePageNumber}>Neste</button>&nbsp;
+          </span>
+          <span className={showPageNumber(this.state.page, 2)}>
+            <button className="btn" onClick={this.decreasePageNumber}>Forrige</button>&nbsp;
+          </span>
+          <span className={showPageNumber(this.state.page, 2)}>
+            <button className="btn" onClick={this.increasePageNumber}>Neste</button>&nbsp;
+          </span>
+          <span className={showPageNumber(this.state.page, 3)}>
+            <button className="btn" onClick={this.decreasePageNumber}>Forrige</button>&nbsp;
+          </span>
+          <span  className={showPageNumber(this.state.page, 3)}>
+            <button className="btn">Send inn</button>&nbsp;
+          </span>
+          <span className={doNotshowPageNumber(this.state.page, 4)}>
+            <button className="btn" onClick={this.cancelForm}>Avbryt</button>
+          </span>
+          <span className={showPageNumber(this.state.page, 4)}>
+            <button className="btn" onClick={this.cancelForm}>Avslutt</button>
+          </span>
+
         </form>
       </div>
     );

@@ -4,6 +4,7 @@ var config = {
   formId: 'tkf-skoleskyss',
   formName: 'Skoleskyss',
   initialState: {
+    page: 1,
     personnummer: '',
     navn: '',
     folkeregistrert_adresse_bosted: '',

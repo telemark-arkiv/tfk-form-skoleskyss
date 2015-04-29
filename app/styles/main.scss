@@ -427,6 +427,15 @@ input, textarea {
 }
 
 .app-bar button:focus {
-  background-color: #ffe023;;
+  background-color: #ffe023;
 }
 
+.statusbar-container {
+  width: 100%;
+  float: left;
+  clear: both;
+}
+
+legend {
+  font-weight: 700;
+}
