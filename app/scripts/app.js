@@ -243,27 +243,6 @@ var App = React.createClass({
               <option value="">Velg adresseform</option>
               <option value="Gateadresse">Gateadresse</option>
               <option value="GnrBnr">Gårds og bruksnummer</option>
-              <select name="folkeregistrert_adresse_kommunenr" valueLink={this.linkState('alternativ_adresse_kommunenr')}>
-                <option value="">Velg kommune</option>
-                <option value="0814">Bamble</option>
-                <option value="0821">Bø</option>
-                <option value="0817">Drangedal</option>
-                <option value="0831">Fyresdal</option>
-                <option value="0827">Hjartdal</option>
-                <option value="0815">Kragerø</option>
-                <option value="0829">Kviteseid</option>
-                <option value="0830">Nissedal</option>
-                <option value="0819">Nome</option>
-                <option value="0807">Notodden</option>
-                <option value="0805">Porsgrunn</option>
-                <option value="0822">Sauherad</option>
-                <option value="0828">Seljord</option>
-                <option value="0811">Siljan</option>
-                <option value="0806">Skien</option>
-                <option value="0826">Tinn</option>
-                <option value="0833">Tokke</option>
-                <option value="0834">Vinje</option>
-              </select>
             </select>
           </fieldset>
           <fieldset className={showGateadresse(this.state.alternativ_adresse_bosted)}>
@@ -275,6 +254,27 @@ var App = React.createClass({
             <input type="text" name="alternativ_gnr" placeholder="Gårdsnummer" id="alternativ_gnr" valueLink={this.linkState('alternativ_adresse_gnr')} />
             <label htmlFor="alternativ_bnr">Bruksnummer</label>
             <input type="text" name="alternativ_bnr" placeholder="Bruksnummer" id="alternativ_bnr" valueLink={this.linkState('alternativ_adresse_bnr')} />
+            <select name="folkeregistrert_adresse_kommunenr" valueLink={this.linkState('alternativ_adresse_kommunenr')}>
+              <option value="">Velg kommune</option>
+              <option value="0814">Bamble</option>
+              <option value="0821">Bø</option>
+              <option value="0817">Drangedal</option>
+              <option value="0831">Fyresdal</option>
+              <option value="0827">Hjartdal</option>
+              <option value="0815">Kragerø</option>
+              <option value="0829">Kviteseid</option>
+              <option value="0830">Nissedal</option>
+              <option value="0819">Nome</option>
+              <option value="0807">Notodden</option>
+              <option value="0805">Porsgrunn</option>
+              <option value="0822">Sauherad</option>
+              <option value="0828">Seljord</option>
+              <option value="0811">Siljan</option>
+              <option value="0806">Skien</option>
+              <option value="0826">Tinn</option>
+              <option value="0833">Tokke</option>
+              <option value="0834">Vinje</option>
+            </select>
           </fieldset>
           <fieldset>
             <legend>Skole</legend>
