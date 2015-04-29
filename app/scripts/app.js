@@ -206,7 +206,8 @@ var App = React.createClass({
             <input type="text" name="gnr" placeholder="Gårdsnummer" id="gnr" valueLink={this.linkState('folkeregistrert_adresse_gnr')} />
             <label htmlFor="bnr">Bruksnummer</label>
             <input type="text" name="bnr" placeholder="Bruksnummer" id="bnr" valueLink={this.linkState('folkeregistrert_adresse_bnr')} />
-            <select name="folkeregistrert_adresse_kommunenr" valueLink={this.linkState('folkeregistrert_adresse_kommunenr')}>
+            <label htmlFor="folkeregistrert_adresse_kommunenr">Bostedskommune</label>
+            <select name="folkeregistrert_adresse_kommunenr" id="folkeregistrert_adresse_kommunenr" valueLink={this.linkState('folkeregistrert_adresse_kommunenr')}>
               <option value="">Velg kommune</option>
               <option value="0814">Bamble</option>
               <option value="0821">Bø</option>
@@ -254,7 +255,8 @@ var App = React.createClass({
             <input type="text" name="alternativ_gnr" placeholder="Gårdsnummer" id="alternativ_gnr" valueLink={this.linkState('alternativ_adresse_gnr')} />
             <label htmlFor="alternativ_bnr">Bruksnummer</label>
             <input type="text" name="alternativ_bnr" placeholder="Bruksnummer" id="alternativ_bnr" valueLink={this.linkState('alternativ_adresse_bnr')} />
-            <select name="folkeregistrert_adresse_kommunenr" valueLink={this.linkState('alternativ_adresse_kommunenr')}>
+            <label htmlFor="alternativ_adresse_kommunenr">Bostedskommune</label>
+            <select name="alternativ_adresse_kommunenr" id="alternativ_adresse_kommunenr" valueLink={this.linkState('alternativ_adresse_kommunenr')}>
               <option value="">Velg kommune</option>
               <option value="0814">Bamble</option>
               <option value="0821">Bø</option>
