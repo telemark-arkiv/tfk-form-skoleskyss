@@ -136,26 +136,32 @@ var App = React.createClass({
       page: this.state.page - 1
     })
   },
-  calculateDistance: function(){
+  calculateDistance: function(e){
+    e.preventDefault();
+
     var self = this;
-    var hjemsted = this.state.adresse;
+    var folkeregistrertHjemsted = this.state.folkeregistrert_adresse_adresse;
     var skole = this.state.skole;
 
-    if (skole === 'Skole utenfor Telemark' || skole === '') {
+    this.setState({
+      page: 2
+    });
+
+    if (skole === 'Skole utenfor Telemark') {
       self.setState({
         beregnetStatus: 'Skal ikke beregnes automatisk, skole utenfor Telemark'
       });
     } else {
-      getDistance({origin:hjemsted, destination:skole}, function(err, data) {
+      getDistance({origin:folkeregistrertHjemsted, destination:skole}, function(err, data) {
         if (err) {
           console.error(err);
         } else {
           self.setState({
             skole: skole,
-            utregnetAvstand: {kilometer:data.distance, meter: data.distanceValue},
-            utregnetAvstandAdresse: data.origin,
-            utregnetAvstandSkole: data.destination,
-            utregnetAvstandKart: data.directionsEmbedUrl
+            utregnetAvstandFolkeregistrert: {kilometer:data.distance, meter: data.distanceValue},
+            utregnetAvstandAdresseFolkeregistrert: data.origin,
+            utregnetAvstandSkoleFolkeregistrert: data.destination,
+            utregnetAvstandKartFolkeregistrert: data.directionsEmbedUrl
           });
 
           getClosestStop(data.origin, function(error, holdeplass){
@@ -163,7 +169,7 @@ var App = React.createClass({
               console.error(error);
             } else {
               self.setState({
-                holdeplassHjem: holdeplass[0]
+                holdeplassHjemFolkeregistrert: holdeplass[0]
               });
             }
           });
@@ -425,13 +431,13 @@ var App = React.createClass({
             Disse tar vi med oss i den videre saksbehandlingen.<br/>
             Her er en oversikt over disse.
             <h3>Folkeregistrert adresse</h3>
-            Adresse: Adresse<br/>
-            Nærmeste holdeplass: Nærmeste holdeplass bosted<br/>
-            Skole: Skole<br/>
-            Nærmeste holdeplass: Nærmeste holdeplass skole<br/>
+            Adresse: {this.state.utregnetAvstandAdresseFolkeregistrert}<br/>
+            Nærmeste holdeplass: {this.state.holdeplassHjemFolkeregistrert}<br/>
+            Skole: {this.state.utregnetAvstandSkoleFolkeregistrert}<br/>
+            Nærmeste holdeplass: {this.state.holdeplassSkole}<br/>
             Overgang: Holdeplass for overgang<br/>
-            Beregnet gangavstand til skole: Avstand<br/>
-            Rute for beregning: Vis
+            Beregnet gangavstand til skole: {this.state.utregnetAvstandFolkeregistrert.km}<br/>
+            Rute for beregning: <a href={getEmbedUrl(this.state.utregnetAvstandKartFolkeregistrert)} target="_blank">Vis beregnet rute på kart</a><br/>
             <h3>Alternativ adresse</h3>
             Adresse: Adresse<br/>
             Nærmeste holdeplass: Nærmeste holdeplass bosted<br/>
@@ -462,7 +468,7 @@ var App = React.createClass({
             <button className="btn">Send inn&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-tick"></span></button>&nbsp;
           </span>
           <span className={showPageNumber(this.state.page, 1)}>
-            <button className="btn" onClick={this.increasePageNumber}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
+            <button className="btn" onClick={this.calculateDistance}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
           </span>
           <span className={showPageNumber(this.state.page, 2)}>
             <button className="btn" onClick={this.increasePageNumber}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;

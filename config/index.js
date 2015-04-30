@@ -27,7 +27,14 @@ var config = {
     busskortnummer: '',
     eksternSkoleNavn: '',
     eksternSkoleAdresse: '',
-    beregnetStatus:''
+    beregnetStatus:'',
+    utregnetAvstandFolkeregistrert: '',
+    utregnetAvstandAdresseFolkeregistrert: '',
+    utregnetAvstandSkoleFolkeregistrert: '',
+    utregnetAvstandKartFolkeregistrert: '',
+    holdeplassHjemFolkeregistrert: '',
+    holdeplassSkole:''
+
   },
   kommuneListe : [
     {value:'', text:'Velg kommune', id:'007'},
