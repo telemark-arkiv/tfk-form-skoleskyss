@@ -385,8 +385,8 @@ var App = React.createClass({
             <div className={showAlternativSokegrunnlag(this.state.sokegrunnlag)}>
               <h3>Søknadsgrunnlag</h3>
               Du har oppgitt annet søkegrunnlag enn avstand til skolen.<br />
-              Annet søkegrunnlag vil si at du kan ha rett til skyss grunnet funksjonshemming, midlertidig skade eller
-              sykdom etter Opplæringsloven § 7-3.<br />
+              Annet søkegrunnlag vil si at du kan ha rett til skyss grunnet <br />
+              funksjonshemming, midlertidig skade eller sykdom etter Opplæringsloven § 7-3.<br />
               Gyldig dokumentasjon er legeerklæring.<br />
             </div>
             <div className={showInnsendingAvDokumentasjon(this.state.alternativ_adresse, this.state.sokegrunnlag)}>
