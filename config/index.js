@@ -5,6 +5,8 @@ var config = {
   formName: 'Skoleskyss',
   initialState: {
     page: 1,
+    formId:'',
+    formVersion:'',
     personnummer: '',
     navn: '',
     folkeregistrert_adresse_bosted: '',
@@ -33,6 +35,11 @@ var config = {
     utregnetAvstandSkoleFolkeregistrert: '',
     utregnetAvstandKartFolkeregistrert: '',
     holdeplassHjemFolkeregistrert: '',
+    utregnetAvstandAlternativt: '',
+    utregnetAvstandAdresseAlternativt: '',
+    utregnetAvstandSkoleAlternativt: '',
+    utregnetAvstandKartAlternativt: '',
+    holdeplassHjemAlternativt: '',
     holdeplassSkole:''
 
   },

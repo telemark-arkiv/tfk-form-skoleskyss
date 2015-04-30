@@ -112,9 +112,15 @@ var App = React.createClass({
     localStorage[versionNumber] = JSON.stringify(this.state);
   },
   componentDidMount: function() {
+    this.setState({
+      formId: config.formId,
+      formVersion: pkg.version
+    });
+
     if (localStorage.getItem(versionNumber)) {
       this.setState(JSON.parse(localStorage.getItem(versionNumber)));
     }
+
   },
   cleanUp: function(){
     localStorage.clear();
@@ -141,6 +147,7 @@ var App = React.createClass({
 
     var self = this;
     var folkeregistrertHjemsted = this.state.folkeregistrert_adresse_adresse;
+    var alternativtHjemsted = this.state.alternativ_adresse_adresse;
     var skole = this.state.skole;
 
     this.setState({
@@ -157,7 +164,6 @@ var App = React.createClass({
           console.error(err);
         } else {
           self.setState({
-            skole: skole,
             utregnetAvstandFolkeregistrert: {kilometer:data.distance, meter: data.distanceValue},
             utregnetAvstandAdresseFolkeregistrert: data.origin,
             utregnetAvstandSkoleFolkeregistrert: data.destination,
@@ -186,35 +192,42 @@ var App = React.createClass({
         }
 
       });
+
+      if (alternativtHjemsted ) {
+
+        getDistance({origin:alternativtHjemsted, destination:skole}, function(err, data) {
+          if (err) {
+            console.error(err);
+          } else {
+            self.setState({
+              utregnetAvstandAlternativt: {kilometer:data.distance, meter: data.distanceValue},
+              utregnetAvstandAdresseAlternativt: data.origin,
+              utregnetAvstandSkoleAlternativt: data.destination,
+              utregnetAvstandKartAlternativt: data.directionsEmbedUrl
+            });
+
+            getClosestStop(data.origin, function(error, holdeplass){
+              if (error) {
+                console.error(error);
+              } else {
+                self.setState({
+                  holdeplassHjemAlternativt: holdeplass[0]
+                });
+              }
+            });
+
+          }
+
+        });
+
+      }
+
     }
   },
   submitForm: function(e) {
     e.preventDefault();
     var self = this;
-    var payload = {
-      personnummer: this.state.personnummer,
-      navn: this.state.navn,
-      folkeregistrert_adresse_adresse: this.state.folkeregistrert_adresse_adresse,
-      folkeregistrert_adresse_gnr: this.state.folkeregistrert_adresse_gnr,
-      folkeregistrert_adresse_bnr: this.state.folkeregistrert_adresse_bnr,
-      folkeregistrert_adresse_kommunenr: this.state.folkeregistrert_adresse_kommunenr,
-      alternativ_adresse: this.state.alternativ_adresse,
-      alternativ_adresse_adresse: this.state.alternativ_adresse_adresse,
-      alternativ_adresse_gnr: this.state.alternativ_adresse_gnr,
-      alternativ_adresse_bnr: this.state.alternativ_adresse_bnr,
-      alternativ_adresse_kommunenr: this.state.alternativ_adresse_kommunenr,
-      telefon: this.state.telefon,
-      epost: this.state.epost,
-      skole: this.state.skole,
-      klassetrinn: this.state.klassetrinn,
-      sokegrunnlag: this.state.sokegrunnlag,
-      busskortstatus: this.state.busskortstatus,
-      busskortnummer: this.state.busskortnummer,
-      eksternSkoleNavn: this.state.eksternSkoleNavn,
-      eksternSkoleAdresse: this.state.eksternSkoleAdresse,
-      formId: config.formId,
-      formVersion: pkg.version
-    };
+    var payload = this.state;
     doSubmitForm(payload, function(err, data){
       if (err) {
         console.error(err);
@@ -356,11 +369,11 @@ var App = React.createClass({
           <div className={showPageNumber(this.state.page, 2)}>
             <h2>Tilleggsopplysninger</h2>
             <div className={showInnsendingAvDokumentasjon(this.state.alternativ_adresse, this.state.sokegrunnlag)}>
-              Utfra opplysningene du har gitt oss har vi behov for enkelte tilleggsopplysninger.<br/>
+              Ut i fra opplysningene du har gitt oss har vi behov for enkelte tilleggsopplysninger.<br/>
             </div>
             <div className={doNotshowInnsendingAvDokumentasjon(this.state.alternativ_adresse, this.state.sokegrunnlag)}>
-              Utfra opplysningene du har gitt oss har vi ikke behov for tilleggsopplysninger.<br/>
-              Trykk [Neste] nederst på siden og se over opplysningene på neste side før du sender inn skjemaet.
+              Ut i fra opplysningene du har gitt oss har vi ikke behov for tilleggsopplysninger.<br/>
+              Trykk "Neste" og se over opplysningene før du sender inn skjemaet.
             </div>
 
             <div className={showAlternativAdresse(this.state.alternativ_adresse)}>
@@ -422,7 +435,7 @@ var App = React.createClass({
             Skole: {this.state.skole}<br/>
             Klassetrinn: {this.state.klassetrinn}
             <h3>Busskort</h3>
-            Status:{this.state.busskortstatus}<br/>
+            Status: {this.state.busskortstatus}<br/>
             <div className={showBusskortNummer(this.state.busskortstatus)}>
               Busskortnummer: {this.state.busskortnummer}
             </div>
@@ -438,14 +451,17 @@ var App = React.createClass({
             Overgang: Holdeplass for overgang<br/>
             Beregnet gangavstand til skole: {this.state.utregnetAvstandFolkeregistrert.kilometer}<br/>
             Rute for beregning: <a href={getEmbedUrl(this.state.utregnetAvstandKartFolkeregistrert)} target="_blank">Vis beregnet rute på kart</a><br/>
-            <h3>Alternativ adresse</h3>
-            Adresse: Adresse<br/>
-            Nærmeste holdeplass: Nærmeste holdeplass bosted<br/>
-            Skole: Skole<br/>
-            Nærmeste holdeplass: Nærmeste holdeplass skole<br/>
-            Overgang: Holdeplass for overgang<br/>
-            Beregnet gangavstand til skole: Avstand<br/>
-            Rute for beregning: Vis
+
+            <div className={showAlternativAdresse(this.state.alternativ_adresse)}>
+              <h3>Alternativ adresse</h3>
+              Adresse: {this.state.utregnetAvstandAdresseAlternativt}<br/>
+              Nærmeste holdeplass: {this.state.holdeplassHjemAlternativt.Name}<br/>
+              Skole: {this.state.utregnetAvstandSkoleAlternativt}<br/>
+              Nærmeste holdeplass: {this.state.holdeplassSkole.Name}<br/>
+              Overgang: Holdeplass for overgang<br/>
+              Beregnet gangavstand til skole: {this.state.utregnetAvstandAlternativt.kilometer}<br/>
+              Rute for beregning: <a href={getEmbedUrl(this.state.utregnetAvstandKartAlternativt)} target="_blank">Vis beregnet rute på kart</a><br/>
+            </div>
           </div>
           <div className={showPageNumber(this.state.page, 4)}>
             <h2>Skjemaet er innsendt</h2>
