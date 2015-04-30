@@ -338,10 +338,10 @@ var App = React.createClass({
             <label htmlFor="klassestrinn">Klassetrinn</label>
             <select name="klassetrinn" id="klassetrinn" valueLink={this.linkState('klassetrinn')}>
               <option value="">Velg klassetrinn</option>
-              <option value="1. klasse">1. klasse</option>
-              <option value="2. klasse">2. klasse</option>
-              <option value="3. klasse">3. klasse</option>
-              <option value="4. klasse">4. klasse</option>
+              <option value="VG1">VG1</option>
+              <option value="VG2">VG2</option>
+              <option value="VG3">VG3</option>
+              <option value="VG4">VG4</option>
             </select>
           </fieldset>
           <fieldset>
@@ -385,8 +385,9 @@ var App = React.createClass({
             <div className={showAlternativSokegrunnlag(this.state.sokegrunnlag)}>
               <h3>Søknadsgrunnlag</h3>
               Du har oppgitt annet søkegrunnlag enn avstand til skolen.<br />
-              Gyldig dokumentasjon på dette må sendes til oss via post.<br />
-              Eksempler på gyldig dokumentasjon er for eksempel legerklæring.
+              Annet søkegrunnlag vil si at du kan ha rett til skyss grunnet funksjonshemming, midlertidig skade eller
+              sykdom etter Opplæringsloven § 7-3.<br />
+              Gyldig dokumentasjon er legeerklæring.<br />
             </div>
             <div className={showInnsendingAvDokumentasjon(this.state.alternativ_adresse, this.state.sokegrunnlag)}>
               <h3>Innsending av dokumentasjon</h3>
