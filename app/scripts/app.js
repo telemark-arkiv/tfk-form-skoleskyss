@@ -134,6 +134,52 @@ var App = React.createClass({
       page: this.state.page - 1
     })
   },
+  calculateDistance: function(){
+    var self = this;
+    var hjemsted = this.state.adresse;
+    var skole = this.refs.skoleValg.getDOMNode().value;
+
+    if (skole === 'Skole utenfor Telemark' || skole === '') {
+      self.setState({
+        skole: skole
+      });
+    } else {
+      getDistance({origin:hjemsted, destination:skole}, function(err, data) {
+        if (err) {
+          console.error(err);
+        } else {
+          self.setState({
+            skole: skole,
+            utregnetAvstand: {kilometer:data.distance, meter: data.distanceValue},
+            utregnetAvstandAdresse: data.origin,
+            utregnetAvstandSkole: data.destination,
+            utregnetAvstandKart: data.directionsEmbedUrl
+          });
+
+          getClosestStop(data.origin, function(error, holdeplass){
+            if (error) {
+              console.error(error);
+            } else {
+              self.setState({
+                holdeplassHjem: holdeplass[0]
+              });
+            }
+          });
+
+          getClosestStop(data.destination, function(error, holdeplass){
+            if (error) {
+              console.error(error);
+            } else {
+              self.setState({
+                holdeplassSkole: holdeplass[0]
+              });
+            }
+          });
+        }
+
+      });
+    }
+  },
   submitForm: function(e) {
     e.preventDefault();
     var self = this;
