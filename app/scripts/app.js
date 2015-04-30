@@ -137,11 +137,11 @@ var App = React.createClass({
   calculateDistance: function(){
     var self = this;
     var hjemsted = this.state.adresse;
-    var skole = this.refs.skoleValg.getDOMNode().value;
+    var skole = this.state.skole;
 
     if (skole === 'Skole utenfor Telemark' || skole === '') {
       self.setState({
-        skole: skole
+        beregnetStatus: 'Skal ikke beregnes automatisk, skole utenfor Telemark'
       });
     } else {
       getDistance({origin:hjemsted, destination:skole}, function(err, data) {
