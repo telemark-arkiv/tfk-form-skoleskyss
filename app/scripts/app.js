@@ -8,6 +8,11 @@ var config = require('../../config');
 var pkg = require('../../package.json');
 var versionNumber = config.formId + '-' + pkg.version;
 
+function getEmbedUrl(mapUrl){
+  var startUrl = 'render.html?url=';
+  return startUrl + mapUrl;
+}
+
 function showGateadresse(state){
   var className = 'hidden';
   if (state === 'Gateadresse' && state !== '') {
