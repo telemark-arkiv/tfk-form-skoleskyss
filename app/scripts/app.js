@@ -5,6 +5,7 @@ var StatusBar = require('../../elements/statusbar');
 var StandardSelect = require('../../elements/standardselect');
 var getDistance = require('../../utils/getdistance');
 var getClosestStop = require('../../utils/getClosestStop');
+var getReiseInfo = require('../../utils/getReiseInfo');
 var doSubmitForm = require('../../utils/submitform');
 var config = require('../../config');
 var pkg = require('../../package.json');
@@ -159,6 +160,30 @@ var App = React.createClass({
         beregnetStatus: 'Skal ikke beregnes automatisk, skole utenfor Telemark'
       });
     } else {
+      var jobCounter = 0;
+      var jobs = 2;
+
+      function sjekkReiseRuteFolkeregistrert(){
+        jobCounter ++;
+        if (jobCounter === jobs) {
+          var options = {
+            fromplace = self.state.holdeplassHjemFolkeregistrert.ID,
+            toplace = self.state.holdeplassSkole.ID
+          };
+
+          getReiseInfo(options, function(err, data){
+            if (err) {
+              console.error(err);
+            } else {
+              self.setState({
+                overgangFolkeregistrert: data.overgang,
+                fullReiseFolkeregistrert: data.fullReise
+              })
+            }
+          });
+        }
+      }
+
       getDistance({origin:folkeregistrertHjemsted, destination:skole}, function(err, data) {
         if (err) {
           console.error(err);
@@ -177,6 +202,7 @@ var App = React.createClass({
               self.setState({
                 holdeplassHjemFolkeregistrert: holdeplass[0]
               });
+              sjekkReiseRuteFolkeregistrert();
             }
           });
 
@@ -187,13 +213,33 @@ var App = React.createClass({
               self.setState({
                 holdeplassSkole: holdeplass[0]
               });
+              sjekkReiseRuteFolkeregistrert();
             }
           });
+
         }
 
       });
 
       if (alternativtHjemsted ) {
+
+        function sjekkReiseRuteAlternativt(){
+          var options = {
+              fromplace = self.state.holdeplassHjemAlternativt.ID,
+              toplace = self.state.holdeplassSkole.ID
+              };
+
+            getReiseInfo(options, function(err, data){
+              if (err) {
+                console.error(err);
+              } else {
+                self.setState({
+                  overgangAlternativt: data.overgang,
+                  fullReiseAlternativt: data.fullReise
+                })
+              }
+            });
+        }
 
         getDistance({origin:alternativtHjemsted, destination:skole}, function(err, data) {
           if (err) {
