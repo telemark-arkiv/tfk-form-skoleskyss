@@ -432,11 +432,11 @@ var App = React.createClass({
             Her er en oversikt over disse.
             <h3>Folkeregistrert adresse</h3>
             Adresse: {this.state.utregnetAvstandAdresseFolkeregistrert}<br/>
-            Nærmeste holdeplass: {this.state.holdeplassHjemFolkeregistrert}<br/>
+            Nærmeste holdeplass: {this.state.holdeplassHjemFolkeregistrert.Name}<br/>
             Skole: {this.state.utregnetAvstandSkoleFolkeregistrert}<br/>
-            Nærmeste holdeplass: {this.state.holdeplassSkole}<br/>
+            Nærmeste holdeplass: {this.state.holdeplassSkole.Name}<br/>
             Overgang: Holdeplass for overgang<br/>
-            Beregnet gangavstand til skole: {this.state.utregnetAvstandFolkeregistrert.km}<br/>
+            Beregnet gangavstand til skole: {this.state.utregnetAvstandFolkeregistrert.kilometer}<br/>
             Rute for beregning: <a href={getEmbedUrl(this.state.utregnetAvstandKartFolkeregistrert)} target="_blank">Vis beregnet rute på kart</a><br/>
             <h3>Alternativ adresse</h3>
             Adresse: Adresse<br/>
