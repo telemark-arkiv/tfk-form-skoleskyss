@@ -106,7 +106,8 @@ var config = {
   ],
   SERVER_PORT: 3000,
   API_POST_HOST: 'api.t-fk.no',
-  API_POST_PATH: '/forms'
+  API_POST_PATH: '/forms',
+  TRAVEL_API: 'https://api.t-fk.no/stages/travel'
 };
 
 module.exports = config;

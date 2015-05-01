@@ -1,27 +1,19 @@
 'use strict';
 
-var http = require('http');
+var https = require('https');
 var querystring = require('querystring');
+var config = require('../config');
+
 
 function getReiseRute(options, callback){
 
-  var apiEndpoint = 'http://reisapi.ruter.no/Travel/GetTravels';
+  var apiEndpoint = config.TRAVEL_API;
   var body = '';
   var url = apiEndpoint + '?';
-  var now = new Date().toISOString();
-  var day = now.substr(8,10);
-  var month = now.substr(5,7);
-  var year = now.substr(0,4);
-
-  console.log(now);
-  options.proposals = '1';
-  options.isafter = day + month + year;
-
-  console.log(options.isafter);
 
   url = url + querystring.stringify(options);
 
-  http.get(url, function(res) {
+  https.get(url, function(res) {
 
     res.on('data', function(chunk) {
       body += chunk.toString();

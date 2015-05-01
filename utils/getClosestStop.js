@@ -50,7 +50,7 @@ function getClosestStage(options, callback){
   var apiEndpoint = 'https://api.t-fk.no/stages/closest';
 
   var body = '';
-  var url = apiEndpoint + '?x=' + options.x + '&y=' + options.y;
+  var url = apiEndpoint + '?x=' + options.x + '&y=' + options.y + '&maxdistance=6000';
 
   https.get(url, function(res) {
 
