@@ -9,9 +9,15 @@ function getReiseRute(options, callback){
   var body = '';
   var url = apiEndpoint + '?';
   var now = new Date().toISOString();
+  var day = now.substr(8,10);
+  var month = now.substr(5,7);
+  var year = now.substr(0,4);
 
+  console.log(now);
   options.proposals = '1';
-  options.isafter = now.substr(8,10) + now.substr(5,7) + now.substr(0,4);
+  options.isafter = day + month + year;
+
+  console.log(options.isafter);
 
   url = url + querystring.stringify(options);
 

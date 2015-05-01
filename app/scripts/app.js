@@ -104,6 +104,22 @@ function showEksternSkoleAdresse(state){
   return className;
 }
 
+function showIfEqual(state, value){
+  var className = 'hidden';
+  if (state === value) {
+    className = '';
+  }
+  return className;
+}
+
+function showIfNotEqual(state, value){
+  var className = 'hidden';
+  if (state !== value) {
+    className = '';
+  }
+  return className;
+}
+
 var App = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
   getInitialState: function() {
@@ -167,8 +183,8 @@ var App = React.createClass({
         jobCounter ++;
         if (jobCounter === jobs) {
           var options = {
-            fromplace = self.state.holdeplassHjemFolkeregistrert.ID,
-            toplace = self.state.holdeplassSkole.ID
+            fromplace: self.state.holdeplassHjemFolkeregistrert.ID,
+            toplace: self.state.holdeplassSkole.ID
           };
 
           getReiseInfo(options, function(err, data){
@@ -225,8 +241,8 @@ var App = React.createClass({
 
         function sjekkReiseRuteAlternativt(){
           var options = {
-              fromplace = self.state.holdeplassHjemAlternativt.ID,
-              toplace = self.state.holdeplassSkole.ID
+              fromplace: self.state.holdeplassHjemAlternativt.ID,
+              toplace: self.state.holdeplassSkole.ID
               };
 
             getReiseInfo(options, function(err, data){
@@ -495,7 +511,9 @@ var App = React.createClass({
             Nærmeste holdeplass: {this.state.holdeplassHjemFolkeregistrert.Name}<br/>
             Skole: {this.state.utregnetAvstandSkoleFolkeregistrert}<br/>
             Nærmeste holdeplass: {this.state.holdeplassSkole.Name}<br/>
-            Overgang: Holdeplass for overgang<br/>
+            <div className={showIfNotEqual(this.state.overgangFolkeregistrert, '')}>
+              Overgang: {this.state.overgangFolkeregistrert}<br/>
+            </div>
             Beregnet gangavstand til skole: {this.state.utregnetAvstandFolkeregistrert.kilometer}<br/>
             Rute for beregning: <a href={getEmbedUrl(this.state.utregnetAvstandKartFolkeregistrert)} target="_blank">Vis beregnet rute på kart</a><br/>
 
@@ -505,7 +523,9 @@ var App = React.createClass({
               Nærmeste holdeplass: {this.state.holdeplassHjemAlternativt.Name}<br/>
               Skole: {this.state.utregnetAvstandSkoleAlternativt}<br/>
               Nærmeste holdeplass: {this.state.holdeplassSkole.Name}<br/>
-              Overgang: Holdeplass for overgang<br/>
+              <div className={showIfNotEqual(this.state.overgangAlternativt, '')}>
+                Overgang: {this.state.overgangAlternativt}<br/>
+              </div>
               Beregnet gangavstand til skole: {this.state.utregnetAvstandAlternativt.kilometer}<br/>
               Rute for beregning: <a href={getEmbedUrl(this.state.utregnetAvstandKartAlternativt)} target="_blank">Vis beregnet rute på kart</a><br/>
             </div>
