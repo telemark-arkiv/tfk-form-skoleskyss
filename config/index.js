@@ -35,13 +35,19 @@ var config = {
     utregnetAvstandSkoleFolkeregistrert: '',
     utregnetAvstandKartFolkeregistrert: '',
     holdeplassHjemFolkeregistrert: '',
+    overgangFolkeregistrert: '',
     utregnetAvstandAlternativt: '',
     utregnetAvstandAdresseAlternativt: '',
     utregnetAvstandSkoleAlternativt: '',
     utregnetAvstandKartAlternativt: '',
     holdeplassHjemAlternativt: '',
-    holdeplassSkole:''
-
+    overgangAlternativt: '',
+    holdeplassSkole:'',
+    utmFolkeregistrert:'',
+    utmAlternativt:'',
+    utmSkole:'',
+    fullReiseFolkeregistrert:'',
+    fullReiseAlternativt:''
   },
   kommuneListe : [
     {value:'', text:'Velg kommune', id:'007'},

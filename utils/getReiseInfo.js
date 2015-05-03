@@ -30,14 +30,42 @@ function getReiseRute(options, callback){
 
 }
 
-function sjekkOvergang(data){
+function sjekkOvergang(stages){
   var overgang = '';
 
-  if (data.Stages.length > 1) {
-    overgang = data.Stages[0].ArrivalStop.Name;
+  if (stages.length > 1) {
+    overgang = stages[0].ArrivalStop.Name;
   }
 
   return overgang;
+}
+
+function sjekkHoldeplassHjem(stages){
+  var holdeplass = '';
+
+  holdeplass = stages[0].DepartureStop.Name;
+
+  return holdeplass;
+}
+
+function sjekkHoldeplassSkole(stages){
+  var holdeplass = '';
+
+  holdeplass = stages[stages.length - 1].ArrivalStop.Name;
+
+  return holdeplass;
+}
+
+function cleanUpStages(data) {
+  var stages = [];
+
+  for(var num in data.Stages){
+    if (data.Stages[num].ArrivalStop) {
+      stages.push(data.Stages[num]);
+    }
+  }
+
+  return stages;
 }
 
 function getReiseInfo(options, callback){
@@ -45,9 +73,14 @@ function getReiseInfo(options, callback){
     if (err) {
       return callback(err, null);
     } else {
-      var overgang = sjekkOvergang(data.TravelProposals[0]);
+      var stages = cleanUpStages(data.TravelProposals[0]);
+      var overgang = sjekkOvergang(stages);
+      var holdeplassHjem = sjekkHoldeplassHjem(stages);
+      var holdeplassSkole = sjekkHoldeplassSkole(stages);
       var output = {
         overgang: overgang,
+        holdeplassHjem: holdeplassHjem,
+        holdeplassSkole: holdeplassSkole,
         fullReise: data.TravelProposals[0]
       };
 

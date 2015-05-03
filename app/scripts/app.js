@@ -6,6 +6,7 @@ var StandardSelect = require('../../elements/standardselect');
 var getDistance = require('../../utils/getdistance');
 var getClosestStop = require('../../utils/getClosestStop');
 var getReiseInfo = require('../../utils/getReiseInfo');
+var getUtmForAddress = require('../../utils/getutmforaddress');
 var doSubmitForm = require('../../utils/submitform');
 var config = require('../../config');
 var pkg = require('../../package.json');
@@ -182,9 +183,15 @@ var App = React.createClass({
       function sjekkReiseRuteFolkeregistrert(){
         jobCounter ++;
         if (jobCounter === jobs) {
+          var xHome = parseInt(self.state.utmFolkeregistrert.geometry.coordinates[0], 10);
+          var yHome = parseInt(self.state.utmFolkeregistrert.geometry.coordinates[1], 10);
+          var xSchool = parseInt(self.state.utmSkole.geometry.coordinates[0], 10);
+          var ySchool = parseInt(self.state.utmSkole.geometry.coordinates[1], 10);
           var options = {
-            fromplace: self.state.holdeplassHjemFolkeregistrert.ID,
-            toplace: self.state.holdeplassSkole.ID
+            fromplace: '(x=' + xHome + ',y=' + yHome + ')',
+            toplace: '(x=' + xSchool + ',y=' + ySchool + ')',
+            isafter: true,
+            time: '08062015050000'
           };
 
           getReiseInfo(options, function(err, data){
@@ -192,7 +199,9 @@ var App = React.createClass({
               console.error(err);
             } else {
               self.setState({
+                holdeplassHjemFolkeregistrert: data.holdeplassHjem,
                 overgangFolkeregistrert: data.overgang,
+                holdeplassSkole: data.holdeplassSkole,
                 fullReiseFolkeregistrert: data.fullReise
               })
             }
@@ -211,25 +220,25 @@ var App = React.createClass({
             utregnetAvstandKartFolkeregistrert: data.directionsEmbedUrl
           });
 
-          getClosestStop(data.origin, function(error, holdeplass){
+          getUtmForAddress(data.origin, function(error, data){
             if (error) {
               console.error(error);
             } else {
               self.setState({
-                holdeplassHjemFolkeregistrert: holdeplass[0]
+                utmFolkeregistrert: data
               });
-              sjekkReiseRuteFolkeregistrert();
+              sjekkReiseRuteFolkeregistrert()
             }
           });
 
-          getClosestStop(data.destination, function(error, holdeplass){
+          getUtmForAddress(data.destination, function(error, data){
             if (error) {
               console.error(error);
             } else {
               self.setState({
-                holdeplassSkole: holdeplass[0]
+                utmSkole: data
               });
-              sjekkReiseRuteFolkeregistrert();
+              sjekkReiseRuteFolkeregistrert()
             }
           });
 
@@ -240,16 +249,23 @@ var App = React.createClass({
       if (alternativtHjemsted ) {
 
         function sjekkReiseRuteAlternativt(){
+          var xHome = parseInt(self.state.utmAlternativt.geometry.coordinates[0], 10);
+          var yHome = parseInt(self.state.utmAlternativt.geometry.coordinates[1], 10);
+          var xSchool = parseInt(self.state.utmSkole.geometry.coordinates[0], 10);
+          var ySchool = parseInt(self.state.utmSkole.geometry.coordinates[1], 10);
           var options = {
-              fromplace: self.state.holdeplassHjemAlternativt.ID,
-              toplace: self.state.holdeplassSkole.ID
-              };
+            fromplace: '(x=' + xHome + ',y=' + yHome + ')',
+            toplace: '(x=' + xSchool + ',y=' + ySchool + ')',
+            isafter: true,
+            time: '08062015050000'
+          };
 
             getReiseInfo(options, function(err, data){
               if (err) {
                 console.error(err);
               } else {
                 self.setState({
+                  holdeplassHjemAlternativt: data.holdeplassHjem,
                   overgangAlternativt: data.overgang,
                   fullReiseAlternativt: data.fullReise
                 })
@@ -268,13 +284,14 @@ var App = React.createClass({
               utregnetAvstandKartAlternativt: data.directionsEmbedUrl
             });
 
-            getClosestStop(data.origin, function(error, holdeplass){
+            getUtmForAddress(data.origin, function(error, data){
               if (error) {
                 console.error(error);
               } else {
                 self.setState({
-                  holdeplassHjemAlternativt: holdeplass[0]
+                  utmAlternativt: data
                 });
+                sjekkReiseRuteAlternativt()
               }
             });
 
@@ -508,9 +525,9 @@ var App = React.createClass({
             Her er en oversikt over disse.
             <h3>Folkeregistrert adresse</h3>
             Adresse: {this.state.utregnetAvstandAdresseFolkeregistrert}<br/>
-            Nærmeste holdeplass: {this.state.holdeplassHjemFolkeregistrert.Name}<br/>
+            Holdeplass hjem: {this.state.holdeplassHjemFolkeregistrert}<br/>
             Skole: {this.state.utregnetAvstandSkoleFolkeregistrert}<br/>
-            Nærmeste holdeplass: {this.state.holdeplassSkole.Name}<br/>
+            Holdeplass skole: {this.state.holdeplassSkole}<br/>
             <div className={showIfNotEqual(this.state.overgangFolkeregistrert, '')}>
               Overgang: {this.state.overgangFolkeregistrert}<br/>
             </div>
@@ -520,9 +537,9 @@ var App = React.createClass({
             <div className={showAlternativAdresse(this.state.alternativ_adresse)}>
               <h3>Alternativ adresse</h3>
               Adresse: {this.state.utregnetAvstandAdresseAlternativt}<br/>
-              Nærmeste holdeplass: {this.state.holdeplassHjemAlternativt.Name}<br/>
+              Holdeplass hjem: {this.state.holdeplassHjemAlternativt}<br/>
               Skole: {this.state.utregnetAvstandSkoleAlternativt}<br/>
-              Nærmeste holdeplass: {this.state.holdeplassSkole.Name}<br/>
+              Holdeplass skole: {this.state.holdeplassSkole}<br/>
               <div className={showIfNotEqual(this.state.overgangAlternativt, '')}>
                 Overgang: {this.state.overgangAlternativt}<br/>
               </div>
