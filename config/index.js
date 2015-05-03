@@ -81,7 +81,7 @@ var config = {
       text:'Hjalmar Johansen videregående skole, avdeling Klosterskogen', id:'3730'},
     {value:'Kragerø videregående skole, Frydensborgveien 9-11, 3770 Kragerø',
       text:'Kragerø videregående skole', id:'3770'},
-    {value:'Kvitsund gymnas, Jakob Naadlandsveg 2, 3850 Kviteseid',
+    {value:'Kvitsund gymnas, Jakob Naadlands veg 2, 3850 Kviteseid',
       text:'Kvitsund gymnas', id:'3850'},
     {value:'Nome videregående skole, Olav Strannas vei 25, 3825 Lunde',
       text:'Nome videregående skole, avdeling Lunde', id:'3825'},
