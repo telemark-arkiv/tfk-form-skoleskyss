@@ -345,9 +345,9 @@ var App = React.createClass({
             <legend>Bosted</legend>
             <label htmlFor="bosted">Folkeregistrert adresse</label>
             <select name="bosted" id="bosted" valueLink={this.linkState('folkeregistrert_adresse_bosted')}>
-              <option value="">Velg adresseform</option>
+              <option value="">Min adresse har</option>
               <option value="Gateadresse">Gateadresse</option>
-              <option value="GnrBnr">Gårds og bruksnummer</option>
+              <option value="GnrBnr">Ikke gateadresse. Jeg må bruke gårds og bruksnummer</option>
             </select>
           </fieldset>
           <fieldset className={showGateadresse(this.state.folkeregistrert_adresse_bosted)}>
@@ -368,7 +368,7 @@ var App = React.createClass({
           <fieldset>
             <label htmlFor="alternativ_adresse">Annen adresse</label>
             <select name="alternativ_adresse" id="alternativ_adresse" valueLink={this.linkState('alternativ_adresse')}>
-              <option value="">Jeg har ingen alternativ adresse</option>
+              <option value="">Jeg bor også et annet sted</option>
               <option value="Hybel">Jeg bor på hybel</option>
               <option value="Delt omsorg">Mine foresatte har delt omsorg</option>
               <option value="Feil folkeregistrert adresse">Folkeregistrert adresse er feil</option>
@@ -377,9 +377,9 @@ var App = React.createClass({
           <fieldset className={showAlternativAdresse(this.state.alternativ_adresse)}>
             <label htmlFor="alternativ_adresse_bosted">Alternativ adresse: {this.state.alternativ_adresse}</label>
             <select name="alternativ_adresse_bosted" valueLink={this.linkState('alternativ_adresse_bosted')}>
-              <option value="">Velg adresseform</option>
+              <option value="">Min adresse har</option>
               <option value="Gateadresse">Gateadresse</option>
-              <option value="GnrBnr">Gårds og bruksnummer</option>
+              <option value="GnrBnr">Ikke gateadrese. Jeg må bruke gårds og bruksnummer</option>
             </select>
           </fieldset>
           <fieldset className={showGateadresse(this.state.alternativ_adresse_bosted)}>
@@ -426,7 +426,7 @@ var App = React.createClass({
           <fieldset>
             <legend>Grunnlag for søknad</legend>
             <select name="sokegrunnlag" valueLink={this.linkState('sokegrunnlag')}>
-              <option value="">Velg søkegrunnlag</option>
+              <option value="">Jeg søker skoleskyss på grunn av</option>
               <option value="7.2">Avstand til skole</option>
               <option value="7.3">Annen årsak</option>
             </select>
@@ -434,10 +434,10 @@ var App = React.createClass({
           <fieldset className={showBusskortvalg(this.state.transporter)}>
             <legend>Busskort</legend>
             <select name="busskortstatus" valueLink={this.linkState('busskortstatus')}>
-              <option value="">Velg busskortstatus</option>
-              <option value="Trenger nytt">Jeg har ikke hatt skyss tidligere og trenger busskort</option>
-              <option value="Mistet busskort">Jeg har hatt skyss tidligere, men har mistet busskortet</option>
-              <option value="Har busskort">Jeg har hatt skyss tidligere</option>
+              <option value="">Velg busskort</option>
+              <option value="Trenger nytt">Jeg har ikke hatt busskort tidligere</option>
+              <option value="Mistet busskort">Jeg har har mistet busskortet</option>
+              <option value="Har busskort">Jeg har busskort</option>
             </select>
           </fieldset>
           <fieldset className={showBusskortNummer(this.state.busskortstatus)}>

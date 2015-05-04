@@ -71,7 +71,7 @@ var config = {
     {value:'0834', text:'Vinje', id:'0834'}
   ],
   skoleListe: [
-    {value:'', text:'Velg skole', id:'007'},
+    {value:'', text:'Jeg skal gå på', id:'007'},
     {value:'Bamble videregående skole, Tønderveien 6, 3960 Stathelle', text:'Bamble videregående skole, avdeling Grasmyr', id:'39601'},
     {value:'Bamble videregående skole, Tostrupsvei 7, 3960 Stathelle', text:'Bamble videregående skole, avdeling Croftholmen', id:'39602'},
     {value:'Bø videregåande skule, Gymnasbakken 23, 3802 Bø', text:'Bø videregåande skule', id:'3802'},
