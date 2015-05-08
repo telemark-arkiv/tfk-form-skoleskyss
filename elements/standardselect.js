@@ -7,7 +7,7 @@ var StandardSelect = React.createClass({
     return (
       <div>
         <label htmlFor={this.props.labelId}>{this.props.labelName}</label>
-        <select name={this.props.labelId} id={this.props.labelId} valueLink={this.props.valueLink}>
+        <select name={this.props.labelId} id={this.props.labelId} valueLink={this.props.valueLink} required={this.props.required}>
           {this.props.values.map(function(item){
             return <option value={item.value} key={item.id} >{item.text}</option>;
           })}
