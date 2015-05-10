@@ -9,20 +9,23 @@ var config = {
     formVersion:'',
     personnummer: '',
     navn: '',
-    folkeregistrert_adresse_bosted: '',
-    folkeregistrert_adresse_adresse:'',
-    folkeregistrert_adresse_gnr: '',
-    folkeregistrert_adresse_bnr: '',
-    folkeregistrert_adresse_kommunenr:'',
-    alternativ_adresse: '',
-    alternativ_adresse_bosted: '',
-    alternativ_adresse_adresse:'',
-    alternativ_adresse_gnr: '',
-    alternativ_adresse_bnr: '',
-    alternativ_adresse_kommunenr:'',
+    folkeregistrertAdresseBosted: '',
+    folkeregistrertAdresseAdresse:'',
+    folkeregistrertAdresseGnr: '',
+    folkeregistrertAdresseBnr: '',
+    folkeregistrertAdresseKommunenr:'',
+    alternativAdresse: '',
+    alternativAdresseBosted: '',
+    alternativAdresseAdresse:'',
+    alternativAdresseGnr: '',
+    alternativAdresseBnr: '',
+    alternativAdresseKommunenr:'',
     telefon: '',
     epost: '',
     skole: '',
+    skoleId: '',
+    skoleNavn: '',
+    skoleAdresse: '',
     klassetrinn: '',
     studieretning: '',
     sokegrunnlag: '',
@@ -54,44 +57,104 @@ var config = {
   ],
   skoleListe: [
     {value:'', text:'Jeg skal gå på', id:'007'},
-    {value:'Bamble videregående skole, Tønderveien 6, 3960 Stathelle', text:'Bamble videregående skole, avdeling Grasmyr', id:'39601'},
-    {value:'Bamble videregående skole, Tostrupsvei 7, 3960 Stathelle', text:'Bamble videregående skole, avdeling Croftholmen', id:'39602'},
-    {value:'Bø videregåande skule, Gymnasbakken 23, 3802 Bø', text:'Bø videregåande skule', id:'3802'},
-    {value:'Hjalmar Johansen videregående skole, Moflatvegen 38, 3733 Skien',
-      text:'Hjalmar Johansen videregående skole, avdeling Fritidsparken', id:'3733'},
-    {value:'Hjalmar Johansen videregående skole, Olai Skulleruds veg 20, 3730 Skien',
-      text:'Hjalmar Johansen videregående skole, avdeling Klosterskogen', id:'3730'},
-    {value:'Kragerø videregående skole, Frydensborgveien 9-11, 3770 Kragerø',
-      text:'Kragerø videregående skole', id:'3770'},
-    {value:'Jakob Naadlandsveg 2, 3850 Kviteseid',
-      text:'Kvitsund gymnas', id:'3850'},
-    {value:'Nome videregående skole, Olav Strannas vei 25, 3825 Lunde',
-      text:'Nome videregående skole, avdeling Lunde', id:'3825'},
-    {value:'Nome videregående skole, Søveveien 8, 3830 Ulefoss',
-      text:'Nome videregående skole, avdeling Søve', id:'3830'},
-    {value:'Notodden videregående skole, Heddalsveien 4, 3674 Notodden',
-      text:'Notodden videregående skole', id:'3674'},
-    {value:'Porsgrunn videregående skole, Kjølnes Ring 58, 3918 Porsgrunn',
-      text:'Porsgrunn videregående skole, avdeling Nord', id:'39181'},
-    {value:'Porsgrunn videregående skole, Kjølnes Ring 20, 3918 Porsgrunn',
-      text:'Porsgrunn videregående skole, avdeling Sør', id:'39182'},
-    {value:'Rjukan videregående skole, Såheimveien 22, 3660 Rjukan',
-      text:'Rjukan videregående skole', id:'3660'},
-    {value:'Skien videregående skole, Rektor Ørns gate 2, 3717 Skien',
-      text:'Skien videregående skole, avdeling Brekkeby', id:'3717'},
-    {value:'Skien videregående skole, Einar Østvedts gate 12, 3724 Skien',
-      text:'Skien videregående skole, avdeling Prestegjordet', id:'3724'},
-    {value:'Skogmo videregående skole, Kjørbekkdalen 11, 3735 Skien',
-      text:'Skogmo videregående skole', id:'3735'},
-    {value:'Toppidrettsgymnaset i Telemark, Fritjof Nansens gate 19C, 3722 Skien',
-      text:'Toppidrettsgymnaset i Telemark', id:'3722'},
-    {value:'Vest-Telemark vidaregåande skule, Storvegen 195, 3880 Dalen',
-      text:'Vest-Telemark vidaregåande skule, avdeling Dalen', id:'3880'},
-    {value:'Vest-Telemark vidaregåande skule, Brøløsvegen 2, 3840 Seljord',
-      text:'Vest-Telemark vidaregåande skule, avdeling Seljord', id:'3840'},
-    {value:'Skole utenfor Telemark',
-      text:'Skole utenfor Telemark', id:'0666'}
+    {value:'39601', text:'Bamble videregående skole, avdeling Grasmyr', id:'39601'},
+    {value:'39602', text:'Bamble videregående skole, avdeling Croftholmen', id:'39602'},
+    {value:'3802', text:'Bø videregåande skule', id:'3802'},
+    {value:'3733', text:'Hjalmar Johansen videregående skole, avdeling Fritidsparken', id:'3733'},
+    {value:'3730', text:'Hjalmar Johansen videregående skole, avdeling Klosterskogen', id:'3730'},
+    {value:'3770', text:'Kragerø videregående skole', id:'3770'},
+    {value:'3850', text:'Kvitsund gymnas', id:'3850'},
+    {value:'3825', text:'Nome videregående skole, avdeling Lunde', id:'3825'},
+    {value:'3830', text:'Nome videregående skole, avdeling Søve', id:'3830'},
+    {value:'3674', text:'Notodden videregående skole', id:'3674'},
+    {value:'39181', text:'Porsgrunn videregående skole, avdeling Nord', id:'39181'},
+    {value:'39182', text:'Porsgrunn videregående skole, avdeling Sør', id:'39182'},
+    {value:'3660', text:'Rjukan videregående skole', id:'3660'},
+    {value:'3717', text:'Skien videregående skole, avdeling Brekkeby', id:'3717'},
+    {value:'3724', text:'Skien videregående skole, avdeling Prestegjordet', id:'3724'},
+    {value:'3735', text:'Skogmo videregående skole', id:'3735'},
+    {value:'3722', text:'Toppidrettsgymnaset i Telemark', id:'3722'},
+    {value:'3880', text:'Vest-Telemark vidaregåande skule, avdeling Dalen', id:'3880'},
+    {value:'3840', text:'Vest-Telemark vidaregåande skule, avdeling Seljord', id:'3840'},
+    {value:'Skole utenfor Telemark', text:'Skole utenfor Telemark', id:'0666'}
   ],
+  skoleIndex: {
+    '39601': {
+      name:'Bamble videregående skole, avdeling Grasmyr',
+      address: 'Tønderveien 6, 3960 Stathelle'
+    },
+    '39602': {
+      name:'Bamble videregående skole, avdeling Croftholmen',
+      address: 'Tostrupsvei 7, 3960 Stathelle'
+    },
+    '3802': {
+      name:'Bø videregåande skule',
+      address: 'Gymnasbakken 23, 3802 Bø'
+    },
+    '3733': {
+      name:'Hjalmar Johansen videregående skole, avdeling Fritidsparken',
+      address: 'Moflatvegen 38, 3733 Skien'
+    },
+    '3730': {
+      name:'Hjalmar Johansen videregående skole, avdeling Klosterskogen',
+      address: 'Olai Skulleruds veg 20, 3730 Skien'
+    },
+    '3770': {
+      name:'Kragerø videregående skole',
+      address: 'Frydensborgveien 9-11, 3770 Kragerø'
+    },
+    '3850': {
+      name:'Kvitsund gymnas',
+      address: 'Jakob Naadlandsveg 2, 3850 Kviteseid'
+    },
+    '3825': {
+      name:'Nome videregående skole, avdeling Lunde',
+      address: 'Olav Strannas vei 25, 3825 Lunde'
+    },
+    '3830': {
+      name: 'Nome videregående skole, avdeling Søve',
+      address: 'Søveveien 8, 3830 Ulefoss'
+    },
+    '3674': {
+      name:'Notodden videregående skole',
+      address: 'Heddalsveien 4, 3674 Notodden'
+    },
+    '39181': {
+      name:'Porsgrunn videregående skole, avdeling Nord',
+      address: 'Kjølnes Ring 58, 3918 Porsgrunn'
+    },
+    '39182': {
+      name:'Porsgrunn videregående skole, avdeling Sør',
+      address: 'Kjølnes Ring 20, 3918 Porsgrunn'
+    },
+    '3660': {
+      name: 'Rjukan videregående skole',
+      address: 'Såheimveien 22, 3660 Rjukan'
+    },
+    '3717': {
+      name: 'Skien videregående skole, avdeling Brekkeby',
+      address: 'Rektor Ørns gate 2, 3717 Skien'
+    },
+    '3724': {
+      name: 'Skien videregående skole, avdeling Prestegjordet',
+      address: 'Einar Østvedts gate 12, 3724 Skien'
+    },
+    '3735': {
+      name:'Skogmo videregående skole',
+      address: 'Kjørbekkdalen 11, 3735 Skien'
+    },
+    '3722': {
+      name:'Toppidrettsgymnaset i Telemark',
+      address: 'Fritjof Nansens gate 19C, 3722 Skien'
+    },
+    '3880': {
+      name:'Vest-Telemark vidaregåande skule, avdeling Dalen',
+      address: 'Storvegen 195, 3880 Dalen'
+    },
+    '3840': {
+      name:'Vest-Telemark vidaregåande skule, avdeling Seljord',
+      address: 'Brøløsvegen 2, 3840 Seljord'}
+},
   SERVER_PORT: 3000,
   API_POST_HOST: 'api.t-fk.no',
   API_POST_PATH: '/forms',

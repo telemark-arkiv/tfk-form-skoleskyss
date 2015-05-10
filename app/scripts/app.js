@@ -95,10 +95,10 @@ function showEksternSkoleAdresse(state){
 
 function showStudieretning(state){
   var className = 'hidden';
-  if (state === 'Porsgrunn videregående skole, Kjølnes Ring 20, 3918 Porsgrunn') {
+  if (state === '39182') {
     className = '';
   }
-  if (state === 'Skien videregående skole, Einar Østvedts gate 12, 3724 Skien') {
+  if (state === '3724') {
     className = '';
   }
   return className;
@@ -153,6 +153,29 @@ var App = React.createClass({
       page: this.state.page + 1
     })
   },
+  setupSchool: function(e){
+    e.preventDefault();
+    if(this.state.skole !== '' && this.state.skole !== 'Skole utenfor Telemark') {
+      var skole = config.skoleIndex[this.state.skole];
+      this.setState(
+        {
+          skoleId: this.state.skole,
+          skoleNavn: skole.name,
+          skoleAdresse: skole.address,
+          page: 2
+        }
+      )
+    } else {
+      this.setState(
+        {
+          skoleId: '',
+          skoleNavn: '',
+          skoleAdresse: '',
+          page: 2
+        }
+      )
+    }
+  },
   decreasePageNumber: function(e){
     e.preventDefault();
     this.setState({
@@ -198,58 +221,58 @@ var App = React.createClass({
           <fieldset>
             <legend>Bosted</legend>
             <label htmlFor="bosted">Folkeregistrert adresse</label>
-            <select name="bosted" id="bosted" required="required" valueLink={this.linkState('folkeregistrert_adresse_bosted')}>
+            <select name="bosted" id="bosted" required="required" valueLink={this.linkState('folkeregistrertAdresseBosted')}>
               <option value="">Min adresse har</option>
               <option value="Gateadresse">Gateadresse</option>
               <option value="GnrBnr">Ikke gateadresse. Jeg må bruke gårds og bruksnummer</option>
             </select>
           </fieldset>
-          <fieldset className={showGateadresse(this.state.folkeregistrert_adresse_bosted)}>
+          <fieldset className={showGateadresse(this.state.folkeregistrertAdresseBosted)}>
             <label htmlFor="adresse">Adresse</label>
-            <input type="text" name="adresse" placeholder="Gateadresse, postnummer og poststed" id="adresse" valueLink={this.linkState('folkeregistrert_adresse_adresse')} />
+            <input type="text" name="adresse" placeholder="Gateadresse, postnummer og poststed" id="adresse" valueLink={this.linkState('folkeregistrertAdresseAdresse')} />
           </fieldset>
-          <fieldset className={showGnrBnr(this.state.folkeregistrert_adresse_bosted)}>
+          <fieldset className={showGnrBnr(this.state.folkeregistrertAdresseBosted)}>
             <label htmlFor="gnr">Gårdsnummer</label>
-            <input type="number" name="gnr" placeholder="Gårdsnummer" id="gnr" valueLink={this.linkState('folkeregistrert_adresse_gnr')} />
+            <input type="number" name="gnr" placeholder="Gårdsnummer" id="gnr" valueLink={this.linkState('folkeregistrertAdresseGnr')} />
             <label htmlFor="bnr">Bruksnummer</label>
-            <input type="number" name="bnr" placeholder="Bruksnummer" id="bnr" valueLink={this.linkState('folkeregistrert_adresse_bnr')} />
+            <input type="number" name="bnr" placeholder="Bruksnummer" id="bnr" valueLink={this.linkState('folkeregistrertAdresseBnr')} />
             <StandardSelect
-              labelId="folkeregistrert_adresse_kommunenr"
+              labelId="folkeregistrertAdresseKommunenr"
               labelName="Bostedskommune"
               values={config.kommuneListe}
-              valueLink={this.linkState('folkeregistrert_adresse_kommunenr')} />
+              valueLink={this.linkState('folkeregistrertAdresseKommunenr')} />
           </fieldset>
           <fieldset>
             <label htmlFor="alternativ_adresse">Annen adresse</label>
-            <select name="alternativ_adresse" id="alternativ_adresse" valueLink={this.linkState('alternativ_adresse')}>
+            <select name="alternativAdresse" id="alternativAdresse" valueLink={this.linkState('alternativAdresse')}>
               <option value="">Jeg bor også et annet sted</option>
               <option value="Hybel">Jeg bor på hybel</option>
               <option value="Delt omsorg">Mine foresatte har delt omsorg</option>
               <option value="Feil folkeregistrert adresse">Folkeregistrert adresse er feil</option>
             </select>
           </fieldset>
-          <fieldset className={showAlternativAdresse(this.state.alternativ_adresse)}>
-            <label htmlFor="alternativ_adresse_bosted">Alternativ adresse: {this.state.alternativ_adresse}</label>
-            <select name="alternativ_adresse_bosted" valueLink={this.linkState('alternativ_adresse_bosted')}>
+          <fieldset className={showAlternativAdresse(this.state.alternativAdresse)}>
+            <label htmlFor="alternativAdresseBosted">Alternativ adresse: {this.state.alternativAdresse}</label>
+            <select name="alternativAdresseBosted" valueLink={this.linkState('alternativAdresseBosted')}>
               <option value="">Min adresse har</option>
               <option value="Gateadresse">Gateadresse</option>
               <option value="GnrBnr">Ikke gateadrese. Jeg må bruke gårds og bruksnummer</option>
             </select>
           </fieldset>
-          <fieldset className={showGateadresse(this.state.alternativ_adresse_bosted)}>
-            <label htmlFor="alternativ_adresse_adresse">Adresse</label>
-            <input type="text" name="alternativ_adresse_adresse" placeholder="Gateadresse, postnummer og poststed" id="alternativ_adresse_adresse" valueLink={this.linkState('alternativ_adresse_adresse')} />
+          <fieldset className={showGateadresse(this.state.alternativAdresseBosted)}>
+            <label htmlFor="alternativAdresseAdresse">Adresse</label>
+            <input type="text" name="alternativAdresseAdresse" placeholder="Gateadresse, postnummer og poststed" id="alternativAdresseAdresse" valueLink={this.linkState('alternativAdresseAdresse')} />
           </fieldset>
-          <fieldset className={showGnrBnr(this.state.alternativ_adresse_bosted)}>
-            <label htmlFor="alternativ_gnr">Gårdsnummer</label>
-            <input type="number" name="alternativ_gnr" placeholder="Gårdsnummer" id="alternativ_gnr" valueLink={this.linkState('alternativ_adresse_gnr')} />
-            <label htmlFor="alternativ_bnr">Bruksnummer</label>
-            <input type="number" name="alternativ_bnr" placeholder="Bruksnummer" id="alternativ_bnr" valueLink={this.linkState('alternativ_adresse_bnr')} />
+          <fieldset className={showGnrBnr(this.state.alternativAdresseBosted)}>
+            <label htmlFor="alternativGnr">Gårdsnummer</label>
+            <input type="number" name="alternativGnr" placeholder="Gårdsnummer" id="alternativGnr" valueLink={this.linkState('alternativAdresseGnr')} />
+            <label htmlFor="alternativBnr">Bruksnummer</label>
+            <input type="number" name="alternativBnr" placeholder="Bruksnummer" id="alternativBnr" valueLink={this.linkState('alternativAdresseBnr')} />
             <StandardSelect
-              labelId="alternativ_adresse_kommunenr"
+              labelId="alternativAdresseKommunenr"
               labelName="Bostedskommune"
               values={config.kommuneListe}
-              valueLink={this.linkState('alternativ_adresse_kommunenr')} />
+              valueLink={this.linkState('alternativAdresseKommunenr')} />
           </fieldset>
           <fieldset>
             <legend>Skoleinformasjon</legend>
@@ -312,15 +335,15 @@ var App = React.createClass({
             </div>
           <div className={showPageNumber(this.state.page, 2)}>
             <h2>Tilleggsopplysninger</h2>
-            <div className={showInnsendingAvDokumentasjon(this.state.alternativ_adresse, this.state.sokegrunnlag)}>
+            <div className={showInnsendingAvDokumentasjon(this.state.alternativAdresse, this.state.sokegrunnlag)}>
               Ut i fra opplysningene du har gitt oss har vi behov for enkelte tilleggsopplysninger.<br/>
             </div>
-            <div className={doNotshowInnsendingAvDokumentasjon(this.state.alternativ_adresse, this.state.sokegrunnlag)}>
+            <div className={doNotshowInnsendingAvDokumentasjon(this.state.alternativAdresse, this.state.sokegrunnlag)}>
               Ut i fra opplysningene du har gitt oss har vi ikke behov for tilleggsopplysninger.<br/>
               Trykk "Neste" og se over opplysningene før du sender inn skjemaet.
             </div>
 
-            <div className={showAlternativAdresse(this.state.alternativ_adresse)}>
+            <div className={showAlternativAdresse(this.state.alternativAdresse)}>
               <h3>Bosted</h3>
               Du har oppgitt annen adresse enn den som er registrert hos folkeregisteret.<br />
               Gyldig dokumentasjon på dette må sendes til oss via post.<br />
@@ -333,7 +356,7 @@ var App = React.createClass({
               funksjonshemming, midlertidig skade eller sykdom etter Opplæringsloven § 7-3.<br />
               Gyldig dokumentasjon er legeerklæring.<br />
             </div>
-            <div className={showInnsendingAvDokumentasjon(this.state.alternativ_adresse, this.state.sokegrunnlag)}>
+            <div className={showInnsendingAvDokumentasjon(this.state.alternativAdresse, this.state.sokegrunnlag)}>
               <h3>Innsending av dokumentasjon</h3>
               Din dokumentasjon må snarest sendes pr post til oss.<br />
               Telemark fylkeskommune<br/>
@@ -353,31 +376,36 @@ var App = React.createClass({
             E-post: {this.state.epost}<br/>
             Telefon: {this.state.telefon}
             <h3>Bosted</h3>
-            <div className={showGateadresse(this.state.folkeregistrert_adresse_bosted)}>
+            <div className={showGateadresse(this.state.folkeregistrertAdresseBosted)}>
               Folkeregistrert adresse:<br/>
-              {this.state.folkeregistrert_adresse_adresse}
+              {this.state.folkeregistrertAdresseAdresse}
             </div>
-            <div className={showGnrBnr(this.state.folkeregistrert_adresse_bosted)}>
+            <div className={showGnrBnr(this.state.folkeregistrertAdresseBosted)}>
               Folkeregistrert adresse:<br/>
-              Gårdsnummer: {this.state.folkeregistrert_adresse_gnr}, bruksnummer: {this.state.folkeregistrert_adresse_bnr},
-              kommunenummer: {this.state.folkeregistrert_adresse_kommunenr}
+              Gårdsnummer: {this.state.folkeregistrertAdresseGnr}, bruksnummer: {this.state.folkeregistrertAdresseBnr},
+              kommunenummer: {this.state.folkeregistrertAdresseKommunenr}
             </div>
-            <div className={showAlternativAdresse(this.state.alternativ_adresse)}>
-              <div className={showGateadresse(this.state.alternativ_adresse_bosted)}>
+            <div className={showAlternativAdresse(this.state.alternativAdresse)}>
+              <div className={showGateadresse(this.state.alternativAdresseBosted)}>
                 Alternativ adresse:<br/>
-                {this.state.alternativ_adresse_adresse}<br/>
+                {this.state.alternativAdresseAdresse}<br/>
               </div>
-              <div className={showGnrBnr(this.state.alternativ_adresse_bosted)}>
+              <div className={showGnrBnr(this.state.alternativAdresseBosted)}>
                 Alternativ adresse:<br/>
-                Gårdsnummer: {this.state.alternativ_adresse_gnr}, bruksnummer: {this.state.alternativ_adresse_bnr},
-                kommunenummer: {this.state.alternativ_adresse_kommunenr}
+                Gårdsnummer: {this.state.alternativAdresseGnr}, bruksnummer: {this.state.alternativAdresseBnr},
+                kommunenummer: {this.state.alternativAdresseKommunenr}
               </div>
               <div>
-                Alternativ adresse årsak: {this.state.alternativ_adresse}
+                Alternativ adresse årsak: {this.state.alternativAdresse}
               </div>
             </div>
             <h3>Skole</h3>
-            Skole: {this.state.skole}<br/>
+            <div className={showIfNotEqual(this.state.skoleNavn, '')}>
+              Skole: {this.state.skoleNavn}<br/>
+            </div>
+            <div className={showIfNotEqual(this.state.eksternSkoleNavn, '')}>
+              Skole: {this.state.eksternSkoleNavn}<br/>
+            </div>
             <div className={showIfNotEqual(this.state.studieretning, '')}>
               Studieretning: {this.state.studieretning}<br/>
             </div>
@@ -413,7 +441,7 @@ var App = React.createClass({
             <button className="btn">Send inn&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-tick"></span></button>&nbsp;
           </span>
           <span className={showPageNumber(this.state.page, 1)}>
-            <button className="btn" onClick={this.increasePageNumber}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
+            <button className="btn" onClick={this.setupSchool}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
           </span>
           <span className={showPageNumber(this.state.page, 2)}>
             <button className="btn" onClick={this.increasePageNumber}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
