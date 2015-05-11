@@ -446,3 +446,7 @@ fieldset {
   clear: both;
   margin-top: 1em;
 }
+
+input[type="checkbox"], input[type="radio"] {
+  width: 1em;
+}
