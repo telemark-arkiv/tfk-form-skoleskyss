@@ -72,7 +72,7 @@ var config = {
     {value:'39182', text:'Porsgrunn videregående skole, avdeling Sør', id:'39182'},
     {value:'3660', text:'Rjukan videregående skole', id:'3660'},
     {value:'3717', text:'Skien videregående skole, avdeling Brekkeby', id:'3717'},
-    {value:'3724', text:'Skien videregående skole, avdeling Prestegjordet', id:'3724'},
+    {value:'3724', text:'Skien videregående skole, avdeling Prestejordet', id:'3724'},
     {value:'3735', text:'Skogmo videregående skole', id:'3735'},
     {value:'3722', text:'Toppidrettsgymnaset i Telemark', id:'3722'},
     {value:'3880', text:'Vest-Telemark vidaregåande skule, avdeling Dalen', id:'3880'},
@@ -137,7 +137,7 @@ var config = {
       address: 'Rektor Ørns gate 2, 3717 Skien'
     },
     '3724': {
-      name: 'Skien videregående skole, avdeling Prestegjordet',
+      name: 'Skien videregående skole, avdeling Prestejordet',
       address: 'Einar Østvedts gate 12, 3724 Skien'
     },
     '3735': {

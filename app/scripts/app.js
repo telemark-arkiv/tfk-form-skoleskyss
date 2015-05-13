@@ -247,7 +247,7 @@ var App = React.createClass({
             <select name="alternativAdresse" id="alternativAdresse" valueLink={this.linkState('alternativAdresse')}>
               <option value="">Jeg bor også et annet sted</option>
               <option value="Hybel">Jeg bor på hybel</option>
-              <option value="Delt omsorg">Mine foresatte har delt omsorg</option>
+              <option value="Delt bosted">Jeg har delt bosted</option>
               <option value="Feil folkeregistrert adresse">Folkeregistrert adresse er feil</option>
             </select>
           </fieldset>
