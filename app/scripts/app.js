@@ -208,10 +208,8 @@ var App = React.createClass({
             <legend>Personalia</legend>
             <label htmlFor="personnummer">Fødselsnummer (11 siffer)</label>
             <input type="number" name="personnummer" placeholder="Fødselsnummer, 11 siffer" id="personnummer" required="required" valueLink={this.linkState('personnummer')} />
-            <label htmlFor="fornavn">Fornavn</label>
-            <input type="text" name="fornavn" placeholder="Fornavn" id="fornavn" required="required" valueLink={this.linkState('fornavn')} />
-            <label htmlFor="etternavn">Etternavn</label>
-            <input type="text" name="etternavn" placeholder="Etternavn" id="etternavn" required="required" valueLink={this.linkState('etternavn')} />
+            <label htmlFor="navn">Fullt navn</label>
+            <input type="text" name="navn" placeholder="Fornavn, mellomnavn og etternavn" id="navn" required="required" valueLink={this.linkState('navn')} />
           </fieldset>
           <fieldset>
             <legend>Kontaktinformasjon</legend>
@@ -230,12 +228,8 @@ var App = React.createClass({
             </select>
           </fieldset>
           <fieldset className={showGateadresse(this.state.folkeregistrertAdresseBosted)}>
-            <label htmlFor="gateadresse">Gateadresse</label>
-            <input type="text" name="gateadresse" placeholder="Gateadresse" id="gateadresse" valueLink={this.linkState('folkeregistrertAdresseGateadresse')} />
-            <label htmlFor="postnummer">Postnummer</label>
-            <input type="text" name="postnummer" placeholder="Postnummer" id="postnummer" valueLink={this.linkState('folkeregistrertAdressePostnummer')} />
-            <label htmlFor="poststed">Poststed</label>
-            <input type="text" name="poststed" placeholder="Poststed" id="poststed" valueLink={this.linkState('folkeregistrertAdressePoststed')} />
+            <label htmlFor="adresse">Adresse</label>
+            <input type="text" name="adresse" placeholder="Gateadresse, postnummer poststed" id="adresse" valueLink={this.linkState('folkeregistrertAdresseAdresse')} />
           </fieldset>
           <fieldset className={showGnrBnr(this.state.folkeregistrertAdresseBosted)}>
             <label htmlFor="gnr">Gårdsnummer</label>
@@ -266,12 +260,8 @@ var App = React.createClass({
             </select>
           </fieldset>
           <fieldset className={showGateadresse(this.state.alternativAdresseBosted)}>
-            <label htmlFor="alternativAdresseGateadresse">Gateadresse</label>
-            <input type="text" name="alternativAdresseGateadresse" placeholder="Gateadresse" id="alternativAdresseGateadresse" valueLink={this.linkState('alternativAdresseGateadresse')} />
-            <label htmlFor="alternativAdressePostnummer">Postnummer</label>
-            <input type="text" name="alternativAdressePostnummer" placeholder="Postnummer" id="alternativAdressePostnummer" valueLink={this.linkState('alternativAdressePostnummer')} />
-            <label htmlFor="alternativAdressePoststed">Poststed</label>
-            <input type="text" name="alternativAdressePoststed" placeholder="Poststed" id="alternativAdressePoststed" valueLink={this.linkState('alternativAdressePoststed')} />
+            <label htmlFor="alternativAdresseAdresse">Adresse</label>
+            <input type="text" name="alternativAdresseAdresse" placeholder="Gateadresse, postnummer poststed" id="alternativAdresseAdresse" valueLink={this.linkState('alternativAdresseAdresse')} />
           </fieldset>
           <fieldset className={showGnrBnr(this.state.alternativAdresseBosted)}>
             <label htmlFor="alternativGnr">Gårdsnummer</label>
@@ -385,7 +375,7 @@ var App = React.createClass({
             <h2>Sammendrag</h2>
             Her er oversikt over opplysningene du sender oss.<br/>
             <h3>Personalia</h3>
-            Navn: {this.state.fornavn} {this.state.etternavn}<br/>
+            Navn: {this.state.navn}<br/>
             Fødselsnummer: {this.state.personnummer}
             <h3>Kontaktinformasjon</h3>
             E-post: {this.state.epost}<br/>
@@ -393,7 +383,7 @@ var App = React.createClass({
             <h3>Bosted</h3>
             <div className={showGateadresse(this.state.folkeregistrertAdresseBosted)}>
               Folkeregistrert adresse:<br/>
-              {this.state.folkeregistrertAdresseGateadresse}, {this.state.folkeregistrertAdressePostnummer} {this.state.folkeregistrertAdressePoststed}
+              {this.state.folkeregistrertAdresseAdresse}<br/>
             </div>
             <div className={showGnrBnr(this.state.folkeregistrertAdresseBosted)}>
               Folkeregistrert adresse:<br/>
@@ -403,7 +393,7 @@ var App = React.createClass({
             <div className={showAlternativAdresse(this.state.alternativAdresse)}>
               <div className={showGateadresse(this.state.alternativAdresseBosted)}>
                 Alternativ adresse:<br/>
-                {this.state.alternativAdresseGateadresse}, {this.state.alternativAdressePostnummer} {this.state.alternativAdressePoststed}<br/>
+                {this.state.alternativAdresseAdresse}<br/>
               </div>
               <div className={showGnrBnr(this.state.alternativAdresseBosted)}>
                 Alternativ adresse:<br/>
