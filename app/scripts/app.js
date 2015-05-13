@@ -4,6 +4,7 @@ var React = require('react/addons');
 var StatusBar = require('../../elements/statusbar');
 var StandardSelect = require('../../elements/standardselect');
 var doSubmitForm = require('../../utils/submitform');
+var showBoatOrFerry = require('../../utils/showBoatOrFerry');
 var config = require('../../config');
 var pkg = require('../../package.json');
 var versionNumber = config.formId + '-' + pkg.version;
@@ -315,7 +316,7 @@ var App = React.createClass({
             <select name="sokegrunnlag" required="required" valueLink={this.linkState('sokegrunnlag')}>
               <option value="">Jeg søker skoleskyss på grunn av</option>
               <option value="Avstand til skole">Avstand til skole</option>
-              <option value="Båt/ferge">Må ta båt/ferge til skolen</option>
+              <option value="Båt/ferge" className={showBoatOrFerry(this.state.folkeregistrertAdresseAdresse + ' ' + this.state.alternativAdresseAdresse)}>Må ta båt/ferge til skolen</option>
               <option value="Annen årsak">Annen årsak</option>
             </select>
           </fieldset>
