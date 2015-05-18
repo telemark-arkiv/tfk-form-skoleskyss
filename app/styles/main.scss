@@ -450,3 +450,7 @@ fieldset {
 input[type="checkbox"], input[type="radio"] {
   width: 1em;
 }
+
+.formErrorMessage {
+  font-weight: 700;
+}

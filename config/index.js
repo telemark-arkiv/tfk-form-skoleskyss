@@ -7,6 +7,11 @@ var config = {
     page: 1,
     formId:'',
     formVersion:'',
+    validityCheck:{
+      formIsValid: false,
+      formErrorMessage: 'Du har ikke fyllt ut alle påkrevde felt',
+      showFormErrorMessage: false
+    },
     personnummer: '',
     navn: '',
     folkeregistrertAdresseBosted: '',

@@ -5,6 +5,7 @@ var StatusBar = require('../../elements/statusbar');
 var StandardSelect = require('../../elements/standardselect');
 var doSubmitForm = require('../../utils/submitform');
 var showBoatOrFerry = require('../../utils/showBoatOrFerry');
+var checkValidity = require('../../utils/checkValidity');
 var config = require('../../config');
 var pkg = require('../../package.json');
 var versionNumber = config.formId + '-' + pkg.version;
@@ -156,25 +157,31 @@ var App = React.createClass({
   },
   setupSchool: function(e){
     e.preventDefault();
-    if(this.state.skole !== '' && this.state.skole !== 'Skole utenfor Telemark') {
-      var skole = config.skoleIndex[this.state.skole];
-      this.setState(
-        {
-          skoleId: this.state.skole,
-          skoleNavn: skole.name,
-          skoleAdresse: skole.address,
-          page: 2
-        }
-      )
-    } else {
-      this.setState(
-        {
-          skoleId: '',
-          skoleNavn: '',
-          skoleAdresse: '',
-          page: 2
-        }
-      )
+    var validityCheck = checkValidity(this.state);
+    this.setState({
+      validityCheck: validityCheck
+    });
+    if (validityCheck.formIsValid) {
+      if(this.state.skole !== '' && this.state.skole !== 'Skole utenfor Telemark') {
+        var skole = config.skoleIndex[this.state.skole];
+        this.setState(
+          {
+            skoleId: this.state.skole,
+            skoleNavn: skole.name,
+            skoleAdresse: skole.address,
+            page: 2
+          }
+        )
+      } else {
+        this.setState(
+          {
+            skoleId: '',
+            skoleNavn: '',
+            skoleAdresse: '',
+            page: 2
+          }
+        )
+      }
     }
   },
   decreasePageNumber: function(e){
@@ -208,9 +215,9 @@ var App = React.createClass({
           <fieldset>
             <legend>Personalia</legend>
             <label htmlFor="personnummer">Fødselsnummer (11 siffer)</label>
-            <input type="number" name="personnummer" placeholder="Fødselsnummer, 11 siffer" id="personnummer" required="required" valueLink={this.linkState('personnummer')} />
+            <input type="number" name="personnummer" placeholder="Fødselsnummer, 11 siffer" id="personnummer" valueLink={this.linkState('personnummer')} />
             <label htmlFor="navn">Fullt navn</label>
-            <input type="text" name="navn" placeholder="Fornavn, mellomnavn og etternavn" id="navn" required="required" valueLink={this.linkState('navn')} />
+            <input type="text" name="navn" placeholder="Fornavn, mellomnavn og etternavn" id="navn" valueLink={this.linkState('navn')} />
           </fieldset>
           <fieldset>
             <legend>Kontaktinformasjon</legend>
@@ -222,7 +229,7 @@ var App = React.createClass({
           <fieldset>
             <legend>Bosted</legend>
             <label htmlFor="bosted">Folkeregistrert adresse</label>
-            <select name="bosted" id="bosted" required="required" valueLink={this.linkState('folkeregistrertAdresseBosted')}>
+            <select name="bosted" id="bosted" valueLink={this.linkState('folkeregistrertAdresseBosted')}>
               <option value="">Min adresse har</option>
               <option value="Gateadresse">Gateadresse</option>
               <option value="GnrBnr">Ikke gateadresse. Jeg må bruke gårds og bruksnummer</option>
@@ -288,8 +295,8 @@ var App = React.createClass({
             <label htmlFor="studieretning">Studieretning</label>
             <select name="studieretning" id="studieretning" valueLink={this.linkState('studieretning')}>
               <option value="">Jeg skal gå på</option>
-              <option value="musikk, dans og drama">musikk, dans og drama</option>
-              <option value="teknisk allmennfaglig utdanning (4 år)">Teknikk og industriell produksjon YSK (TAF)</option>
+              <option value="musikk, dans og drama"  className={showIfEqual(this.state.skole, '3724')}>musikk, dans og drama</option>
+              <option value="teknisk allmennfaglig utdanning (4 år)" className={showIfEqual(this.state.skole, '39182')}>Teknikk og industriell produksjon YSK (TAF)</option>
               <option value="annen linje">annen linje</option>
             </select>
           </fieldset>
@@ -303,7 +310,7 @@ var App = React.createClass({
           </fieldset>
           <fieldset>
             <label htmlFor="klassestrinn">Klassetrinn</label>
-            <select name="klassetrinn" id="klassetrinn" required="required" valueLink={this.linkState('klassetrinn')}>
+            <select name="klassetrinn" id="klassetrinn" valueLink={this.linkState('klassetrinn')}>
               <option value="">Velg klassetrinn</option>
               <option value="VG1">VG1</option>
               <option value="VG2">VG2</option>
@@ -313,7 +320,7 @@ var App = React.createClass({
           </fieldset>
           <fieldset>
             <legend>Grunnlag for søknad</legend>
-            <select name="sokegrunnlag" required="required" valueLink={this.linkState('sokegrunnlag')}>
+            <select name="sokegrunnlag" valueLink={this.linkState('sokegrunnlag')}>
               <option value="">Jeg søker skoleskyss på grunn av</option>
               <option value="Avstand til skole">Avstand til skole</option>
               <option value="Båt/ferge" className={showBoatOrFerry(this.state.folkeregistrertAdresseAdresse + ' ' + this.state.alternativAdresseAdresse)}>Må ta båt/ferge til skolen</option>
@@ -322,7 +329,7 @@ var App = React.createClass({
           </fieldset>
           <fieldset className={showBusskortvalg(this.state.transporter)}>
             <legend>Busskort</legend>
-            <select name="busskortstatus" required="required" valueLink={this.linkState('busskortstatus')}>
+            <select name="busskortstatus" valueLink={this.linkState('busskortstatus')}>
               <option value="">Velg busskort</option>
               <option value="Trenger nytt">Jeg har ikke hatt busskort tidligere</option>
               <option value="Mistet busskort">Jeg har har mistet busskortet</option>
@@ -335,7 +342,7 @@ var App = React.createClass({
           </fieldset>
             <fieldset>
               <label>
-                <input type="checkbox" valueLink={this.linkState('termsAccepted')} required="required" /> Jeg har lest gjennom, og godtar <a href="terms.html" target="_blank">vilkårene</a> for skoleskyss.
+                <input type="checkbox" checkedLink={this.linkState('termsAccepted')} /> Jeg har lest gjennom, og godtar <a href="terms.html" target="_blank">vilkårene</a> for skoleskyss.
               </label>
             </fieldset>
             </div>
@@ -431,6 +438,11 @@ var App = React.createClass({
             Skjemaet er nå sendt inn til oss.<br/>
             Du vil snart motta kvittering via Svar ut.<br/>
           </div>
+          <div className={showIfEqual(this.state.validityCheck.showFormErrorMessage, true)}>
+            <div className="color--danger formErrorMessage">
+              {this.state.validityCheck.formErrorMessage}
+            </div>
+          </div>
           <span className={showPageNumber(this.state.page, 2)}>
             <button className="btn" onClick={this.decreasePageNumber}><span className="icon icon-chevron-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;Tilbake</button>&nbsp;
           </span>
@@ -447,7 +459,7 @@ var App = React.createClass({
             <button className="btn">Send inn&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-tick"></span></button>&nbsp;
           </span>
           <span className={showPageNumber(this.state.page, 1)}>
-            <button className="btn" onClick={this.setupSchool}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
+            <button type="submit" className="btn buttonNext" onClick={this.setupSchool}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
           </span>
           <span className={showPageNumber(this.state.page, 2)}>
             <button className="btn" onClick={this.increasePageNumber}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
