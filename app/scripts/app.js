@@ -367,7 +367,7 @@ var App = React.createClass({
               Du har oppgitt annet søkegrunnlag enn avstand til skolen.<br />
               Annet søkegrunnlag vil si at du kan ha rett til skyss grunnet <br />
               funksjonshemming, midlertidig skade eller sykdom etter Opplæringsloven § 7-3.<br />
-              Gyldig dokumentasjon er legeerklæring.<br />
+              Gyldig dokumentasjon er legeattest. Legeattesten skal ikke være eldre enn 1 år.<br />
             </div>
             <div className={showInnsendingAvDokumentasjon(this.state.alternativAdresse, this.state.sokegrunnlag)}>
               <h3>Innsending av dokumentasjon</h3>
