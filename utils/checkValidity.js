@@ -22,7 +22,7 @@ function checkValidity(state){
   requiredFields.forEach(function(field){
     if (state[field] === '') {
       results.formIsValid = false;
-      results.formErrorMessage = 'Du har ikke fyllt ut alle påkrevde felt. Vennligst ser over skjemaet og prøv påny';
+      results.formErrorMessage = 'Du har ikke fyllt ut alle påkrevde felt. Vennligst se over skjemaet og prøv påny';
       results.showFormErrorMessage = true;
     }
   });
@@ -30,7 +30,7 @@ function checkValidity(state){
   requiredBooleans.forEach(function(field){
     if (state[field] !== true) {
       results.formIsValid = false;
-      results.formErrorMessage = 'Du har ikke fyllt ut alle påkrevde felt. Vennligst ser over skjemaet og prøv påny';
+      results.formErrorMessage = 'Du har ikke fyllt ut alle påkrevde felt. Vennligst se over skjemaet og prøv påny';
       results.showFormErrorMessage = true;
     }
   });

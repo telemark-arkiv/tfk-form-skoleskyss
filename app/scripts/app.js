@@ -236,8 +236,8 @@ var App = React.createClass({
             </select>
           </fieldset>
           <fieldset className={showGateadresse(this.state.folkeregistrertAdresseBosted)}>
-            <label htmlFor="adresse">Adresse</label>
-            <input type="text" name="adresse" placeholder="Gateadresse, postnummer poststed" id="adresse" valueLink={this.linkState('folkeregistrertAdresseAdresse')} />
+            <label htmlFor="adresse">Adresse, postnummer og poststed</label>
+            <input type="text" name="adresse" placeholder="Gateadresse, postnummer og poststed" id="adresse" valueLink={this.linkState('folkeregistrertAdresseAdresse')} />
           </fieldset>
           <fieldset className={showGnrBnr(this.state.folkeregistrertAdresseBosted)}>
             <label htmlFor="gnr">Gårdsnummer</label>
@@ -268,8 +268,8 @@ var App = React.createClass({
             </select>
           </fieldset>
           <fieldset className={showGateadresse(this.state.alternativAdresseBosted)}>
-            <label htmlFor="alternativAdresseAdresse">Adresse</label>
-            <input type="text" name="alternativAdresseAdresse" placeholder="Gateadresse, postnummer poststed" id="alternativAdresseAdresse" valueLink={this.linkState('alternativAdresseAdresse')} />
+            <label htmlFor="alternativAdresseAdresse">Adresse, postnummer og poststed</label>
+            <input type="text" name="alternativAdresseAdresse" placeholder="Gateadresse, postnummer og poststed" id="alternativAdresseAdresse" valueLink={this.linkState('alternativAdresseAdresse')} />
           </fieldset>
           <fieldset className={showGnrBnr(this.state.alternativAdresseBosted)}>
             <label htmlFor="alternativGnr">Gårdsnummer</label>
