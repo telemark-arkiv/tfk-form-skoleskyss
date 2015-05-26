@@ -10,7 +10,9 @@ var config = {
     validityCheck:{
       formIsValid: false,
       formErrorMessage: 'Du har ikke fyllt ut alle påkrevde felt',
-      showFormErrorMessage: false
+      showFormErrorMessage: false,
+      invalidFields:[],
+      invalidBooleans:[]
     },
     personnummer: '',
     navn: '',

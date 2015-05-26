@@ -16,7 +16,9 @@ function checkValidity(state){
   var results = {
     formIsValid: true,
     formErrorMessage: '',
-    showFormErrorMessage: false
+    showFormErrorMessage: false,
+    invalidFields: [],
+    invalidBooleans: []
   };
 
   requiredFields.forEach(function(field){
@@ -24,6 +26,7 @@ function checkValidity(state){
       results.formIsValid = false;
       results.formErrorMessage = 'Du har ikke fyllt ut alle påkrevde felt. Vennligst se over skjemaet og prøv påny';
       results.showFormErrorMessage = true;
+      results.invalidFields.push(field);
     }
   });
 
@@ -32,6 +35,7 @@ function checkValidity(state){
       results.formIsValid = false;
       results.formErrorMessage = 'Du har ikke fyllt ut alle påkrevde felt. Vennligst se over skjemaet og prøv påny';
       results.showFormErrorMessage = true;
+      results.invalidBooleans.push(field);
     }
   });
 

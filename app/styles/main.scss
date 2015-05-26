@@ -454,3 +454,11 @@ input[type="checkbox"], input[type="radio"] {
 .formErrorMessage {
   font-weight: 700;
 }
+
+.invalid {
+  border: 2px solid #cb4437;
+}
+
+input[type="checkbox"].invalid {
+  outline: 2px solid #cb4437 !important;
+}

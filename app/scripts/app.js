@@ -122,6 +122,16 @@ function showIfNotEqual(state, value){
   return className;
 }
 
+function isInvalid(fields, field) {
+  var className = '';
+  fields.forEach(function(fieldName) {
+    if (fieldName === field) {
+      className = 'invalid';
+    }
+  });
+  return className;
+}
+
 var App = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
   getInitialState: function() {
@@ -215,9 +225,9 @@ var App = React.createClass({
           <fieldset>
             <legend>Personalia</legend>
             <label htmlFor="personnummer">Fødselsnummer (11 siffer)</label>
-            <input type="number" name="personnummer" placeholder="Fødselsnummer, 11 siffer" id="personnummer" valueLink={this.linkState('personnummer')} />
+            <input type="number" name="personnummer" placeholder="Fødselsnummer, 11 siffer" id="personnummer" className={isInvalid(this.state.validityCheck.invalidFields, 'personnummer')} valueLink={this.linkState('personnummer')} />
             <label htmlFor="navn">Fullt navn</label>
-            <input type="text" name="navn" placeholder="Fornavn, mellomnavn og etternavn" id="navn" valueLink={this.linkState('navn')} />
+            <input type="text" name="navn" placeholder="Fornavn, mellomnavn og etternavn" id="navn" className={isInvalid(this.state.validityCheck.invalidFields, 'navn')} valueLink={this.linkState('navn')} />
           </fieldset>
           <fieldset>
             <legend>Kontaktinformasjon</legend>
@@ -289,6 +299,7 @@ var App = React.createClass({
               labelName="Skole"
               values={config.skoleListe}
               required="required"
+              className={isInvalid(this.state.validityCheck.invalidFields, 'skole')}
               valueLink={this.linkState('skole')} />
           </fieldset>
           <fieldset className={showStudieretning(this.state.skole)}>
@@ -310,7 +321,7 @@ var App = React.createClass({
           </fieldset>
           <fieldset>
             <label htmlFor="klassestrinn">Klassetrinn</label>
-            <select name="klassetrinn" id="klassetrinn" valueLink={this.linkState('klassetrinn')}>
+            <select name="klassetrinn" id="klassetrinn" className={isInvalid(this.state.validityCheck.invalidFields, 'klassetrinn')} valueLink={this.linkState('klassetrinn')}>
               <option value="">Velg klassetrinn</option>
               <option value="VG1">VG1</option>
               <option value="VG2">VG2</option>
@@ -320,7 +331,7 @@ var App = React.createClass({
           </fieldset>
           <fieldset>
             <legend>Grunnlag for søknad</legend>
-            <select name="sokegrunnlag" valueLink={this.linkState('sokegrunnlag')}>
+            <select name="sokegrunnlag" className={isInvalid(this.state.validityCheck.invalidFields, 'sokegrunnlag')} valueLink={this.linkState('sokegrunnlag')}>
               <option value="">Jeg søker skoleskyss på grunn av</option>
               <option value="Avstand til skole">Avstand til skole</option>
               <option value="Båt/ferge" className={showBoatOrFerry(this.state.folkeregistrertAdresseAdresse + ' ' + this.state.alternativAdresseAdresse)}>Må ta båt/ferge til skolen</option>
@@ -342,7 +353,7 @@ var App = React.createClass({
           </fieldset>
             <fieldset>
               <label>
-                <input type="checkbox" checkedLink={this.linkState('termsAccepted')} /> Jeg har lest gjennom, og godtar <a href="terms.html" target="_blank">vilkårene</a> for skoleskyss.
+                <input type="checkbox" checkedLink={this.linkState('termsAccepted')} className={isInvalid(this.state.validityCheck.invalidBooleans, 'termsAccepted')} /> Jeg har lest gjennom, og godtar <a href="terms.html" target="_blank">vilkårene</a> for skoleskyss.
               </label>
             </fieldset>
             </div>
