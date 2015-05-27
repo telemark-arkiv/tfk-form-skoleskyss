@@ -3,9 +3,11 @@
 var requiredFields = [
   'navn',
   'personnummer',
+  'epost',
   'skole',
   'klassetrinn',
-  'sokegrunnlag'
+  'sokegrunnlag',
+  'busskortstatus'
 ];
 
 var requiredBooleans = [

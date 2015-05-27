@@ -232,12 +232,22 @@ var App = React.createClass({
           <fieldset>
             <legend>Kontaktinformasjon</legend>
             <label htmlFor="epost">E-post</label>
-            <input type="email" name="epost" placeholder="E-postadresse" id="epost" valueLink={this.linkState('epost')} />
+            <input type="email" name="epost" placeholder="E-postadresse" id="epost" className={isInvalid(this.state.validityCheck.invalidFields, 'epost')} valueLink={this.linkState('epost')} />
             <label htmlFor="telefon">Telefon</label>
             <input type="number" name="telefon" placeholder="Mobilnummer/Telefonnummer" id="telefon" valueLink={this.linkState('telefon')} />
           </fieldset>
           <fieldset>
             <legend>Bosted</legend>
+            <fieldset>
+              <label htmlFor="alternativ_adresse">Hvor bor du i skoleperioden?</label>
+              <select name="alternativAdresse" id="alternativAdresse" valueLink={this.linkState('alternativAdresse')}>
+                <option value="">Jeg bor bare på folkeregistrert adresse</option>
+                <option value="Hybel">Jeg bor på hybel eller studentbolig</option>
+                <option value="Delt bosted">Jeg har delt bosted</option>
+              </select>
+            </fieldset>
+            </fieldset>
+            <fieldset>
             <label htmlFor="bosted">Folkeregistrert adresse</label>
             <select name="bosted" id="bosted" valueLink={this.linkState('folkeregistrertAdresseBosted')}>
               <option value="">Min adresse har</option>
@@ -260,17 +270,8 @@ var App = React.createClass({
               values={config.kommuneListe}
               valueLink={this.linkState('folkeregistrertAdresseKommunenr')} />
           </fieldset>
-          <fieldset>
-            <label htmlFor="alternativ_adresse">Annen adresse</label>
-            <select name="alternativAdresse" id="alternativAdresse" valueLink={this.linkState('alternativAdresse')}>
-              <option value="">Jeg bor også et annet sted</option>
-              <option value="Hybel">Jeg bor på hybel</option>
-              <option value="Delt bosted">Jeg har delt bosted</option>
-              <option value="Feil folkeregistrert adresse">Folkeregistrert adresse er feil</option>
-            </select>
-          </fieldset>
           <fieldset className={showAlternativAdresse(this.state.alternativAdresse)}>
-            <label htmlFor="alternativAdresseBosted">Alternativ adresse: {this.state.alternativAdresse}</label>
+            <label htmlFor="alternativAdresseBosted">Annen bostedsadresse: {this.state.alternativAdresse}</label>
             <select name="alternativAdresseBosted" valueLink={this.linkState('alternativAdresseBosted')}>
               <option value="">Min adresse har</option>
               <option value="Gateadresse">Gateadresse</option>
@@ -340,7 +341,7 @@ var App = React.createClass({
           </fieldset>
           <fieldset className={showBusskortvalg(this.state.transporter)}>
             <legend>Busskort</legend>
-            <select name="busskortstatus" valueLink={this.linkState('busskortstatus')}>
+            <select name="busskortstatus" className={isInvalid(this.state.validityCheck.invalidFields, 'busskortstatus')} valueLink={this.linkState('busskortstatus')}>
               <option value="">Velg busskort</option>
               <option value="Trenger nytt">Jeg har ikke hatt busskort tidligere</option>
               <option value="Mistet busskort">Jeg har har mistet busskortet</option>
