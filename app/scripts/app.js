@@ -448,7 +448,8 @@ var App = React.createClass({
           <div className={showPageNumber(this.state.page, 4)}>
             <h2>Skjemaet er innsendt</h2>
             Skjemaet er nå sendt inn til oss.<br/>
-            Du vil snart motta kvittering via Svar ut.<br/>
+            Snart dukker kvittering og svar på søknaden opp i meldingsboksen din hos Altinn.<br/>
+            Men, shit happens (noen ganger), så har du ikke hørt noe fra oss innen et døgn, kontakt oss på <a href="mailto:skoleskyss@t-fk.no">skoleskyss@t-fk.no</a> eller telefon 35 91 70 00.<br/>
           </div>
           <div className={showIfEqual(this.state.validityCheck.showFormErrorMessage, true)}>
             <div className="color--danger formErrorMessage">
