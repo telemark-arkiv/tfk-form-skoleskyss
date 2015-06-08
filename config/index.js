@@ -1,7 +1,7 @@
 'use strict';
 
 var config = {
-  formId: 'tkf-skoleskyss',
+  formId: 'tfk-skoleskyss',
   formName: 'Skoleskyss',
   initialState: {
     page: 1,
