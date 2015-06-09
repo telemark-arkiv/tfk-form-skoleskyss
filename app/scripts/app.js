@@ -225,7 +225,7 @@ var App = React.createClass({
           <fieldset>
             <legend>Personalia</legend>
             <label htmlFor="personnummer">Fødselsnummer (11 siffer)</label>
-            <input type="number" name="personnummer" placeholder="Fødselsnummer, 11 siffer" id="personnummer" className={isInvalid(this.state.validityCheck.invalidFields, 'personnummer')} valueLink={this.linkState('personnummer')} />
+            <input type="number" name="personnummer" placeholder="Fødselsnummer, 11 siffer (12345678987)" id="personnummer" className={isInvalid(this.state.validityCheck.invalidFields, 'personnummer')} valueLink={this.linkState('personnummer')} />
             <label htmlFor="navn">Fullt navn</label>
             <input type="text" name="navn" placeholder="Fornavn, mellomnavn og etternavn" id="navn" className={isInvalid(this.state.validityCheck.invalidFields, 'navn')} valueLink={this.linkState('navn')} />
           </fieldset>
