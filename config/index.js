@@ -12,7 +12,9 @@ var config = {
       formErrorMessage: 'Du har ikke fyllt ut alle påkrevde felt',
       showFormErrorMessage: false,
       invalidFields:[],
-      invalidBooleans:[]
+      invalidBooleans:[],
+      invalidFormats: []
+
     },
     personnummer: '',
     navn: '',

@@ -1,5 +1,7 @@
 'use strict';
 
+var fodselsnummerIsValid = require('./fodselsnummerIsValid');
+
 var requiredFields = [
   'navn',
   'personnummer',
@@ -21,7 +23,8 @@ function checkValidity(state){
     formErrorMessage: '',
     showFormErrorMessage: false,
     invalidFields: [],
-    invalidBooleans: []
+    invalidBooleans: [],
+    invalidFormats: []
   };
 
   requiredFields.forEach(function(field){
@@ -41,6 +44,13 @@ function checkValidity(state){
       results.invalidBooleans.push(field);
     }
   });
+
+  if (!fodselsnummerIsValid(state.personnummer)) {
+    results.formIsValid = false;
+    results.formErrorMessage = 'Fødselsnummeret har galt format. Vennligst se over og prøv påny';
+    results.showFormErrorMessage = true;
+    results.invalidFormats.push('personnummer');
+  }
 
   return results;
 }
