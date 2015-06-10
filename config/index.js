@@ -1,12 +1,14 @@
 'use strict';
 
+var pkg = require('../package.json');
+
 var config = {
   formId: 'tfk-skoleskyss',
   formName: 'Skoleskyss',
   initialState: {
     page: 1,
-    formId:'',
-    formVersion:'',
+    formId: this.formId,
+    formVersion: pkg.version,
     validityCheck:{
       formIsValid: false,
       formErrorMessage: 'Du har ikke fyllt ut alle påkrevde felt',

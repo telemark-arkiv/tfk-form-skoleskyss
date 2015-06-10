@@ -141,11 +141,6 @@ var App = React.createClass({
     localStorage[versionNumber] = JSON.stringify(this.state);
   },
   componentDidMount: function() {
-    this.setState({
-      formId: config.formId,
-      formVersion: pkg.version
-    });
-
     if (localStorage.getItem(versionNumber)) {
       this.setState(JSON.parse(localStorage.getItem(versionNumber)));
     }
