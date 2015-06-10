@@ -1,13 +1,14 @@
 'use strict';
 
 var pkg = require('../package.json');
+var formId = 'tfk-skoleskyss';
 
 var config = {
-  formId: 'tfk-skoleskyss',
+  formId: formId,
   formName: 'Skoleskyss',
   initialState: {
     page: 1,
-    formId: this.formId,
+    formId: formId,
     formVersion: pkg.version,
     validityCheck:{
       formIsValid: false,
