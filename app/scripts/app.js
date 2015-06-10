@@ -249,7 +249,7 @@ var App = React.createClass({
             </fieldset>
             <fieldset>
             <label htmlFor="bosted">Folkeregistrert adresse</label>
-            <select name="bosted" id="bosted" valueLink={this.linkState('folkeregistrertAdresseBosted')}>
+            <select name="bosted" id="bosted" className={isInvalid(this.state.validityCheck.invalidFields, 'folkeregistrertAdresseBosted')} valueLink={this.linkState('folkeregistrertAdresseBosted')}>
               <option value="">Min adresse har</option>
               <option value="Gateadresse">Gateadresse</option>
               <option value="GnrBnr">Ikke gateadresse. Jeg må bruke gårds og bruksnummer</option>

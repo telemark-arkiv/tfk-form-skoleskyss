@@ -7,7 +7,8 @@ var requiredFields = [
   'skole',
   'klassetrinn',
   'sokegrunnlag',
-  'busskortstatus'
+  'busskortstatus',
+  'folkeregistrertAdresseBosted'
 ];
 
 var requiredBooleans = [
