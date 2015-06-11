@@ -197,6 +197,9 @@ var App = React.createClass({
   },
   submitForm: function(e) {
     e.preventDefault();
+    this.setState({
+      timestamp: new Date().getTime()
+    });
     var self = this;
     var payload = this.state;
     doSubmitForm(payload, function(err, data){
@@ -252,22 +255,23 @@ var App = React.createClass({
           </fieldset>
           <fieldset className={showGateadresse(this.state.folkeregistrertAdresseBosted)}>
             <label htmlFor="adresse">Adresse, postnummer og poststed</label>
-            <input type="text" name="adresse" placeholder="Gateadresse, postnummer og poststed" id="adresse" valueLink={this.linkState('folkeregistrertAdresseAdresse')} />
+            <input type="text" name="adresse" placeholder="Gateadresse, postnummer og poststed" id="adresse" className={isInvalid(this.state.validityCheck.invalidFields, 'folkeregistrertAdresseAdresse')} valueLink={this.linkState('folkeregistrertAdresseAdresse')} />
           </fieldset>
           <fieldset className={showGnrBnr(this.state.folkeregistrertAdresseBosted)}>
             <label htmlFor="gnr">Gårdsnummer</label>
-            <input type="number" name="gnr" placeholder="Gårdsnummer" id="gnr" valueLink={this.linkState('folkeregistrertAdresseGnr')} />
+            <input type="number" name="gnr" placeholder="Gårdsnummer" id="gnr" className={isInvalid(this.state.validityCheck.invalidFields, 'folkeregistrertAdresseGnr')} valueLink={this.linkState('folkeregistrertAdresseGnr')} />
             <label htmlFor="bnr">Bruksnummer</label>
-            <input type="number" name="bnr" placeholder="Bruksnummer" id="bnr" valueLink={this.linkState('folkeregistrertAdresseBnr')} />
+            <input type="number" name="bnr" placeholder="Bruksnummer" id="bnr" className={isInvalid(this.state.validityCheck.invalidFields, 'folkeregistrertAdresseBnr')} valueLink={this.linkState('folkeregistrertAdresseBnr')} />
             <StandardSelect
               labelId="folkeregistrertAdresseKommunenr"
               labelName="Bostedskommune"
               values={config.kommuneListe}
+              className={isInvalid(this.state.validityCheck.invalidFields, 'folkeregistrertAdresseKommunenr')}
               valueLink={this.linkState('folkeregistrertAdresseKommunenr')} />
           </fieldset>
           <fieldset className={showAlternativAdresse(this.state.alternativAdresse)}>
             <label htmlFor="alternativAdresseBosted">Annen bostedsadresse: {this.state.alternativAdresse}</label>
-            <select name="alternativAdresseBosted" valueLink={this.linkState('alternativAdresseBosted')}>
+            <select name="alternativAdresseBosted" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseBosted')} valueLink={this.linkState('alternativAdresseBosted')}>
               <option value="">Min adresse har</option>
               <option value="Gateadresse">Gateadresse</option>
               <option value="GnrBnr">Ikke gateadrese. Jeg må bruke gårds og bruksnummer</option>
@@ -275,17 +279,18 @@ var App = React.createClass({
           </fieldset>
           <fieldset className={showGateadresse(this.state.alternativAdresseBosted)}>
             <label htmlFor="alternativAdresseAdresse">Adresse, postnummer og poststed</label>
-            <input type="text" name="alternativAdresseAdresse" placeholder="Gateadresse, postnummer og poststed" id="alternativAdresseAdresse" valueLink={this.linkState('alternativAdresseAdresse')} />
+            <input type="text" name="alternativAdresseAdresse" placeholder="Gateadresse, postnummer og poststed" id="alternativAdresseAdresse" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseAdresse')} valueLink={this.linkState('alternativAdresseAdresse')} />
           </fieldset>
           <fieldset className={showGnrBnr(this.state.alternativAdresseBosted)}>
             <label htmlFor="alternativGnr">Gårdsnummer</label>
-            <input type="number" name="alternativGnr" placeholder="Gårdsnummer" id="alternativGnr" valueLink={this.linkState('alternativAdresseGnr')} />
+            <input type="number" name="alternativGnr" placeholder="Gårdsnummer" id="alternativGnr" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseGnr')} valueLink={this.linkState('alternativAdresseGnr')} />
             <label htmlFor="alternativBnr">Bruksnummer</label>
-            <input type="number" name="alternativBnr" placeholder="Bruksnummer" id="alternativBnr" valueLink={this.linkState('alternativAdresseBnr')} />
+            <input type="number" name="alternativBnr" placeholder="Bruksnummer" id="alternativBnr" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseBnr')} valueLink={this.linkState('alternativAdresseBnr')} />
             <StandardSelect
               labelId="alternativAdresseKommunenr"
               labelName="Bostedskommune"
               values={config.kommuneListe}
+              className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseKommunenr')}
               valueLink={this.linkState('alternativAdresseKommunenr')} />
           </fieldset>
           <fieldset>
@@ -309,11 +314,11 @@ var App = React.createClass({
           </fieldset>
           <fieldset className={showEksternSkoleAdresse(this.state.skole)}>
             <label htmlFor="eksternSkoleNavn">Skolens navn</label>
-            <input type="text" name="eksternSkoleNavn" placeholder="Navn på skolen" id="eksternSkoleNavn" valueLink={this.linkState('eksternSkoleNavn')} />
+            <input type="text" name="eksternSkoleNavn" placeholder="Navn på skolen" id="eksternSkoleNavn" className={isInvalid(this.state.validityCheck.invalidFields, 'eksternSkoleNavn')} valueLink={this.linkState('eksternSkoleNavn')} />
           </fieldset>
           <fieldset className={showEksternSkoleAdresse(this.state.skole)}>
             <label htmlFor="eksternSkoleAdresse">Skolens adresse</label>
-            <input type="text" name="eksternSkoleAdresse" placeholder="Skolens besøksadresse" id="eksternSkoleAdresse" valueLink={this.linkState('eksternSkoleAdresse')} />
+            <input type="text" name="eksternSkoleAdresse" placeholder="Skolens besøksadresse" id="eksternSkoleAdresse" className={isInvalid(this.state.validityCheck.invalidFields, 'eksternSkoleAdresse')} valueLink={this.linkState('eksternSkoleAdresse')} />
           </fieldset>
           <fieldset>
             <label htmlFor="klassestrinn">Klassetrinn</label>
