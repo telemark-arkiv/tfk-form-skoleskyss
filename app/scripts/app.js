@@ -197,8 +197,9 @@ var App = React.createClass({
   },
   submitForm: function(e) {
     e.preventDefault();
+    var timestamp = new Date().getTime();
     this.setState({
-      timestamp: new Date().getTime()
+      timestamp: timestamp
     });
     var self = this;
     var payload = this.state;
