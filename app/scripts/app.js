@@ -450,6 +450,11 @@ var App = React.createClass({
             Takk for søknad om fri skoleskyss.<br/>
             Du vil snart motta kvittering og svar på din søknad  i din meldingsboks i Altinn.<br/>
             Har du ikke mottatt kvittering og svar innen 48 timer, kontakt oss på <a href="mailto:skoleskyss@t-fk.no">skoleskyss@t-fk.no</a> eller telefon 35 91 70 00.<br/>
+            <h2>Hjelp oss å bli bedre</h2>
+            Vi vil gjerne ha innspill til hvordan vi kan bli bedre.<br/>
+            Det hadde vært fint om du tok deg tid til å svare på en kort undersøkelse.<br/>
+            Den tar under 1 minutt :-)<br/>
+            <a href="https://response.questback.com/telemarkfylkeskommune/l4asakv1wk/" target="_blank">Ta undersøkelsen</a>
           </div>
           <div className={showIfEqual(this.state.validityCheck.showFormErrorMessage, true)}>
             <div className="color--danger formErrorMessage">
