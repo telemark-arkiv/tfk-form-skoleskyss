@@ -45,8 +45,7 @@ var config = {
     busskortnummer: '',
     eksternSkoleNavn: '',
     eksternSkoleAdresse: '',
-    termsAccepted: '',
-    timestamp: ''
+    termsAccepted: ''
   },
   kommuneListe : [
     {value:'', text:'Velg kommune', id:'007'},
