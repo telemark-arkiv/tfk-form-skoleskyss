@@ -119,7 +119,6 @@ function checkValidity(state){
       results.formErrorMessage = 'Du har ikke fyllt ut alle påkrevde felt. Vennligst se over skjemaet og prøv påny';
       results.showFormErrorMessage = true;
       results.invalidFields.push(field);
-      console.log(field);
     }
   });
 
