@@ -495,8 +495,9 @@ var App = React.createClass({
             </div>
           <div className={showIfEqual(this.state.isFromTelemark, 'nei')}>
             <h2>Beklager!</h2>
-            Du kan dessverre ikke søke skoleskyss hos oss.<br/>
-            Har du folkeregistrert adresse i et annet fylke enn Telemark er det hjemstedsfylket ditt du må søke hos.<br/>
+            Du kan ikke søke skoleskyss gjennom Telemark fylkeskommune.<br/>
+            Det er fordi du har folkeregistrert adresse utenfor Telemark.<br/>
+            Ta kontakt med fylkeskommunen i ditt hjemfylke.<br/>
             <button className="btn" onClick={this.cancelForm}>Avslutt&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-close"></span></button>&nbsp;
           </div>
         </form>
