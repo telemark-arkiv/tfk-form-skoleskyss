@@ -219,6 +219,17 @@ var App = React.createClass({
         <StatusBar status={this.state.page*25}/>
         <form onSubmit={this.submitForm}>
           <div className={showPageNumber(this.state.page, 1)}>
+            <fieldset>
+              <legend>Hjemstedsfylke</legend>
+              <label htmlFor="isFromTelemark">Folkeregistrert fylke</label>
+              <select name="isFromTelemark" id="isFromTelemark" valueLink={this.linkState('isFromTelemark')}>
+                <option value="ja">Jeg har folkeregistrert adresse i Telemark</option>
+                <option value="nei">Jeg har folkeregistrert adresse i et annet fylke</option>
+              </select>
+            </fieldset>
+          </div>
+          <div className={showIfEqual(this.state.isFromTelemark, 'ja')}>
+          <div className={showPageNumber(this.state.page, 1)}>
           <fieldset>
             <legend>Personalia</legend>
             <label htmlFor="personnummer">Fødselsnummer (11 siffer)</label>
@@ -481,6 +492,13 @@ var App = React.createClass({
           <span className={showPageNumber(this.state.page, 2)}>
             <button className="btn" onClick={this.increasePageNumber}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
           </span>
+            </div>
+          <div className={showIfEqual(this.state.isFromTelemark, 'nei')}>
+            <h2>Beklager!</h2>
+            Du kan dessverre ikke søke skoleskyss hos oss.<br/>
+            Har du folkeregistrert adresse i et annet fylke enn Telemark er det hjemstedsfylket ditt du må søke hos.<br/>
+            <button className="btn" onClick={this.cancelForm}>Avslutt&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-close"></span></button>&nbsp;
+          </div>
         </form>
       </div>
     );

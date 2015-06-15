@@ -19,6 +19,7 @@ var config = {
       invalidFormats: []
 
     },
+    isFromTelemark: 'ja',
     personnummer: '',
     navn: '',
     folkeregistrertAdresseBosted: '',
