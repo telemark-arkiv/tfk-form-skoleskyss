@@ -238,8 +238,13 @@ var App = React.createClass({
           <div className={showPageNumber(this.state.page, 1)}>
           <fieldset>
             <legend>Personalia</legend>
-            <label htmlFor="personnummer">Fødselsnummer (11 siffer)</label>
-            <input type="number" name="personnummer" placeholder="Fødselsnummer, 11 siffer (12345678987)" id="personnummer" className={isInvalid(this.state.validityCheck.invalidFields, 'personnummer')} valueLink={this.linkState('personnummer')} />
+            <div className={showIfEqual(this.state.gotSession, true)}>
+              <span id="personnummerAuto">Fødselsnummer: {this.state.personnummer}</span>
+            </div>
+            <div className={showIfNotEqual(this.state.gotSession, true)}>
+              <label htmlFor="personnummer">Fødselsnummer (11 siffer)</label>
+              <input type="number" name="personnummer" placeholder="Fødselsnummer, 11 siffer (12345678987)" id="personnummer" className={isInvalid(this.state.validityCheck.invalidFields, 'personnummer')} valueLink={this.linkState('personnummer')} />
+            </div>
             <label htmlFor="navn">Fullt navn</label>
             <input type="text" name="navn" placeholder="Fornavn, mellomnavn og etternavn" id="navn" className={isInvalid(this.state.validityCheck.invalidFields, 'navn')} valueLink={this.linkState('navn')} />
           </fieldset>
