@@ -142,14 +142,15 @@ var App = React.createClass({
     localStorage[versionNumber] = JSON.stringify(this.state);
   },
   componentDidMount: function() {
-    parseSession(window.location.href, function(error, session) {
-      if (session) {
-        console.log(session);
-      }
-    });
+    var self = this;
     if (localStorage.getItem(versionNumber)) {
       this.setState(JSON.parse(localStorage.getItem(versionNumber)));
     }
+    parseSession(window.location.href, function(error, session) {
+      if (session) {
+        self.setState(session);
+      }
+    });
   },
   cleanUp: function(){
     localStorage.clear();

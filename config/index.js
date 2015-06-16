@@ -10,6 +10,7 @@ var config = {
     page: 1,
     formId: formId,
     formVersion: pkg.version,
+    gotSession: false,
     validityCheck:{
       formIsValid: false,
       formErrorMessage: 'Du har ikke fyllt ut alle påkrevde felt',
@@ -172,7 +173,8 @@ var config = {
   SERVER_PORT: 3000,
   API_POST_HOST: 'api.t-fk.no',
   API_POST_PATH: '/forms',
-  TRAVEL_API: 'https://api.t-fk.no/stages/travel'
+  TRAVEL_API: 'https://api.t-fk.no/stages/travel',
+  SESSION_API: 'https://api.t-fk.no/session'
 };
 
 module.exports = config;
