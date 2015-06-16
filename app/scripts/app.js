@@ -160,6 +160,11 @@ var App = React.createClass({
     e.preventDefault();
     this.cleanUp();
   },
+  logOut: function(e){
+    e.preventDefault();
+    this.cleanUp();
+    window.location.replace('https://selvbetjening.t-fk.no/logout');
+  },
   increasePageNumber: function(e){
     e.preventDefault();
     this.setState({
@@ -503,6 +508,9 @@ var App = React.createClass({
           <span className={showPageNumber(this.state.page, 2)}>
             <button className="btn" onClick={this.increasePageNumber}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;
           </span>
+            <span className={showIfEqual(this.state.gotSession, true)}>
+            <button className="btn" onClick={this.logOut}>Logg ut&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-user-input"></span></button>&nbsp;
+            </span>
             </div>
           <div className={showIfEqual(this.state.isFromTelemark, 'nei')}>
             <h2>Beklager!</h2>
@@ -510,6 +518,9 @@ var App = React.createClass({
             Det er fordi du har folkeregistrert adresse utenfor Telemark.<br/>
             Ta kontakt med fylkeskommunen i ditt hjemfylke.<br/>
             <button className="btn" onClick={this.cancelForm}>Avslutt&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-close"></span></button>&nbsp;
+            <span className={showIfEqual(this.state.gotSession, true)}>
+            <button className="btn" onClick={this.logOut}>Logg ut&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-user-input"></span></button>&nbsp;
+            </span>
           </div>
         </form>
       </div>
