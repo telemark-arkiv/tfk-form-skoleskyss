@@ -6,6 +6,7 @@ var StandardSelect = require('../../elements/standardselect');
 var doSubmitForm = require('../../utils/submitform');
 var showBoatOrFerry = require('../../utils/showBoatOrFerry');
 var checkValidity = require('../../utils/checkValidity');
+var parseSession = require('../../utils/parseSession');
 var config = require('../../config');
 var pkg = require('../../package.json');
 var versionNumber = config.formId + '-' + pkg.version;
@@ -141,10 +142,14 @@ var App = React.createClass({
     localStorage[versionNumber] = JSON.stringify(this.state);
   },
   componentDidMount: function() {
+    parseSession(window.location.href, function(error, session) {
+      if (session) {
+        console.log(session);
+      }
+    });
     if (localStorage.getItem(versionNumber)) {
       this.setState(JSON.parse(localStorage.getItem(versionNumber)));
     }
-
   },
   cleanUp: function(){
     localStorage.clear();
