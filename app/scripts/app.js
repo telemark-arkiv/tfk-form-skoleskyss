@@ -165,6 +165,10 @@ var App = React.createClass({
     this.cleanUp();
     window.location.replace('https://selvbetjening.t-fk.no/logout');
   },
+  logIn: function(e){
+    e.preventDefault();
+    window.location.replace('https://selvbetjening.t-fk.no');
+  },
   increasePageNumber: function(e){
     e.preventDefault();
     this.setState({
@@ -325,7 +329,6 @@ var App = React.createClass({
               labelId="skole"
               labelName="Skole"
               values={config.skoleListe}
-              required="required"
               className={isInvalid(this.state.validityCheck.invalidFields, 'skole')}
               valueLink={this.linkState('skole')} />
           </fieldset>
@@ -487,7 +490,10 @@ var App = React.createClass({
               {this.state.validityCheck.formErrorMessage}
             </div>
           </div>
-          <span className={showPageNumber(this.state.page, 2)}>
+          <span className={showIfNotEqual(this.state.gotSession, true)}>
+            <button className="btn" onClick={this.logIn}>Logg inn&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-user-input"></span></button>&nbsp;
+          </span>
+            <span className={showPageNumber(this.state.page, 2)}>
             <button className="btn" onClick={this.decreasePageNumber}><span className="icon icon-chevron-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;Tilbake</button>&nbsp;
           </span>
           <span className={showPageNumber(this.state.page, 3)}>
@@ -511,7 +517,7 @@ var App = React.createClass({
             <span className={showIfEqual(this.state.gotSession, true)}>
             <button className="btn" onClick={this.logOut}>Logg ut&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-user-input"></span></button>&nbsp;
             </span>
-            </div>
+          </div>
           <div className={showIfEqual(this.state.isFromTelemark, 'nei')}>
             <h2>Beklager!</h2>
             Du kan ikke søke skoleskyss gjennom Telemark fylkeskommune.<br/>
