@@ -1,13 +1,13 @@
 {
   "name": "tfk-form-skoleskyss",
-  "version": "17.0.0",
+  "version": "17.0.1",
   "description": "Form plug-in for skoleskyss",
   "author": {
     "name": "Geir Gåsodden",
     "email": "geir.gasodden@pythonia.no",
     "url": "https://github.com/zrrrzzt"
   },
-  "license":"MIT",
+  "license": "MIT",
   "main": "index.js",
   "engines": {
     "node": ">=0.12.0"
@@ -67,5 +67,8 @@
     "vinyl-source-stream": "^1.1.0",
     "vinyl-transform": "^1.0.0",
     "wreck": "^5.4.0"
+  },
+  "dependencies": {
+    "trim": "0.0.1"
   }
 }

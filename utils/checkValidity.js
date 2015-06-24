@@ -1,5 +1,6 @@
 'use strict';
 
+var trim = require('trim');
 var fodselsnummerIsValid = require('./fodselsnummerIsValid');
 
 var requiredFields = [
@@ -87,6 +88,14 @@ function checkValidity(state){
     results.formErrorMessage = 'Fødselsnummeret har galt format. Vennligst se over og prøv påny';
     results.showFormErrorMessage = true;
     results.invalidFormats.push('personnummer');
+  }
+
+  //Check if name is both first- and lastname
+  if (state.navn !== '' && trim(state.navn).split(' ').length < 2) {
+    results.formIsValid = false;
+    results.formErrorMessage = 'Både fornavn og etternavn må fylles ut';
+    results.showFormErrorMessage = true;
+    results.invalidFields.push('navn');
   }
 
   return results;
