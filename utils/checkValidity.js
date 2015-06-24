@@ -9,8 +9,7 @@ var requiredFields = [
   'skole',
   'klassetrinn',
   'sokegrunnlag',
-  'busskortstatus',
-  'folkeregistrertAdresseBosted'
+  'busskortstatus'
 ];
 
 var requiredBooleans = [
@@ -29,72 +28,24 @@ function checkValidity(state){
 
   // Special cases, only required under certain circumstances
   if (state.alternativAdresse !== '') {
-    if (requiredFields.indexOf('alternativAdresseBosted') === -1) {
-      requiredFields.push('alternativAdresseBosted');
-    }
-  } else {
-    if (requiredFields.indexOf('alternativAdresseBosted') > -1) {
-      requiredFields.splice(requiredFields.indexOf('alternativAdresseBosted'), 1);
-    }
-  }
-  if (state.folkeregistrertAdresseBosted === 'Gateadresse') {
-    if (requiredFields.indexOf('folkeregistrertAdresseAdresse') === -1) {
-      requiredFields.push('folkeregistrertAdresseAdresse');
-    }
-  } else {
-    if (requiredFields.indexOf('folkeregistrertAdresseAdresse') > -1) {
-      requiredFields.splice(requiredFields.indexOf('folkeregistrertAdresseAdresse'), 1);
-    }
-  }
-  if (state.folkeregistrertAdresseBosted === 'GnrBnr') {
-    if (requiredFields.indexOf('folkeregistrertAdresseGnr') === -1) {
-      requiredFields.push('folkeregistrertAdresseGnr');
-    }
-    if (requiredFields.indexOf('folkeregistrertAdresseBnr') === -1) {
-      requiredFields.push('folkeregistrertAdresseBnr');
-    }
-    if (requiredFields.indexOf('folkeregistrertAdresseKommunenr') === -1) {
-      requiredFields.push('folkeregistrertAdresseKommunenr');
-    }
-  } else {
-    if (requiredFields.indexOf('folkeregistrertAdresseGnr') > -1) {
-      requiredFields.splice(requiredFields.indexOf('folkeregistrertAdresseGnr'), 1);
-    }
-    if (requiredFields.indexOf('folkeregistrertAdresseBnr') > -1) {
-      requiredFields.splice(requiredFields.indexOf('folkeregistrertAdresseBnr'), 1);
-    }
-    if (requiredFields.indexOf('folkeregistrertAdresseKommunenr') > -1) {
-      requiredFields.splice(requiredFields.indexOf('folkeregistrertAdresseKommunenr'), 1);
-    }
-  }
-  if (state.alternativAdresseBosted === 'Gateadresse') {
     if (requiredFields.indexOf('alternativAdresseAdresse') === -1) {
       requiredFields.push('alternativAdresseAdresse');
+    }
+    if (requiredFields.indexOf('alternativAdressePostnummer') === -1) {
+      requiredFields.push('alternativAdressePostnummer');
+    }
+    if (requiredFields.indexOf('alternativAdressePoststed') === -1) {
+      requiredFields.push('alternativAdressePoststed');
     }
   } else {
     if (requiredFields.indexOf('alternativAdresseAdresse') > -1) {
       requiredFields.splice(requiredFields.indexOf('alternativAdresseAdresse'), 1);
     }
-  }
-  if (state.alternativAdresseBosted === 'GnrBnr') {
-    if (requiredFields.indexOf('alternativAdresseGnr') === -1) {
-      requiredFields.push('alternativAdresseGnr');
+    if (requiredFields.indexOf('alternativAdressePostnummer') > -1) {
+      requiredFields.splice(requiredFields.indexOf('alternativAdressePostnummer'), 1);
     }
-    if (requiredFields.indexOf('alternativAdresseBnr') === -1) {
-      requiredFields.push('alternativAdresseBnr');
-    }
-    if (requiredFields.indexOf('alternativAdresseKommunenr') === -1) {
-      requiredFields.push('alternativAdresseKommunenr');
-    }
-  } else {
-    if (requiredFields.indexOf('alternativAdresseGnr') > -1) {
-      requiredFields.splice(requiredFields.indexOf('alternativAdresseGnr'), 1);
-    }
-    if (requiredFields.indexOf('alternativAdresseBnr') > -1) {
-      requiredFields.splice(requiredFields.indexOf('alternativAdresseBnr'), 1);
-    }
-    if (requiredFields.indexOf('alternativAdresseKommunenr') > -1) {
-      requiredFields.splice(requiredFields.indexOf('alternativAdresseKommunenr'), 1);
+    if (requiredFields.indexOf('alternativAdressePoststed') > -1) {
+      requiredFields.splice(requiredFields.indexOf('alternativAdressePoststed'), 1);
     }
   }
   if (state.skole === 'Skole utenfor Telemark') {

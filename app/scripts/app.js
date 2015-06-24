@@ -16,22 +16,6 @@ function getEmbedUrl(mapUrl){
   return startUrl + mapUrl;
 }
 
-function showGateadresse(state){
-  var className = 'hidden';
-  if (state === 'Gateadresse' && state !== '') {
-    className = '';
-  }
-  return className;
-}
-
-function showGnrBnr(state){
-  var className = 'hidden';
-  if (state === 'GnrBnr' && state !== '') {
-    className = '';
-  }
-  return className;
-}
-
 function showPageNumber(state, pageNumber){
   var className = 'hidden';
   if (state === pageNumber) {
@@ -275,53 +259,13 @@ var App = React.createClass({
               </select>
             </fieldset>
             </fieldset>
-            <fieldset>
-            <label htmlFor="bosted">Folkeregistrert adresse</label>
-            <select name="bosted" id="bosted" className={isInvalid(this.state.validityCheck.invalidFields, 'folkeregistrertAdresseBosted')} valueLink={this.linkState('folkeregistrertAdresseBosted')}>
-              <option value="">Min adresse har</option>
-              <option value="Gateadresse">Gateadresse</option>
-              <option value="GnrBnr">Ikke gateadresse. Jeg må bruke gårds og bruksnummer</option>
-            </select>
-          </fieldset>
-          <fieldset className={showGateadresse(this.state.folkeregistrertAdresseBosted)}>
-            <label htmlFor="adresse">Adresse, postnummer og poststed</label>
-            <input type="text" name="adresse" placeholder="Gateadresse, postnummer og poststed" id="adresse" className={isInvalid(this.state.validityCheck.invalidFields, 'folkeregistrertAdresseAdresse')} valueLink={this.linkState('folkeregistrertAdresseAdresse')} />
-          </fieldset>
-          <fieldset className={showGnrBnr(this.state.folkeregistrertAdresseBosted)}>
-            <label htmlFor="gnr">Gårdsnummer</label>
-            <input type="number" name="gnr" placeholder="Gårdsnummer" id="gnr" className={isInvalid(this.state.validityCheck.invalidFields, 'folkeregistrertAdresseGnr')} valueLink={this.linkState('folkeregistrertAdresseGnr')} />
-            <label htmlFor="bnr">Bruksnummer</label>
-            <input type="number" name="bnr" placeholder="Bruksnummer" id="bnr" className={isInvalid(this.state.validityCheck.invalidFields, 'folkeregistrertAdresseBnr')} valueLink={this.linkState('folkeregistrertAdresseBnr')} />
-            <StandardSelect
-              labelId="folkeregistrertAdresseKommunenr"
-              labelName="Bostedskommune"
-              values={config.kommuneListe}
-              className={isInvalid(this.state.validityCheck.invalidFields, 'folkeregistrertAdresseKommunenr')}
-              valueLink={this.linkState('folkeregistrertAdresseKommunenr')} />
-          </fieldset>
-          <fieldset className={showAlternativAdresse(this.state.alternativAdresse)}>
-            <label htmlFor="alternativAdresseBosted">Annen bostedsadresse: {this.state.alternativAdresse}</label>
-            <select name="alternativAdresseBosted" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseBosted')} valueLink={this.linkState('alternativAdresseBosted')}>
-              <option value="">Min adresse har</option>
-              <option value="Gateadresse">Gateadresse</option>
-              <option value="GnrBnr">Ikke gateadrese. Jeg må bruke gårds og bruksnummer</option>
-            </select>
-          </fieldset>
-          <fieldset className={showGateadresse(this.state.alternativAdresseBosted)}>
-            <label htmlFor="alternativAdresseAdresse">Adresse, postnummer og poststed</label>
-            <input type="text" name="alternativAdresseAdresse" placeholder="Gateadresse, postnummer og poststed" id="alternativAdresseAdresse" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseAdresse')} valueLink={this.linkState('alternativAdresseAdresse')} />
-          </fieldset>
-          <fieldset className={showGnrBnr(this.state.alternativAdresseBosted)}>
-            <label htmlFor="alternativGnr">Gårdsnummer</label>
-            <input type="number" name="alternativGnr" placeholder="Gårdsnummer" id="alternativGnr" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseGnr')} valueLink={this.linkState('alternativAdresseGnr')} />
-            <label htmlFor="alternativBnr">Bruksnummer</label>
-            <input type="number" name="alternativBnr" placeholder="Bruksnummer" id="alternativBnr" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseBnr')} valueLink={this.linkState('alternativAdresseBnr')} />
-            <StandardSelect
-              labelId="alternativAdresseKommunenr"
-              labelName="Bostedskommune"
-              values={config.kommuneListe}
-              className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseKommunenr')}
-              valueLink={this.linkState('alternativAdresseKommunenr')} />
+          <fieldset className={showIfNotEqual(this.state.alternativAdresse, '')}>
+            <label htmlFor="alternativAdresseAdresse">Adresse: {this.state.alternativAdresse}</label>
+            <input type="text" name="alternativAdresseAdresse" placeholder="Gateadresse" id="alternativAdresseAdresse" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseAdresse')} valueLink={this.linkState('alternativAdresseAdresse')} />
+            <label htmlFor="alternativAdressePostnummer">Postnummer: {this.state.alternativAdresse}</label>
+            <input type="text" name="alternativAdressePostnummer" placeholder="Postnummer" id="alternativAdressePostnummer" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdressePostnummer')} valueLink={this.linkState('alternativAdressePostnummer')} />
+            <label htmlFor="alternativAdressePoststed">Poststed: {this.state.alternativAdresse}</label>
+            <input type="text" name="alternativAdressePoststed" placeholder="Poststed" id="alternativAdressePoststed" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdressePoststed')} valueLink={this.linkState('alternativAdressePoststed')} />
           </fieldset>
           <fieldset>
             <legend>Skoleinformasjon</legend>
@@ -430,28 +374,14 @@ var App = React.createClass({
             E-post: {this.state.epost}<br/>
             Telefon: {this.state.telefon}
             <h3>Bosted</h3>
-            <div className={showGateadresse(this.state.folkeregistrertAdresseBosted)}>
+            <div className={showIfEqual(this.state.alternativAdresse, '')}>
               Folkeregistrert adresse:<br/>
-              {this.state.folkeregistrertAdresseAdresse}<br/>
+              Hentes fra det sentrale folkeregisteret etter innsending.<br/>
             </div>
-            <div className={showGnrBnr(this.state.folkeregistrertAdresseBosted)}>
-              Folkeregistrert adresse:<br/>
-              Gårdsnummer: {this.state.folkeregistrertAdresseGnr}, bruksnummer: {this.state.folkeregistrertAdresseBnr},
-              kommunenummer: {this.state.folkeregistrertAdresseKommunenr}
-            </div>
-            <div className={showAlternativAdresse(this.state.alternativAdresse)}>
-              <div className={showGateadresse(this.state.alternativAdresseBosted)}>
-                Alternativ adresse:<br/>
-                {this.state.alternativAdresseAdresse}<br/>
-              </div>
-              <div className={showGnrBnr(this.state.alternativAdresseBosted)}>
-                Alternativ adresse:<br/>
-                Gårdsnummer: {this.state.alternativAdresseGnr}, bruksnummer: {this.state.alternativAdresseBnr},
-                kommunenummer: {this.state.alternativAdresseKommunenr}
-              </div>
-              <div>
-                Alternativ adresse årsak: {this.state.alternativAdresse}
-              </div>
+            <div className={showIfNotEqual(this.state.alternativAdresse, '')}>
+              Alternativ adresse: {this.state.alternativAdresse}<br/>
+              {this.state.alternativAdresseAdresse}<br/>
+              {this.state.alternativAdressePostnummer} {this.state.alternativAdressePoststed}
             </div>
             <h3>Skole</h3>
             <div className={showIfNotEqual(this.state.skoleNavn, '')}>
