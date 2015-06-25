@@ -146,7 +146,8 @@ var config = {
   API_POST_HOST: 'api.t-fk.no',
   API_POST_PATH: '/forms',
   TRAVEL_API: 'https://api.t-fk.no/stages/travel',
-  SESSION_API: 'https://api.t-fk.no/session'
+  SESSION_API: 'https://api.t-fk.no/session',
+  ZIPCODE_API: 'https://api.t-fk.no/postnummer'
 };
 
 module.exports = config;

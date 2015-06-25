@@ -1,10 +1,12 @@
 'use strict';
 
 var React = require('react/addons');
+var trim = require('trim');
 var StatusBar = require('../../elements/statusbar');
 var StandardSelect = require('../../elements/standardselect');
 var doSubmitForm = require('../../utils/submitform');
 var showBoatOrFerry = require('../../utils/showBoatOrFerry');
+var getCityFromZipcode = require('../../utils/getCityFromZipcode');
 var checkValidity = require('../../utils/checkValidity');
 var parseSession = require('../../utils/parseSession');
 var config = require('../../config');
@@ -194,6 +196,26 @@ var App = React.createClass({
       page: this.state.page - 1
     })
   },
+  updateZipCity: function() {
+    var self = this;
+    var zipcode = trim(this.state.alternativAdressePostnummer);
+    if (zipcode.length === 4) {
+      console.log('herewego');
+      getCityFromZipcode(zipcode, function(error, data) {
+        if (error) {
+          console.error(err);
+        } else {
+          self.setState({
+            alternativAdressePoststed: data.Poststed
+          });
+        }
+      });
+    } else {
+      this.setState({
+        alternativAdressePoststed: ''
+      });
+    }
+  },
   submitForm: function(e) {
     e.preventDefault();
     var timestamp = new Date().getTime();
@@ -261,11 +283,13 @@ var App = React.createClass({
             </fieldset>
           <fieldset className={showIfNotEqual(this.state.alternativAdresse, '')}>
             <label htmlFor="alternativAdresseAdresse">Adresse: {this.state.alternativAdresse}</label>
-            <input type="text" name="alternativAdresseAdresse" placeholder="Gateadresse" id="alternativAdresseAdresse" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseAdresse')} valueLink={this.linkState('alternativAdresseAdresse')} />
+            <input type="text" name="alternativAdresseAdresse" placeholder="Adresse" id="alternativAdresseAdresse" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseAdresse')} valueLink={this.linkState('alternativAdresseAdresse')} />
             <label htmlFor="alternativAdressePostnummer">Postnummer: {this.state.alternativAdresse}</label>
-            <input type="text" name="alternativAdressePostnummer" placeholder="Postnummer" id="alternativAdressePostnummer" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdressePostnummer')} valueLink={this.linkState('alternativAdressePostnummer')} />
-            <label htmlFor="alternativAdressePoststed">Poststed: {this.state.alternativAdresse}</label>
-            <input type="text" name="alternativAdressePoststed" placeholder="Poststed" id="alternativAdressePoststed" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdressePoststed')} valueLink={this.linkState('alternativAdressePoststed')} />
+            <input type="text" name="alternativAdressePostnummer" placeholder="Postnummer" id="alternativAdressePostnummer" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdressePostnummer')} onBlur={this.updateZipCity} valueLink={this.linkState('alternativAdressePostnummer')}/>
+            <div className={showIfNotEqual(this.state.alternativAdressePoststed, '')}>
+              <label htmlFor="alternativAdressePoststed">Poststed: {this.state.alternativAdresse}</label>
+              <span id="alternativAdressePoststed">{this.state.alternativAdressePoststed}</span>
+            </div>
           </fieldset>
           <fieldset>
             <legend>Skoleinformasjon</legend>
