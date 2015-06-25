@@ -196,22 +196,23 @@ var App = React.createClass({
       page: this.state.page - 1
     })
   },
-  updateZipCity: function() {
+  updateZipCity: function(e) {
     var self = this;
-    var zipcode = trim(this.state.alternativAdressePostnummer);
+    var zipcode = trim(e.target.value);
     if (zipcode.length === 4) {
-      console.log('herewego');
       getCityFromZipcode(zipcode, function(error, data) {
         if (error) {
           console.error(err);
         } else {
           self.setState({
+            alternativAdressePostnummer: zipcode,
             alternativAdressePoststed: data.Poststed
           });
         }
       });
     } else {
       this.setState({
+        alternativAdressePostnummer: zipcode,
         alternativAdressePoststed: ''
       });
     }
@@ -285,7 +286,7 @@ var App = React.createClass({
             <label htmlFor="alternativAdresseAdresse">Adresse: {this.state.alternativAdresse}</label>
             <input type="text" name="alternativAdresseAdresse" placeholder="Adresse" id="alternativAdresseAdresse" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdresseAdresse')} valueLink={this.linkState('alternativAdresseAdresse')} />
             <label htmlFor="alternativAdressePostnummer">Postnummer: {this.state.alternativAdresse}</label>
-            <input type="text" name="alternativAdressePostnummer" placeholder="Postnummer" id="alternativAdressePostnummer" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdressePostnummer')} onBlur={this.updateZipCity} valueLink={this.linkState('alternativAdressePostnummer')}/>
+            <input type="text" name="alternativAdressePostnummer" placeholder="Postnummer" id="alternativAdressePostnummer" className={isInvalid(this.state.validityCheck.invalidFields, 'alternativAdressePostnummer')} value={this.state.alternativAdressePostnummer} onChange={this.updateZipCity}/>
             <div className={showIfNotEqual(this.state.alternativAdressePoststed, '')}>
               <label htmlFor="alternativAdressePoststed">Poststed: {this.state.alternativAdresse}</label>
               <span id="alternativAdressePoststed">{this.state.alternativAdressePoststed}</span>
