@@ -3,7 +3,7 @@
 var Hapi = require('hapi');
 var server = new Hapi.Server();
 var config = require('./config');
-var karakterklageService = require('./index');
+var skoleskyssSkjemaService = require('./index');
 
 server.connection({
   port:config.SERVER_PORT,
@@ -12,7 +12,7 @@ server.connection({
 
 server.register([
   {
-    register: karakterklageService,
+    register: skoleskyssSkjemaService,
     options: {}
   }
 ], function(err) {
