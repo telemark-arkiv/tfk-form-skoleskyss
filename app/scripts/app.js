@@ -427,7 +427,6 @@ var App = React.createClass({
             <h2>Automatiske beregninger</h2>
             Vi vil gjøre noen automatiske beregninger utfra dine opplysninger.<br/>
             Disse tar vi med oss i den videre saksbehandlingen.<br/>
-            Du vil få tilsendt beregningsgrunnlaget vårt sammen med avgjørelsen.<br/>
           </div>
           <div className={showPageNumber(this.state.page, 4)}>
             <h2>Skjemaet er innsendt</h2>
