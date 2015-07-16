@@ -1,6 +1,6 @@
 {
   "name": "tfk-form-skoleskyss",
-  "version": "19.0.1",
+  "version": "19.0.2",
   "description": "Form plug-in for skoleskyss",
   "author": {
     "name": "Geir Gåsodden",
@@ -15,7 +15,7 @@
   "scripts": {
     "setup": "npm install && gulp && node setup.js",
     "dev": "gulp serve",
-    "build": "gulp",
+    "build": "NODE_ENV=production gulp",
     "start": "node standalone.js",
     "test": "mocha --reporter spec test/*.js"
   },
