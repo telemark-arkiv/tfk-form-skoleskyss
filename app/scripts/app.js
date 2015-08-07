@@ -431,11 +431,8 @@ var App = React.createClass({
           <div className={showPageNumber(this.state.page, 4)}>
             <h2>Skjemaet er innsendt</h2>
             Takk for søknad om fri skoleskyss.<br/>
-            Du vil motta kvittering og svar på din søknad  i din meldingsboks i Altinn.<br/>
-            Søknadsskjemaet er nå kun åpent for utvalgte brukere.<br/>
-            For å kvalitetssikre alle ledd av prosessen blir alle søknadene manuelt fulgt opp i innkjøringsperioden.<br/>
-            Det vil derfor frem til tjenesten åpner for alle 31. juli kunne være noe lenger responstid enn vanlig.<br/>
-            Selv om du ikke hører fra oss innen 48 timer kan du være sikker på at søknaden er mottatt.<br/>
+            Innen 48 timer får du kvittering og svar på søknaden i Altinn-postkassen din.</br>
+            Leser du ikke svaret der, blir alt sendt hjem til deg.</br>
             Har du spørsmål kontakt oss på <a href="mailto:skoleskyss@t-fk.no">skoleskyss@t-fk.no</a> eller telefon 35 91 70 00.<br/>
           </div>
           <div className={showIfEqual(this.state.validityCheck.showFormErrorMessage, true)}>
