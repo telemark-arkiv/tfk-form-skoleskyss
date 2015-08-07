@@ -431,8 +431,8 @@ var App = React.createClass({
           <div className={showPageNumber(this.state.page, 4)}>
             <h2>Skjemaet er innsendt</h2>
             Takk for søknad om fri skoleskyss.<br/>
-            Innen 48 timer får du kvittering og svar på søknaden i Altinn-postkassen din.</br>
-            Leser du ikke svaret der, blir alt sendt hjem til deg.</br>
+            Innen 48 timer får du kvittering og svar på søknaden i Altinn-postkassen din.<br/>
+            Leser du ikke svaret der, blir alt sendt hjem til deg.<br/>
             Har du spørsmål kontakt oss på <a href="mailto:skoleskyss@t-fk.no">skoleskyss@t-fk.no</a> eller telefon 35 91 70 00.<br/>
           </div>
           <div className={showIfEqual(this.state.validityCheck.showFormErrorMessage, true)}>
