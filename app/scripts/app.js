@@ -223,6 +223,9 @@ var App = React.createClass({
     var self = this;
     var payload = this.state;
     payload.timestamp = timestamp;
+    this.setState({
+      submitDisabled: 'disabled'
+    });
     doSubmitForm(payload, function(err, data){
       if (err) {
         console.error(err);
@@ -456,7 +459,7 @@ var App = React.createClass({
             <button className="btn" onClick={this.cancelForm}>Avslutt&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-close"></span></button>&nbsp;
           </span>
           <span  className={showPageNumber(this.state.page, 3)}>
-            <button className="btn">Send inn&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-tick"></span></button>&nbsp;
+            <button className="btn" disabled={this.state.submitDisabled}>Send inn&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-tick"></span></button>&nbsp;
           </span>
           <span className={showPageNumber(this.state.page, 1)}>
             <button type="submit" className="btn buttonNext" onClick={this.setupSchool}>Neste&nbsp;&nbsp;&nbsp;&nbsp;<span className="icon icon-chevron-right"></span></button>&nbsp;

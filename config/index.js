@@ -11,6 +11,7 @@ var config = {
     formId: formId,
     formVersion: pkg.version,
     gotSession: false,
+    submitDisabled: '',
     validityCheck:{
       formIsValid: false,
       formErrorMessage: 'Du har ikke fyllt ut alle påkrevde felt',
