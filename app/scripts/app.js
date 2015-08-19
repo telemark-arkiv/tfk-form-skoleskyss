@@ -5,7 +5,6 @@ var trim = require('trim');
 var StatusBar = require('../../elements/statusbar');
 var StandardSelect = require('../../elements/standardselect');
 var doSubmitForm = require('../../utils/submitform');
-var showBoatOrFerry = require('../../utils/showBoatOrFerry');
 var getCityFromZipcode = require('../../utils/getCityFromZipcode');
 var checkValidity = require('../../utils/checkValidity');
 var parseSession = require('../../utils/parseSession');
@@ -336,7 +335,7 @@ var App = React.createClass({
             <select name="sokegrunnlag" className={isInvalid(this.state.validityCheck.invalidFields, 'sokegrunnlag')} valueLink={this.linkState('sokegrunnlag')}>
               <option value="">Jeg søker skoleskyss på grunn av</option>
               <option value="Avstand til skole">Avstand til skole</option>
-              <option value="Båt/ferge" className={showBoatOrFerry(this.state.folkeregistrertAdresseAdresse + ' ' + this.state.alternativAdresseAdresse)}>Må ta båt/ferge til skolen</option>
+              <option value="Båt/ferge">Må ta båt/ferge til skolen</option>
               <option value="Annen årsak">Annen årsak</option>
             </select>
           </fieldset>
