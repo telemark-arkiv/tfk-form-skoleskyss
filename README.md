@@ -1,4 +1,6 @@
 # tfk-form-skoleskyss
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/telemark/tfk-form-skoleskyss.svg)](https://greenkeeper.io/)
 Form plug-in for skoleskyss
 
 Based on Google Web Starter Kit
